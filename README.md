@@ -66,8 +66,8 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 | Sprint          |    Período    | Documentação                                     |
 | --------------- | :-----------: | ------------------------------------------------ |
 | 🔖 **SPRINT 1** | 07/09 - 27/09 | [Sprint 1 Docs](./docs/sprints/sprint-1/README.md) |
-| 🔖 **SPRINT 2** | 13/04 - 03/05 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md) |
-| 🔖 **SPRINT 3** | 11/05 - 31/05 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md) |
+| 🔖 **SPRINT 2** | 05/10 - 25/10 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md) |
+| 🔖 **SPRINT 3** | 02/11 - 22/11 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md) |
 
 ## 🛠 Tecnologias Utilizadas
 
