@@ -21,6 +21,7 @@ Sistema de análise de mercado voltado à integração, tratamento e visualizaç
 ## 📋 Backlog do Produto
 ### Clique [aqui](https://docs.google.com/document/d/1ghY5STb1WVYGSbiNA6mpHLdpz8W60ozEEvVY8XDsFmI/edit?usp=sharing) para visualizar o backlog do produto.
 
+
 As principais funcionalizadades alinhadas com o cliente para o projeto:
 
 | ID | User Story | Prioridade | Sprint |
@@ -69,9 +70,19 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 | 🔖 **SPRINT 2** | 05/10 - 25/10 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md) |
 | 🔖 **SPRINT 3** | 02/11 - 22/11 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md) |
 
+
+## 🛠 Tecnologias Utilizadas
+
+![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white) &nbsp; ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+
+ - Notebook Google Colab disponível para execução manual e exploração dos dados
+
+📓 Notebook:  [Abrir no Google Colab](https://colab.research.google.com/drive/1zkPyrjhyuS1CkKiQuGVwPTBM4CSTLsV8#scrollTo=O6NNuk1_cDmQ)
+
 ## 🛠 Tecnologias Utilizadas
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) &nbsp; ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) &nbsp; ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) &nbsp; ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
+
 
 ## 🏆 MVP
 
@@ -86,7 +97,5 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 | Denilson Brito | Scrum Master | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/denilson-brito-jr-296b522b9/) | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DenilsonBritoJr) |
 | Jônatas Eugênio | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jonatas-eugenio) | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)](https://github.com/eugeniojonatas) 
 | Renan Maia | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/renan-maia-00716142b?utm_source=share_via&utm_content=profile&utm_medium=member_android) | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)](https://github.com/renansoa64) 
-| Bruna Letícia | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]() 
-| Loreenzo Santos | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]() 
-| Ithalo Henrique | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]() 
+| Ithalo Henrique | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]()
 | Giovanna Noccerino | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]() 
