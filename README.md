@@ -64,11 +64,11 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 
 ## 📅 Cronograma de Sprints
 
-| Sprint          |    Período    | Documentação                                     |
-| --------------- | :-----------: | ------------------------------------------------ |
-| 🔖 **SPRINT 1** | 07/09 - 27/09 | [Sprint 1 Docs](./docs/sprints/sprint-1/README.md) |
-| 🔖 **SPRINT 2** | 05/10 - 25/10 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md) |
-| 🔖 **SPRINT 3** | 02/11 - 22/11 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md) |
+| Sprint          |    Período    | Documentação                                     | Vídeo da Sprint                              |
+| --------------- | :-----------: | ------------------------------------------------ | --------------------------------------------|
+| 🔖 **SPRINT 1** | 07/09 - 27/09 | [Sprint 1 Docs](./docs/sprints/sprint-1/README.md)|https://www.youtube.com/watch?v=KCQPjIiM7yQ|
+| 🔖 **SPRINT 2** | 05/10 - 25/10 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md)|                                             |
+| 🔖 **SPRINT 3** | 02/11 - 22/11 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md)|                                             |
 
 
 ## 🛠 Tecnologias Utilizadas
@@ -88,7 +88,7 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 
 | Sprint | Foco do MVP | Entregas Principais (Épicos) | Resultado |
 |:---: | :--- | :---: | :---: |
-| Sprint 1 07/09 -27/09| Estruturação de indicadores confiáveis, com criação de pipelines de dados e ambiente para visualização gráfica |Google Colab e métricas |Em andamento|
+| Sprint 1 07/09 -27/09| Estruturação de indicadores confiáveis, com criação de pipelines de dados e ambiente para visualização gráfica |Google Colab e métricas |Concluido|
 
 ## 👥 Colaboradores
 | Nome | Função | LinkedIn | GitHub |
