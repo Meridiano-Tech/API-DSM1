@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sobre | Nome do projeto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <a class="logo" href="index.html">Nome do projeto</a>
+    <nav class="menu" aria-label="Navegação principal">
+      <a href="index.html" class="menulink">Visão geral</a>
+      <a href="composicao.html" class="menulink">Composição</a>
+      <a href="metodologia.html" class="menulink">Metodologia</a>
+      <a href="sobre.html" class="menulink menulink-ativo" aria-current="page">Sobre</a>
+    </nav>
+  </header>
+  <main class="conteudo">
+    <section class="secao" aria-labelledby="titulo-sobre">
+      <h2 class="secaotitulo" id="titulo-sobre">Sobre o projeto e a equipe</h2>
+      <article class="painel painel-curto">
+        <p>Fale um pouco sobre o projeto e a equipe.</p>
+      </article>
+    </section>
+    <section class="secao" aria-labelledby="titulo-contato">
+      <h2 class="secaotitulo" id="titulo-contato">Formulário de contato</h2>
+      <!-- action será definido quando o envio do formulário for implementado -->
+      <form class="formulario" action="#" method="post">
+        <div class="campo">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="campo">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" required></textarea>
+        </div>
+        <button type="submit" class="botao">Enviar</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
