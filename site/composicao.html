@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Composição | Nome do projeto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <a class="logo" href="index.html">Nome do projeto</a>
+    <nav class="menu" aria-label="Navegação principal">
+      <a href="index.html" class="menulink">Visão geral</a>
+      <a href="composicao.html" class="menulink menulink-ativo" aria-current="page">Composição</a>
+      <a href="#" class="menulink">Metodologia</a>
+      <a href="#" class="menulink">Sobre</a>
+    </nav>
+  </header>
+  <main class="conteudo">
+    <section class="secao" aria-label="Perfil por região e métricas do score">
+      <div class="graficos">
+        <div class="bloco">
+          <h2 class="blocotitulo" id="titulo-perfil">Perfil por região</h2>
+          <figure class="grafico grafico-alto" id="grafico-perfil" aria-labelledby="titulo-perfil">
+            <div class="graficoarea"></div>
+          </figure>
+        </div>
+        <div class="bloco">
+          <h2 class="blocotitulo" id="titulo-metricas">Métricas e peso do score</h2>
+          <figure class="grafico grafico-alto" id="grafico-metricas" aria-labelledby="titulo-metricas">
+            <div class="graficoarea"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <div class="acao">
+      <a href="#analises" class="botao">
+        Ver análises
+        <svg class="botaoicone" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 4v16M5 13l7 7 7-7"/>
+        </svg>
+      </a>
+    </div>
+    <section class="secao" id="analises" aria-labelledby="titulo-analises">
+      <h2 class="secaotitulo" id="titulo-analises">Outros gráficos do Colab</h2>
+      <div class="graficos">
+        <figure class="grafico" id="grafico-colab-1">
+          <figcaption class="graficotitulo">Título do gráfico 1</figcaption>
+          <div class="graficoarea"></div>
+        </figure>
+        <figure class="grafico" id="grafico-colab-2">
+          <figcaption class="graficotitulo">Título do gráfico 2</figcaption>
+          <div class="graficoarea"></div>
+        </figure>
+        <figure class="grafico" id="grafico-colab-3">
+          <figcaption class="graficotitulo">Título do gráfico 3</figcaption>
+          <div class="graficoarea"></div>
+        </figure>
+        <figure class="grafico" id="grafico-colab-4">
+          <figcaption class="graficotitulo">Título do gráfico 4</figcaption>
+          <div class="graficoarea"></div>
+        </figure>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

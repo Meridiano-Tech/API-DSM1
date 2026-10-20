@@ -154,3 +154,43 @@ a { color: inherit; text-decoration: none; }
   .topo { flex-direction: column; align-items: flex-start; }
   .menu__link { font-size: 1.25rem; }
 }
+
+.blocotitulo {
+  margin: 0 0 16px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.grafico-alto .graficoarea { min-height: 340px; }
+
+.acao {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 56px;
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 28px;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  border-radius: var(--raio-sm);
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+.botao:hover { background: var(--cor-destaque); }
+
+.botaoicone {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
