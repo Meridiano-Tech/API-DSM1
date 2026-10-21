@@ -28,11 +28,12 @@ As principais funcionalizadades alinhadas com o cliente para o projeto:
 | :---: | :--- | :---: | :---: |
 | #1 | Como analista de crédito, quero poder visualizar através de gráficos os dados obtidos para tomadas de decisões melhores. | Alta | 1 |
 | #2 | Como instituição financeira, preciso de um ambiente em que os dados estejam analisados e expostos graficamente para otimização do meu tempo de decisão.| Alta | 1 |
-| #3 | Como instituição financeira, quero ter indicadores confiáveis para concessão de crédito com baixos riscos de inadimplência.| Alta | 2 |
-| #4 | Como instituição financeira, quero ter dados relevantes sobre os usuários de casas de apostas para que a concessão de crédito seja segura para a empresa.| Alta | 2 |
-| #5 | Como instituição financeira, quero poder filtrar os dados por indicadores socioeconômicos | Média | 3 |
-| #6 | Como instituição financeira, quero poder filtrar os dados por região.| Média | 3 |
-| #7 | Como instituição financeira, quero poder exportar os dados que me interessam para ações futuras. | Baixa | 3 |
+| #3 | Como analista de crédito, quero poder ver a Evolução de Municípios para compará-los e facilitar a decisão.| Alta | 1 |
+| #4 | Como instituição financeira, quero ter indicadores confiáveis para concessão de crédito com baixos riscos de inadimplência.| Alta | 2 |
+| #5 | Como instituição financeira, quero ter dados relevantes sobre os usuários de casas de apostas para que a concessão de crédito seja segura para a empresa.| Alta | 2 |
+| #6 | Como instituição financeira, quero poder filtrar os dados por indicadores socioeconômicos | Média | 3 |
+| #7 | Como instituição financeira, quero poder filtrar os dados por região.| Média | 3 |
+| #8 | Como instituição financeira, quero poder exportar os dados que me interessam para ações futuras. | Baixa | 3 |
 
 ## Definition of Ready (DoR)
 
