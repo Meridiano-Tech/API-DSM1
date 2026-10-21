@@ -308,5 +308,166 @@
             "M1": 50.0,
             "comp_bets_%": 7.5
         }
+    ],
+    "card_total_municipios": 20,
+    "card_vol_pix_acumulado": 0.0,
+    "card_media_inadimplencia": 3.155416666666666,
+    "grafico_1_carteira_credito": [
+        {
+            "mes": "2024-01",
+            "Sudeste": 3500.2,
+            "Sul": 1210.5,
+            "Nordeste": 940.1,
+            "Centro-Oeste": 739.0,
+            "Norte": 335.5
+        },
+        {
+            "mes": "2024-06",
+            "Sudeste": 3680.0,
+            "Sul": 1275.2,
+            "Nordeste": 990.4,
+            "Centro-Oeste": 778.6,
+            "Norte": 353.0
+        },
+        {
+            "mes": "2024-12",
+            "Sudeste": 3850.4,
+            "Sul": 1334.1,
+            "Nordeste": 1036.2,
+            "Centro-Oeste": 814.6,
+            "Norte": 369.3
+        },
+        {
+            "mes": "2025-06",
+            "Sudeste": 4050.1,
+            "Sul": 1403.4,
+            "Nordeste": 1089.9,
+            "Centro-Oeste": 856.8,
+            "Norte": 388.5
+        },
+        {
+            "mes": "2025-12",
+            "Sudeste": 4220.0,
+            "Sul": 1462.3,
+            "Nordeste": 1135.6,
+            "Centro-Oeste": 892.8,
+            "Norte": 404.8
+        },
+        {
+            "mes": "2026-10",
+            "Sudeste": 4480.5,
+            "Sul": 1552.5,
+            "Nordeste": 1205.7,
+            "Centro-Oeste": 947.8,
+            "Norte": 429.8
+        }
+    ],
+    "grafico_2_volume_pix": [
+        {
+            "mes": "2024-01",
+            "Sudeste": 1800,
+            "Nordeste": 450,
+            "Sul": 400,
+            "Centro-Oeste": 300,
+            "Norte": 150
+        },
+        {
+            "mes": "2024-07",
+            "Sudeste": 2450,
+            "Nordeste": 610,
+            "Sul": 540,
+            "Centro-Oeste": 410,
+            "Norte": 205
+        },
+        {
+            "mes": "2024-12",
+            "Sudeste": 3100,
+            "Nordeste": 770,
+            "Sul": 680,
+            "Centro-Oeste": 520,
+            "Norte": 260
+        },
+        {
+            "mes": "2025-07",
+            "Sudeste": 3500,
+            "Nordeste": 860,
+            "Sul": 765,
+            "Centro-Oeste": 585,
+            "Norte": 290
+        },
+        {
+            "mes": "2025-12",
+            "Sudeste": 3800,
+            "Nordeste": 920,
+            "Sul": 820,
+            "Centro-Oeste": 625,
+            "Norte": 310
+        },
+        {
+            "mes": "2026-10",
+            "Sudeste": 3900,
+            "Nordeste": 950,
+            "Sul": 850,
+            "Centro-Oeste": 650,
+            "Norte": 320
+        }
+    ],
+    "grafico_3_inadimplencia_municipal": [
+        {
+            "municipio": "Ji-Paraná - RO",
+            "taxa_inadimplencia": 4.8
+        },
+        {
+            "municipio": "Santarém - PA",
+            "taxa_inadimplencia": 5.1
+        },
+        {
+            "municipio": "Marabá - PA",
+            "taxa_inadimplencia": 5.3
+        },
+        {
+            "municipio": "Uberlândia - MG",
+            "taxa_inadimplencia": 5.5
+        },
+        {
+            "municipio": "Campina Grande - PB",
+            "taxa_inadimplencia": 6.8
+        },
+        {
+            "municipio": "Caucaia - CE",
+            "taxa_inadimplencia": 7.2
+        }
+    ],
+    "grafico_4_score_inclusivo": [
+        {
+            "localidade": "Uberlândia - MG",
+            "score_final": 780,
+            "regiao": "Sudeste"
+        },
+        {
+            "localidade": "Ji-Paraná - RO",
+            "score_final": 695,
+            "regiao": "Norte"
+        },
+        {
+            "localidade": "Santarém - PA",
+            "score_final": 640,
+            "regiao": "Norte"
+        },
+        {
+            "localidade": "Marabá - PA",
+            "score_final": 615,
+            "regiao": "Norte"
+        },
+        {
+            "localidade": "Campina Grande - PB",
+            "score_final": 580,
+            "regiao": "Nordeste"
+        },
+        {
+            "localidade": "Caucaia - CE",
+            "score_final": 535,
+            "regiao": "Nordeste"
+        }
     ]
 }
