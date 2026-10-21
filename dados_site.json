@@ -2,292 +2,308 @@
     "cards": {
         "yoy_norte": 6.24,
         "yoy_nordeste": 6.24,
-        "inadimplencia_media": 3.49,
+        "inadimplencia_media": 5.5,
         "vol_pix_geral": 0.0
     },
     "serie_temporal_credito": [
         {
-            "mes": "2022-01",
-            "Norte": 97351.75,
-            "Nordeste": 272584.9,
-            "valor_inad": 2.51
+            "mes": "2024-01",
+            "Norte": 111718.1,
+            "Nordeste": 312810.68000000005
         },
         {
-            "mes": "2022-02",
-            "Norte": 98576.20000000001,
-            "Nordeste": 276013.36000000004,
-            "valor_inad": 2.57
+            "mes": "2024-02",
+            "Norte": 111765.1,
+            "Nordeste": 312942.28
         },
         {
-            "mes": "2022-03",
-            "Norte": 99705.95000000001,
-            "Nordeste": 279176.66000000003,
-            "valor_inad": 2.66
+            "mes": "2024-03",
+            "Norte": 114288.75,
+            "Nordeste": 320008.50000000006
         },
         {
-            "mes": "2022-04",
-            "Norte": 100165.6,
-            "Nordeste": 280463.68000000005,
-            "valor_inad": 2.72
+            "mes": "2024-04",
+            "Norte": 113443.95000000001,
+            "Nordeste": 317643.06000000006
         },
         {
-            "mes": "2022-05",
-            "Norte": 100686.3,
-            "Nordeste": 281921.64,
-            "valor_inad": 2.79
+            "mes": "2024-05",
+            "Norte": 113915.45000000001,
+            "Nordeste": 318963.26
         },
         {
-            "mes": "2022-06",
-            "Norte": 102628.45000000001,
-            "Nordeste": 287359.66000000003,
-            "valor_inad": 2.73
+            "mes": "2024-06",
+            "Norte": 116842.90000000001,
+            "Nordeste": 327160.12000000005
         },
         {
-            "mes": "2022-07",
-            "Norte": 102351.90000000001,
-            "Nordeste": 286585.32,
-            "valor_inad": 2.84
+            "mes": "2024-07",
+            "Norte": 116168.1,
+            "Nordeste": 325270.68000000005
         },
         {
-            "mes": "2022-08",
-            "Norte": 103209.15000000001,
-            "Nordeste": 288985.62000000005,
-            "valor_inad": 2.9
+            "mes": "2024-08",
+            "Norte": 117219.85,
+            "Nordeste": 328215.58
         },
         {
-            "mes": "2022-09",
-            "Norte": 105490.3,
-            "Nordeste": 295372.84,
-            "valor_inad": 2.92
+            "mes": "2024-09",
+            "Norte": 119241.40000000001,
+            "Nordeste": 333875.92000000004
         },
         {
-            "mes": "2022-10",
-            "Norte": 105292.8,
-            "Nordeste": 294819.84,
-            "valor_inad": 3.04
+            "mes": "2024-10",
+            "Norte": 119876.65000000001,
+            "Nordeste": 335654.62000000005
         },
         {
-            "mes": "2022-11",
-            "Norte": 106515.6,
-            "Nordeste": 298243.68000000005,
-            "valor_inad": 3.07
+            "mes": "2024-11",
+            "Norte": 121801.1,
+            "Nordeste": 341043.08
         },
         {
-            "mes": "2022-12",
-            "Norte": 108911.8,
-            "Nordeste": 304953.04000000004,
-            "valor_inad": 3.07
+            "mes": "2024-12",
+            "Norte": 124958.85,
+            "Nordeste": 349884.78
         },
         {
-            "mes": "2023-01",
-            "Norte": 107569.95000000001,
-            "Nordeste": 301195.86000000004,
-            "valor_inad": 3.24
+            "mes": "2025-01",
+            "Norte": 122597.85,
+            "Nordeste": 343273.98000000004
         },
         {
-            "mes": "2023-02",
-            "Norte": 106805.25,
-            "Nordeste": 299054.7,
-            "valor_inad": 3.36
+            "mes": "2025-02",
+            "Norte": 123857.55,
+            "Nordeste": 346801.14
         },
         {
-            "mes": "2023-03",
-            "Norte": 107745.0,
-            "Nordeste": 301686.0,
-            "valor_inad": 3.35
+            "mes": "2025-03",
+            "Norte": 124913.1,
+            "Nordeste": 349756.68000000005
         },
         {
-            "mes": "2023-04",
-            "Norte": 107250.0,
-            "Nordeste": 300300.0,
-            "valor_inad": 3.54
+            "mes": "2025-04",
+            "Norte": 125621.3,
+            "Nordeste": 351739.64
         },
         {
-            "mes": "2023-05",
-            "Norte": 107276.5,
-            "Nordeste": 300374.2,
-            "valor_inad": 3.65
+            "mes": "2025-05",
+            "Norte": 126635.40000000001,
+            "Nordeste": 354579.12000000005
         },
         {
-            "mes": "2023-06",
-            "Norte": 108480.65000000001,
-            "Nordeste": 303745.82,
-            "valor_inad": 3.61
+            "mes": "2025-06",
+            "Norte": 127384.65000000001,
+            "Nordeste": 356677.02
         },
         {
-            "mes": "2023-07",
-            "Norte": 107677.05,
-            "Nordeste": 301495.74000000005,
-            "valor_inad": 3.63
+            "mes": "2025-07",
+            "Norte": 127220.0,
+            "Nordeste": 356216.00000000006
         },
         {
-            "mes": "2023-08",
-            "Norte": 108632.90000000001,
-            "Nordeste": 304172.12000000005,
-            "valor_inad": 3.61
+            "mes": "2025-08",
+            "Norte": 127313.25,
+            "Nordeste": 356477.10000000003
         },
         {
-            "mes": "2023-09",
-            "Norte": 110758.75,
-            "Nordeste": 310124.50000000006,
-            "valor_inad": 3.54
+            "mes": "2025-09",
+            "Norte": 129490.85,
+            "Nordeste": 362574.38000000006
         },
         {
-            "mes": "2023-10",
-            "Norte": 110240.40000000001,
-            "Nordeste": 308673.12000000005,
-            "valor_inad": 3.56
+            "mes": "2025-10",
+            "Norte": 129881.5,
+            "Nordeste": 363668.2
         },
         {
-            "mes": "2023-11",
-            "Norte": 111038.3,
-            "Nordeste": 310907.24000000005,
-            "valor_inad": 3.53
+            "mes": "2025-11",
+            "Norte": 130845.1,
+            "Nordeste": 366366.28
         },
         {
-            "mes": "2023-12",
-            "Norte": 114174.25,
-            "Nordeste": 319687.9,
-            "valor_inad": 3.29
+            "mes": "2025-12",
+            "Norte": 135086.75,
+            "Nordeste": 378242.9
+        },
+        {
+            "mes": "2026-01",
+            "Norte": 132711.0,
+            "Nordeste": 371590.80000000005
+        },
+        {
+            "mes": "2026-02",
+            "Norte": 132824.2,
+            "Nordeste": 371907.76
+        },
+        {
+            "mes": "2026-03",
+            "Norte": 134376.75,
+            "Nordeste": 376254.9
+        },
+        {
+            "mes": "2026-04",
+            "Norte": 134269.85,
+            "Nordeste": 375955.58
+        },
+        {
+            "mes": "2026-05",
+            "Norte": 135407.7,
+            "Nordeste": 379141.56000000006
+        },
+        {
+            "mes": "2026-06",
+            "Norte": 137531.7,
+            "Nordeste": 385088.76
+        },
+        {
+            "mes": "2026-07",
+            "Norte": 136458.1,
+            "Nordeste": 382082.68000000005
+        },
+        {
+            "mes": "2026-08",
+            "Norte": 136374.95,
+            "Nordeste": 381849.86000000004
         }
     ],
     "ranking_municipal": [
         {
             "localidade": "Araguaína - TO",
-            "Score_Final": 313.00679539691055,
+            "Score_Final": 310.99929539691055,
             "regiao": "Norte",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Arapiraca - AL",
-            "Score_Final": 318.0370108086749,
+            "Score_Final": 316.02951080867484,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Campina Grande - PB",
-            "Score_Final": 333.1895811817019,
+            "Score_Final": 331.18208118170185,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Caruaru - PE",
-            "Score_Final": 328.9119072605857,
+            "Score_Final": 326.9044072605857,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Castanhal - PA",
-            "Score_Final": 315.5419382694694,
+            "Score_Final": 313.5344382694694,
             "regiao": "Norte",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Caucaia - CE",
-            "Score_Final": 327.12580190655444,
+            "Score_Final": 325.11830190655445,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Caxias - MA",
-            "Score_Final": 310.8699087903996,
+            "Score_Final": 308.8624087903996,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Ilhéus - BA",
-            "Score_Final": 312.5941233325187,
+            "Score_Final": 310.5866233325187,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Imperatriz - MA",
-            "Score_Final": 321.5850539481577,
+            "Score_Final": 319.5775539481577,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Ji-Paraná - RO",
-            "Score_Final": 233.28001635345686,
+            "Score_Final": 231.27251635345684,
             "regiao": "Norte",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Juazeiro - BA",
-            "Score_Final": 318.1258796668053,
+            "Score_Final": 316.11837966680525,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Marabá - PA",
-            "Score_Final": 321.4128038838865,
+            "Score_Final": 319.4053038838865,
             "regiao": "Norte",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Mossoró - RN",
-            "Score_Final": 319.9079843352768,
+            "Score_Final": 317.9004843352768,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Parnaíba - PI",
-            "Score_Final": 310.7814033424212,
+            "Score_Final": 308.77390334242125,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Petrolina - PE",
-            "Score_Final": 330.1049256596133,
+            "Score_Final": 328.09742565961324,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Picos - PI",
-            "Score_Final": 231.50750000000002,
+            "Score_Final": 229.5,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Santarém - PA",
-            "Score_Final": 325.2528113742617,
+            "Score_Final": 323.2453113742617,
             "regiao": "Norte",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Sobral - CE",
-            "Score_Final": 316.13386834237366,
+            "Score_Final": 314.1263683423736,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Uberlândia - MG",
-            "Score_Final": 443.26125,
+            "Score_Final": 440.25000000000006,
             "regiao": "Sudeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
         },
         {
             "localidade": "Vitória da Conquista - BA",
-            "Score_Final": 327.84187701343507,
+            "Score_Final": 325.8343770134351,
             "regiao": "Nordeste",
             "M1": 50.0,
             "comp_bets_%": 7.5
