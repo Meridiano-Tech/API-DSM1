@@ -2,7 +2,7 @@
 
 Guia visual para o site de visualização do score inclusivo. Serve de referência para o wireframe e, depois, para o desenvolvimento do site.
 
-**Versão:** 1.0 · **Idioma:** português (Brasil)
+**Versão:** 2.0 (atualizada para o wireframe novo) · **Idioma:** português (Brasil)
 
 ---
 
@@ -10,7 +10,7 @@ Guia visual para o site de visualização do score inclusivo. Serve de referênc
 
 1. **Clareza antes de tudo.** Em 5 segundos, o cliente deve entender qual é o score e se ele está melhorando ou piorando.
 2. **Poucas cores, bem usadas.** Uma cor de marca, uma cor de destaque e neutros levemente azulados.
-3. **Consistência.** Cabeçalho, margens, cards e botões iguais em todas as telas.
+3. **Consistência.** Cabeçalho, faixa de destaque (hero), menu, margens, cards, botões e rodapé iguais em todas as telas.
 4. **Acessível por padrão.** O projeto trata de inclusão, então o próprio site precisa ser inclusivo: bom contraste, texto legível e informação que não dependa só da cor.
 5. **Cada gráfico responde a uma pergunta.** Títulos em forma de pergunta, seguidos de uma linha de explicação.
 
@@ -22,8 +22,8 @@ Guia visual para o site de visualização do score inclusivo. Serve de referênc
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--cor-primaria-escura` | `#0A5C7A` | Botões, links, logo, títulos de destaque |
-| `--cor-primaria-media` | `#1F7FA3` | Sublinhado do menu ativo, ícones, elementos de gráfico |
+| `--cor-primaria-escura` | `#0A5C7A` | Botões, links, logo, rodapé, divisória do hero, títulos de destaque |
+| `--cor-primaria-media` | `#1F7FA3` | Fundo do hero, sublinhado do menu ativo, ícones, elementos de gráfico |
 | `--cor-primaria-clara` | `#D8EEF5` | Hover, chips, faixas de destaque |
 
 ### 2.2 Neutros
@@ -31,8 +31,8 @@ Guia visual para o site de visualização do score inclusivo. Serve de referênc
 | Token | Hex | Uso |
 |---|---|---|
 | `--cor-fundo` | `#F2F8FA` | Fundo da página |
-| `--cor-card` | `#FFFFFF` | Fundo dos cards |
-| `--cor-borda` | `#D3E5EC` | Bordas de cards e campos |
+| `--cor-card` | `#FFFFFF` | Fundo dos cards e do cabeçalho |
+| `--cor-borda` | `#D3E5EC` | Bordas de cards, campos e linha do cabeçalho |
 | `--cor-texto` | `#12303D` | Texto principal |
 | `--cor-texto-secundario` | `#4F6B78` | Legendas, descrições, rótulos |
 
@@ -58,7 +58,7 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 | Combinação | Razão | Resultado |
 |---|---|---|
 | Branco sobre `#0A5C7A` | 7,4:1 | Passa |
-| Branco sobre `#1F7FA3` | 4,5:1 | Passa (no limite) |
+| Branco sobre `#1F7FA3` | 4,5:1 | Passa (no limite: usar só em texto grande no hero) |
 | `#12303D` sobre `#FFFFFF` | 13,9:1 | Passa |
 | `#12303D` sobre `#F2F8FA` | 12,9:1 | Passa |
 | `#12303D` sobre `#D8EEF5` | 11,5:1 | Passa |
@@ -73,7 +73,7 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 **Regras práticas**
 - Texto sobre fundo azul-escuro é sempre branco.
 - Texto sobre fundo laranja é sempre `#12303D`.
-- Texto de link e botão usa `#0A5C7A`. O `#1F7FA3` fica para elementos gráficos e texto grande.
+- Texto de link e botão usa `#0A5C7A`. O `#1F7FA3` fica para elementos gráficos e texto grande (como o título do hero).
 
 ---
 
@@ -88,8 +88,10 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 
 | Nível | Tamanho | Peso | Uso |
 |---|---|---|---|
+| Título do hero | 56 px (44 px em tablet e celular) | Regular | Texto sobre a faixa azul do topo |
 | Número de KPI | 40–48 px | Negrito | Valores em destaque nos cards |
-| Título da página | 32 px | Regular | Título de cada tela |
+| Título da página | 32 px | Regular | Título de cada tela (ex.: "Metodologias usadas", "Equipe e projeto") |
+| Item do menu | 24 px (20 px no celular) | Regular | Menu abaixo do hero |
 | Título de seção | 24 px | Regular | Agrupa vários cards |
 | Título de card | 20 px | Regular | Pergunta do gráfico |
 | Corpo | 16 px | Regular | Texto corrido, tabelas |
@@ -114,6 +116,7 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 | Espaço entre cards | 24 px |
 | Espaço entre seções | 48 px |
 | Título de card → conteúdo | 16 px |
+| Menu → primeiro bloco de conteúdo | 48 px |
 
 ### 4.2 Layout
 
@@ -124,8 +127,16 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 | Celular (até 639 px) | 4 | 24 px |
 
 - Largura máxima do conteúdo: **1200 px**, centralizado.
+- O **cabeçalho, o hero e o rodapé ocupam a largura toda** da tela; só o menu e o conteúdo ficam limitados a 1200 px.
 - A margem lateral é **igual em todas as telas**.
-- Cabeçalho com **88 px de altura**, igual em todas as páginas.
+
+### 4.3 Ordem vertical de todas as telas
+
+1. Cabeçalho (logo)
+2. Hero (faixa azul com texto e imagem)
+3. Menu de navegação
+4. Conteúdo da tela
+5. Rodapé
 
 ---
 
@@ -135,6 +146,7 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 |---|---|
 | Cantos do card | 16 px |
 | Cantos de botões e campos | 12 px |
+| Cantos do botão "Ver análises" | Pílula (totalmente arredondado) |
 | Borda de card | 1 px `#D3E5EC` |
 | Sombra de card | `0 4px 24px rgba(18, 48, 61, 0.08)` |
 
@@ -145,27 +157,40 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 ## 6. Componentes
 
 ### 6.1 Cabeçalho
-- Altura 88 px, fundo `#FFFFFF` (ou o fundo da página), com linha inferior `#D3E5EC`.
-- Logo à esquerda, **centralizado verticalmente** com o menu. O logo tem no máximo 48 px de altura.
+- Altura 88 px, fundo `#FFFFFF`, com linha inferior `#D3E5EC`.
+- Contém **apenas o logo**, alinhado à esquerda e centralizado verticalmente. O logo tem no máximo 48 px de altura.
 - Fundo do logo `#0A5C7A` com texto branco.
-- Menu à direita, com 4 itens: **Visão geral · Composição · Metodologia · Sobre**.
-- Item ativo: texto `#12303D` com sublinhado de 3 px em `#1F7FA3`.
-- Item inativo: texto `#12303D`, hover com fundo `#D8EEF5`.
 - O cabeçalho é criado **uma vez** e copiado igual para todas as telas.
 
-### 6.2 Card de KPI
+### 6.2 Hero (faixa de destaque)
+- Faixa em largura total, logo abaixo do cabeçalho, com altura mínima de 320 px.
+- Dividida em **duas metades iguais**: texto à esquerda, imagem à direita, com uma divisória vertical de 3 px em `#0A5C7A` no meio.
+- Fundo `#1F7FA3`; texto branco, centralizado, em tamanho de título do hero. Como é texto grande, o contraste de 4,5:1 é suficiente.
+- A imagem ocupa a metade direita inteira (`object-fit: cover`) e é decorativa: `alt` vazio.
+- No celular, as duas metades empilham (texto em cima, imagem embaixo).
+- O hero é igual em todas as telas; muda apenas o texto.
+
+### 6.3 Menu de navegação
+- Fica **abaixo do hero**, não dentro do cabeçalho.
+- 4 itens distribuídos em **4 colunas iguais**, centralizados: **Visão geral · Composição · Metodologia · Sobre**.
+- Item ativo: texto `#12303D` com sublinhado de 4 px em `#1F7FA3`.
+- Item inativo: texto `#12303D`, hover com sublinhado em `#D3E5EC`.
+- O item ativo também usa `aria-current="page"`.
+
+### 6.4 Card de KPI
 - Rótulo em cinza `#4F6B78` (13 px), acima.
 - Número principal em 40–48 px, `#12303D`.
 - Linha de variação com **seta e sinal**: `▲ +2,1 pts` em azul-petróleo, `▼ −3,4 pts` em laranja escuro `#B4540F`.
 - Uma frase curta de contexto ("em relação a 6 meses atrás").
 
-### 6.3 Card de gráfico
+### 6.5 Card de gráfico
 - Título à esquerda, no topo do card, em forma de pergunta (ex.: "Quais regiões estão abaixo da média?").
 - Linha de descrição em cinza abaixo do título (13 px).
 - O gráfico ocupa o resto do card.
 - Filtros, quando existirem, ficam alinhados à direita do título.
+- Na tela Composição, o título pode ficar **acima do card**, centralizado (ver seção 8.2).
 
-### 6.4 Botões
+### 6.6 Botões
 
 | Tipo | Fundo | Texto | Borda |
 |---|---|---|---|
@@ -174,27 +199,29 @@ O mínimo é **4,5:1** para texto pequeno e **3:1** para texto grande (a partir 
 | Desabilitado | `#D3E5EC` | `#4F6B78` | — |
 
 - Altura mínima de **44 px** (área de toque confortável), cantos de 12 px.
-- Ícone de seta no botão "Ver análises": **branco**, no mesmo tom do texto.
+- O botão **"Ver análises"** é um botão principal em formato de pílula, com seta branca no mesmo tom do texto.
 - Estado de foco: contorno de 3 px em `#1F7FA3` com 2 px de distância.
 
-### 6.5 Formulário de contato
-- Cada campo com **rótulo visível** acima (não apenas placeholder).
-- Borda `#D3E5EC`; no foco, borda `#1F7FA3`.
-- Campos: nome, e-mail e mensagem. Botão principal "Enviar mensagem".
+### 6.7 Formulário de contato
+- Fica dentro de um **card de fundo `#0A5C7A`**, com título "Formulário de contato" no topo.
+- Cada campo com **rótulo visível** acima (não apenas placeholder), em branco.
+- Campos: nome, e-mail e mensagem, com fundo claro e borda `#D3E5EC`; no foco, borda `#1F7FA3` com contorno de 3 px.
+- Botão "Enviar" em largura total, fundo âmbar claro `#F2C078` com texto `#12303D` (contraste alto; branco sobre âmbar não passa).
 - Mensagem de confirmação e de erro em texto, com ícone, e não apenas por cor.
 
-### 6.6 Seletor (filtro)
+### 6.8 Seletor (filtro)
 - Mesmo estilo dos campos de formulário.
 - O filtro ativo sempre aparece escrito (ex.: "Região: Nordeste"), para o cliente saber o que está vendo.
 
-### 6.7 Tabela
+### 6.9 Tabela
 - Cabeçalho em `#4F6B78`, peso semibold; linhas separadas por `#D3E5EC`.
 - Números alinhados à direita; texto à esquerda.
 - Em celular, a tabela rola na horizontal dentro do card.
 
-### 6.8 Rodapé
-- Fonte dos dados e data da última atualização, em texto secundário (13 px).
-- Presente em todas as telas.
+### 6.10 Rodapé
+- Faixa em largura total, fundo `#0A5C7A`, altura mínima de 120 px.
+- Presente em todas as telas, igual em todas.
+- Quando houver texto (fonte dos dados e data da última atualização), ele fica em branco, 13 px.
 
 ---
 
@@ -225,28 +252,29 @@ As cores variam também em luminosidade, o que ajuda quem tem daltonismo.
 
 ## 8. Estrutura das telas
 
+Todas as telas começam com **cabeçalho, hero e menu** (seção 4.3) e terminam com o **rodapé**. Abaixo está só o conteúdo de cada uma.
+
 ### 8.1 Visão geral
-1. Cards rápidos (3 KPIs), com o **score nacional** primeiro e em maior destaque.
-2. Dois gráficos principais (por exemplo, ranking das regiões e evolução do score).
-3. Resumo em texto: "Principais conclusões".
+1. **3 cards rápidos** (KPIs) em linha, com o **score nacional** primeiro e em maior destaque.
+2. **2 cards de gráfico** lado a lado (por exemplo, ranking das regiões e evolução do score).
+3. Os títulos "Resumo rápido" e "Principais gráficos" continuam no HTML, visíveis apenas para leitores de tela.
 
 ### 8.2 Composição
-1. Seletor de região no topo.
-2. Dois cards lado a lado: **perfil por região** e **métricas e peso do score**.
-3. Botão **"Ver análises"** (leva à seção abaixo).
-4. Seção **"Análises"**: grade de gráficos do Colab (regiões, grupos, evolução), com títulos em forma de pergunta.
+1. **2 cards lado a lado**, cada um com o título centralizado acima: **"Perfil por região"** e **"Métrica e peso do score"**. O seletor de região fica junto a esses cards.
+2. Botão **"Ver análises"** (pílula), que leva à seção abaixo.
+3. Seção **"Análises"**: uma caixa com borda clara `#D3E5EC`, com o botão "Ver análises" encaixado no canto superior esquerdo da borda. Dentro, **4 cards de gráfico do Colab em grade 2 × 2**, cada um com o título centralizado acima, em forma de pergunta.
 
 ### 8.3 Metodologia
-Dividida em blocos, e não em um texto único:
-1. Fórmula do score.
-2. Componentes e pesos.
-3. Fontes dos dados.
-4. Tratamento dos dados.
-5. Limitações.
+1. Título da página centralizado em azul-petróleo: **"Metodologias usadas"**.
+2. Parágrafo de introdução centralizado, com no máximo 70 caracteres por linha.
+3. **Duas colunas**, cada uma com subtítulo em azul-petróleo e lista com marcadores.
+4. Conteúdo das colunas: fórmula do score, componentes e pesos, fontes dos dados, tratamento dos dados e limitações.
 
 ### 8.4 Sobre
-1. Texto sobre o projeto e a equipe (com nomes e papéis).
-2. Formulário de contato.
+1. **Logo da equipe** em círculo, centralizado.
+2. Título centralizado **"Equipe e projeto"**, seguido de texto sobre o projeto.
+3. **4 colunas** com os papéis e os nomes: **PO · Scrum Master · Dev team back · Dev team front**.
+4. **Formulário de contato** em card azul (ver 6.7).
 
 ---
 
@@ -254,9 +282,11 @@ Dividida em blocos, e não em um texto único:
 
 | Elemento | Computador | Tablet | Celular |
 |---|---|---|---|
-| Menu | Horizontal | Horizontal | Ícone de menu (hambúrguer) |
-| Cards de KPI | 3 por linha | 2 por linha | 1 por linha |
-| Gráficos | 2 por linha | 1 ou 2 por linha | 1 por linha |
+| Hero | 2 metades lado a lado | 2 metades lado a lado | Texto em cima, imagem embaixo |
+| Menu | 4 colunas | 4 colunas | 2 colunas (2 × 2) |
+| Cards de KPI | 3 por linha | 1 por linha | 1 por linha |
+| Gráficos | 2 por linha | 1 por linha | 1 por linha |
+| Colunas da Metodologia e da equipe | 2 e 4 colunas | 2 colunas | 1 coluna |
 | Margem lateral | 80 px | 40 px | 24 px |
 | Tabelas | Completas | Completas | Rolagem horizontal |
 
@@ -268,7 +298,7 @@ Dividida em blocos, e não em um texto único:
 - Nenhuma informação apenas por cor: usar seta, sinal, marcador ou texto.
 - Alvos de toque de **44 px** ou mais.
 - Foco de teclado sempre visível e ordem de tabulação lógica.
-- Imagens e gráficos com descrição em texto.
+- Imagens e gráficos com descrição em texto; a imagem do hero é decorativa (`alt` vazio).
 - Idioma da página declarado como português do Brasil (`lang="pt-BR"`).
 - Respeitar a preferência do sistema por menos movimento (sem animações essenciais).
 
@@ -279,7 +309,7 @@ Dividida em blocos, e não em um texto único:
 - Frases curtas, em português simples, sem jargão sem explicação.
 - Números com **formatação brasileira**: `1.234,5` e `R$ 400 bi`.
 - Datas no formato `mmm/aa` nos gráficos (ex.: `jul/26`).
-- Cada tela começa com uma frase resumindo o que o cliente está vendo.
+- Cada tela começa com uma frase resumindo o que o cliente está vendo (no hero ou logo abaixo do menu).
 - Termos técnicos (ex.: "score", "carteira") ganham uma explicação curta ou um texto de ajuda.
 
 ---
@@ -310,6 +340,7 @@ Dividida em blocos, e não em um texto único:
   /* Forma */
   --raio-card: 16px;
   --raio-botao: 12px;
+  --raio-pilula: 999px;
   --sombra-card: 0 4px 24px rgba(18, 48, 61, 0.08);
 
   /* Espaçamento */
@@ -320,6 +351,11 @@ Dividida em blocos, e não em um texto único:
   --esp-5: 48px;
   --esp-6: 64px;
 
+  /* Estrutura */
+  --altura-cabecalho: 88px;
+  --altura-hero: 320px;
+  --altura-rodape: 120px;
+
   /* Tipografia */
   --fonte-titulo: "Arapey", Georgia, serif;
   --fonte-corpo: "Open Sans", system-ui, sans-serif;
@@ -327,4 +363,3 @@ Dividida em blocos, e não em um texto único:
 ```
 
 ---
-

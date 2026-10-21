@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Nome do projeto </title>
+  <title>Nome do projeto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="visao-geral.js" defer></script>
@@ -14,47 +14,60 @@
 <body>
   <header class="topo">
     <a class="logo" href="index.html">Nome do projeto</a>
-    <nav class="menu" aria-label="Navegação principal"> 
-      <a href="index.html" class="menulink menulink-ativo" aria-current="page">Visão geral</a>
-      <a href="composicao.html" class="menulink">Composição</a>
-      <a href="metodologia.html" class="menulink">Metodologia</a>
-      <a href="" class="menulink">Sobre</a>
-    </nav>
   </header>
+
+  <section class="banner">
+    <div class="bannertexto">
+      <h1 class="bannertitulo">Texto do banner</h1>
+    </div>
+    <!-- a imagem do banner entra aqui -->
+    <div class="bannerimagem" aria-hidden="true"></div>
+  </section>
+
+  <nav class="menu" aria-label="Navegação principal">
+    <a href="index.html" class="menulink menulink-ativo" aria-current="page">Visão geral</a>
+    <a href="composicao.html" class="menulink">Composição</a>
+    <a href="metodologia.html" class="menulink">Metodologia</a>
+    <a href="sobre.html" class="menulink">Sobre</a>
+  </nav>
+
   <main class="conteudo">
     <section class="secao" aria-labelledby="titulo-cards">
-      <h2 class="secaotitulo" id="titulo-cards">Resumo rápido</h2>
+      <h2 class="secaotitulo soleitor" id="titulo-cards">Resumo rápido</h2>
       <div class="cards">
         <article class="card" id="card-1">
-          <p class="cardrotulo">Crescimento da Carteira de Crédito</p>
+          <p class="cardrotulo">Indicador 1</p>
           <p class="cardvalor">--</p>
-          <p class="carddetalhe">--</p>
+          <p class="carddetalhe">Descrição do indicador</p>
         </article>
         <article class="card" id="card-2">
-          <p class="cardrotulo">Volume total de Pix transacionado</p>
+          <p class="cardrotulo">Indicador 2</p>
           <p class="cardvalor">--</p>
-          <p class="carddetalhe">--</p>
+          <p class="carddetalhe">Descrição do indicador</p>
         </article>
         <article class="card" id="card-3">
-          <p class="cardrotulo">Inadimplência Média da Carteira</p>
+          <p class="cardrotulo">Indicador 3</p>
           <p class="cardvalor">--</p>
           <p class="carddetalhe">Descrição do indicador</p>
         </article>
       </div>
     </section>
+
     <section class="secao" aria-labelledby="titulo-graficos">
-      <h2 class="secaotitulo" id="titulo-graficos">Principais gráficos</h2>
+      <h2 class="secaotitulo soleitor" id="titulo-graficos">Principais gráficos</h2>
       <div class="graficos">
         <figure class="grafico" id="grafico-1">
           <figcaption class="graficotitulo">Evolução mensal da carteira</figcaption>
           <div class="graficoarea"></div>
         </figure>
         <figure class="grafico" id="grafico-2">
-          <figcaption class="graficotitulo">Ranking pelo Score dos Municipios</figcaption>
+          <figcaption class="graficotitulo">Título do gráfico 2</figcaption>
           <div class="graficoarea"></div>
         </figure>
       </div>
     </section>
   </main>
+
+  <footer class="rodape"></footer>
 </body>
 </html>

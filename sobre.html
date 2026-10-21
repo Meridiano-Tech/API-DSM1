@@ -6,45 +6,95 @@
   <title>Sobre | Nome do projeto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="composicao.js" defer></script>
 </head>
 <body>
   <header class="topo">
     <a class="logo" href="index.html">Nome do projeto</a>
-    <nav class="menu" aria-label="Navegação principal">
-      <a href="index.html" class="menulink">Visão geral</a>
-      <a href="composicao.html" class="menulink">Composição</a>
-      <a href="metodologia.html" class="menulink">Metodologia</a>
-      <a href="sobre.html" class="menulink menulink-ativo" aria-current="page">Sobre</a>
-    </nav>
   </header>
+
+  <section class="banner">
+    <div class="bannertexto">
+      <h1 class="bannertitulo">Texto do banner</h1>
+    </div>
+    <!-- a imagem do banner entra aqui -->
+    <div class="bannerimagem" aria-hidden="true"></div>
+  </section>
+
+  <nav class="menu" aria-label="Navegação principal">
+    <a href="index.html" class="menulink">Visão geral</a>
+    <a href="composicao.html" class="menulink">Composição</a>
+    <a href="metodologia.html" class="menulink">Metodologia</a>
+    <a href="sobre.html" class="menulink menulink-ativo" aria-current="page">Sobre</a>
+  </nav>
+
   <main class="conteudo">
     <section class="secao" aria-labelledby="titulo-sobre">
-      <h2 class="secaotitulo" id="titulo-sobre">Sobre o projeto e a equipe</h2>
-      <article class="painel painel-curto">
-        <p>Fale um pouco sobre o projeto e a equipe.</p>
-      </article>
+      <!-- o logo da equipe entra aqui -->
+      <div class="logoequipe">Logo da equipe</div>
+      <h2 class="secaotitulo secaotitulo-destaque" id="titulo-sobre">Equipe e projeto</h2>
+      <p class="textointro">Fale um pouco sobre o projeto e a equipe.</p>
+
+      <div class="colunas colunas-equipe">
+        <div>
+          <h3 class="colunatitulo">PO</h3>
+          <ul>
+            <li>Nome</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="colunatitulo">Scrum Master</h3>
+          <ul>
+            <li>Nome</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="colunatitulo">Dev team back</h3>
+          <ul>
+            <li>Nome</li>
+            <li>Nome</li>
+            <li>Nome</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="colunatitulo">Dev team front</h3>
+          <ul>
+            <li>Nome</li>
+            <li>Nome</li>
+            <li>Nome</li>
+          </ul>
+        </div>
+      </div>
     </section>
-    <section class="secao" aria-labelledby="titulo-contato">
-      <h2 class="secaotitulo" id="titulo-contato">Formulário de contato</h2>
+
+    <section class="secao">
       <!-- action será definido quando o envio do formulário for implementado -->
-      <form class="formulario" action="#" method="post">
+      <form class="formulario" action="#" method="post" aria-labelledby="titulo-contato">
+        <h2 class="formulariotitulo" id="titulo-contato">Formulário de contato</h2>
+
         <div class="campo">
           <label for="nome">Nome</label>
           <input type="text" id="nome" name="nome" required>
         </div>
+
         <div class="campo">
           <label for="email">E-mail</label>
           <input type="email" id="email" name="email" required>
         </div>
+
         <div class="campo">
           <label for="mensagem">Mensagem</label>
           <textarea id="mensagem" name="mensagem" required></textarea>
         </div>
-        <button type="submit" class="botao">Enviar</button>
+
+        <button type="submit" class="botao botao-enviar">Enviar</button>
       </form>
     </section>
   </main>
+
+  <footer class="rodape"></footer>
 </body>
 </html>

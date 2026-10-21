@@ -1,22 +1,36 @@
 /* root é o design system, é útil para que utilize apenas o var() para aplicar o css */
 
 :root {
-  --cor-fundo:        #f2f8fa;  
-  --cor-superficie:   #f9ffff;  
-  --cor-primaria:     #0a5c7a;  
-  --cor-destaque:     #1f7fa3;  
-  --cor-borda:        #cfe3ec;  
-  --cor-texto:        #0f1f27;
-  --cor-texto-suave:  #4d6571;
-  --cor-sobre-primaria: #f9ffff;
-  --fonte: "Arapey", Georgia, "Times New Roman", serif;
+  --cor-fundo:          #ffffff;  /* fundo da página */
+  --cor-superficie:     #e0ebf5;  /* cards e gráficos claros */
+  --cor-moldura:        #ecf2f8;  /* moldura da seção "Ver análises" */
+  --cor-primaria:       #569ddc;  /* banner, botão, gráficos azuis */
+  --cor-destaque:       #4c86ba;  /* sublinhado do menu, títulos azuis, divisor do banner, painel do formulário */
+  --cor-rodape:         #4678a4;  /* rodapé */
+  --cor-logo:           #c8d1d9;  /* logo e logo da equipe (provisórios) */
+  --cor-borda:          #c5ced7;  /* linha abaixo do cabeçalho */
+  --cor-campo:          #a5c2dc;  /* borda dos campos do formulário */
+  --cor-amarelo:        #ffe192;  /* textos e botão do formulário */
+  --cor-texto:          #000000;
+  --cor-texto-suave:    #4d6571;
+  --cor-sobre-primaria: #ffffff;  /* texto sobre fundo azul */
+
+  --fonte: "Open Sans", system-ui, "Segoe UI", Arial, sans-serif;
+
   --raio-sm: 10px;
   --raio-md: 16px;
-  --sombra-card: 8px 10px 18px rgba(15, 31, 39, 0.22);
-  --largura-max: 1180px;
+  --raio-lg: 40px;
+
+  --largura-max: 1240px;
   --espaco: 24px;
-  --recuo: 12px; 
+  --recuo: 12px;         /* respiro lateral de cards, gráficos e formulário */
+  --recuo-largo: 72px;   /* respiro lateral das colunas de texto */
 }
+
+
+/* ==========================================================
+   BASE
+   ========================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -36,81 +50,106 @@ a { color: inherit; text-decoration: none; }
   outline-offset: 3px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
+/* texto só para leitores de tela (o wireframe não mostra esses títulos) */
+.soleitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 
-/* Estilos compartilhados entre classes */
-
-.logo,
-.botao {
-  background: var(--cor-primaria);
-  color: var(--cor-sobre-primaria);
-  border-radius: var(--raio-sm);
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-
-.card,
-.painel,
-.grafico,
-.formulario {
-  background: var(--cor-superficie);
-  border-radius: var(--raio-md);
-}
-
-.card,
-.painel {
-  border: 2px solid var(--cor-borda);
-  box-shadow: var(--sombra-card);
-}
+/* ==========================================================
+   CABEÇALHO, BANNER, MENU E RODAPÉ (iguais nas 4 telas)
+   ========================================================== */
 
 .topo {
-  max-width: var(--largura-max);
-  margin: 0 auto;
-  padding: 18px var(--espaco) 0;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--espaco);
+  align-items: center;
+  height: 112px;
+  padding: 0 var(--espaco);
+  border-bottom: 3px solid var(--cor-borda);
 }
 
 .logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 184px;
-  height: 84px;
+  min-width: 200px;
+  height: 76px;
   padding: 0 20px;
+  background: var(--cor-logo);
+  color: var(--cor-texto);
+  font-size: 1rem;
   text-align: center;
 }
 
-.menu {
+/* banner: texto à esquerda, imagem à direita */
+.banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: clamp(260px, 36vw, 488px);
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+}
+
+.bannertexto {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
-  padding-bottom: 6px;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espaco) var(--recuo-largo);
+}
+
+.bannertitulo {
+  margin: 0;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.bannerimagem { border-left: 4px solid var(--cor-destaque); }
+
+/* menu abaixo do banner: 4 colunas iguais */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  padding: 28px var(--espaco) 0;
 }
 
 .menulink {
+  justify-self: center;
+  padding: 0 8px 2px;
   font-size: 1.5rem;
-  padding-bottom: 2px;
   border-bottom: 4px solid transparent;
   transition: border-color 0.2s;
 }
 
-.menulink:hover { border-bottom-color: var(--cor-borda); }
+.menulink:hover { border-bottom-color: var(--cor-superficie); }
 .menulink-ativo,
 .menulink-ativo:hover { border-bottom-color: var(--cor-destaque); }
+
+.rodape {
+  min-height: 160px;
+  background: var(--cor-rodape);
+}
+
+
+/* ==========================================================
+   CONTEÚDO E TÍTULOS
+   ========================================================== */
 
 .conteudo {
   max-width: var(--largura-max);
   margin: 0 auto;
-  padding: 28px var(--espaco) 64px;
+  padding: 72px var(--espaco) 64px;
 }
 
-.secao + .secao { margin-top: 40px; }
+.secao + .secao { margin-top: 64px; }
 
 .secaotitulo {
   margin: 0 0 20px;
@@ -119,43 +158,79 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
 }
 
+/* título azul grande das telas Metodologia e Sobre */
+.secaotitulo-destaque {
+  color: var(--cor-destaque);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
 
-/* página 1- visão geral */
+/* parágrafo centralizado abaixo do título */
+.textointro {
+  max-width: 75ch;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+/* botão (usado como <span>, <a> ou <button>) */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  border-radius: var(--raio-md);
+  font-size: 1.25rem;
+  transition: background-color 0.2s;
+}
+
+.botao:hover { background: var(--cor-destaque); }
+
+
+/* ==========================================================
+   TELA 1 — Visão geral
+   ========================================================== */
 
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  padding: 0 var(--recuo) 14px;
+  gap: 16px;
+  padding: 0 var(--recuo);
 }
 
 .card {
-  min-height: 160px;
-  padding: 20px 22px;
+  min-height: 200px;
+  padding: 24px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: var(--cor-superficie);
+  border-radius: var(--raio-lg);
 }
 
 .cardrotulo,
 .carddetalhe { margin: 0; color: var(--cor-texto-suave); font-size: 1rem; }
-.cardvalor   { margin: 4px 0; font-size: 2.5rem; line-height: 1.1; color: var(--cor-primaria); }
+.cardvalor   { margin: 4px 0; font-size: 2.5rem; line-height: 1.1; color: var(--cor-destaque); }
 
 .graficos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
+  gap: 32px;
   padding: 0 var(--recuo);
 }
 
 .grafico {
   margin: 0;
   padding: 18px 20px 20px;
+  background: var(--cor-superficie);
+  border-radius: var(--raio-sm);
 }
 
 .graficotitulo {
   margin-bottom: 12px;
-  color: var(--cor-texto-suave);
+  color: var(--cor-texto);
 }
 
 .graficoarea {
@@ -163,61 +238,141 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* página 2 - composição */
+/* ==========================================================
+   TELA 2 — Composição
+   ========================================================== */
 
+/* os dois gráficos do topo ficam mais altos */
+.grafico-alto { border-radius: var(--raio-md); }
 .grafico-alto .graficoarea { min-height: 340px; }
 
-/* botão "Ver análises" */
-.acao {
+/* "Ver análises": <details> abre os gráficos do Colab */
+.analises { margin: 56px var(--recuo) 0; }
+
+.analisesresumo {
   display: flex;
-  justify-content: center;
-  margin: 32px 0 56px;
-}
-
-.botao {
-  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 28px;
-  transition: background-color 0.2s;
+  list-style: none;
+  cursor: pointer;
 }
 
-.botao:hover { background: var(--cor-destaque); }
+.analisesresumo::-webkit-details-marker { display: none; }
 
-.botaoicone {
-  width: 18px;
-  height: 18px;
-  flex: none;
+/* linha clara ao lado do botão quando fechado */
+.analisesresumo::after {
+  content: "";
+  flex: 1;
+  height: 4px;
+  background: var(--cor-superficie);
+}
+
+/* aberto: moldura clara com o botão em cima da borda */
+.analises[open] {
+  position: relative;
+  padding: 56px 32px 32px;
+  border: 6px solid var(--cor-moldura);
+}
+
+.analises[open] > .analisesresumo {
+  position: absolute;
+  top: -3px;
+  left: -6px;
+  transform: translateY(-50%);
+}
+
+.analises[open] > .analisesresumo::after { display: none; }
+
+/* gráficos do Colab: título fora da caixa azul */
+.graficos-analises {
+  padding: 0;
+  column-gap: 56px;
+  row-gap: 28px;
+}
+
+.grafico-solto {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+.grafico-solto .graficotitulo {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.grafico-solto .graficoarea {
+  min-height: 200px;
+  background: var(--cor-primaria);
+  border-radius: var(--raio-md);
 }
 
 
-/* página 3 - metodologia */
+/* ==========================================================
+   TELA 3 — Metodologia (e colunas da tela Sobre)
+   ========================================================== */
 
-.painel {
-  min-height: 370px;
-  margin: 0 var(--recuo) 14px;
-  padding: 32px 36px;
+.colunas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espaco) var(--recuo-largo);
+  padding: 0 var(--recuo-largo);
 }
 
-.painel p {
+.colunatitulo {
+  margin: 0 0 12px;
+  color: var(--cor-destaque);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.colunas ul {
   margin: 0;
-  max-width: 75ch;
+  padding-left: 1.25em;
 }
 
-.painel p + p { margin-top: 1em; }
 
+/* ==========================================================
+   TELA 4 — Sobre
+   ========================================================== */
 
-/* página 4 - sobre */
+.logoequipe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 16px;
+  background: var(--cor-logo);
+  border-radius: 50%;
+  text-align: center;
+}
 
-.painel-curto { min-height: 190px; }
+/* equipe: 4 colunas, nomes em negrito */
+.colunas-equipe {
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espaco);
+  padding: 0 var(--recuo);
+}
+
+.colunas-equipe .colunatitulo { font-weight: 700; }
+.colunas-equipe li { font-weight: 700; }
 
 /* formulário de contato */
 .formulario {
   display: grid;
-  gap: 16px;
-  max-width: 360px;
-  margin: 0 auto;
-  padding: 24px;
+  gap: 20px;
+  margin: 0 var(--recuo);
+  padding: 32px 40px 36px;
+  background: var(--cor-destaque);
+  color: var(--cor-amarelo);
+  border-radius: var(--raio-sm);
+}
+
+.formulariotitulo {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 400;
 }
 
 .campo {
@@ -225,18 +380,15 @@ a { color: inherit; text-decoration: none; }
   gap: 6px;
 }
 
-.campo label {
-  font-size: 1rem;
-  color: var(--cor-texto-suave);
-}
+.campo label { font-size: 1rem; }
 
 .campo input,
 .campo textarea {
   width: 100%;
   padding: 10px 12px;
-  background: var(--cor-fundo);
-  color: var(--cor-texto);
-  border: 2px solid var(--cor-borda);
+  background: transparent;
+  color: var(--cor-amarelo);
+  border: 1px solid var(--cor-campo);
   border-radius: var(--raio-sm);
   font-family: inherit;
   font-size: 1.125rem;
@@ -248,29 +400,47 @@ a { color: inherit; text-decoration: none; }
 }
 
 .campo input:focus,
-.campo textarea:focus {
-  outline: none;
-  border-color: var(--cor-destaque);
-}
+.campo textarea:focus { border-color: var(--cor-amarelo); }
 
-/* o .botao também é usado em <button> */
+/* o foco padrão (azul) some sobre o painel azul: usa amarelo */
+.formulario :focus-visible { outline-color: var(--cor-amarelo); }
+
+/* botão "Enviar": largura total, amarelo */
 button.botao {
-  justify-self: center;
   border: 0;
   cursor: pointer;
   font-family: inherit;
 }
 
+.botao-enviar {
+  width: 100%;
+  background: var(--cor-amarelo);
+  color: var(--cor-texto);
+}
 
-/* responsividade do site */
+.botao-enviar:hover {
+  background: var(--cor-amarelo);
+  opacity: 0.9;
+}
+
+
+/* ==========================================================
+   RESPONSIVIDADE
+   ========================================================== */
 
 @media (max-width: 900px) {
-  .cards    { grid-template-columns: 1fr; gap: 24px; }
-  .graficos { grid-template-columns: 1fr; }
+  .cards          { grid-template-columns: 1fr; }
+  .graficos       { grid-template-columns: 1fr; }
+  .colunas-equipe { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
-  .topo       { flex-direction: column; align-items: flex-start; }
-  .menulink   { font-size: 1.25rem; }
-  .painel     { padding: 24px 20px; }
+  .banner         { grid-template-columns: 1fr; }
+  .bannerimagem   { min-height: 160px; border-left: 0; border-top: 4px solid var(--cor-destaque); }
+  .menu           { grid-template-columns: repeat(2, 1fr); row-gap: 12px; }
+  .menulink       { font-size: 1.25rem; }
+  .colunas,
+  .colunas-equipe { grid-template-columns: 1fr; padding: 0 var(--recuo); }
+  .analises[open] { padding: 48px 16px 24px; }
+  .formulario     { padding: 24px 20px; }
 }

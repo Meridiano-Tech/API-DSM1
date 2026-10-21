@@ -6,26 +6,61 @@
   <title>Metodologia | Nome do projeto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="composicao.js" defer></script>
 </head>
 <body>
   <header class="topo">
     <a class="logo" href="index.html">Nome do projeto</a>
-    <nav class="menu" aria-label="Navegação principal">
-      <a href="index.html" class="menulink">Visão geral</a>
-      <a href="composicao.html" class="menulink">Composição</a>
-      <a href="metodologia.html" class="menulink menulink-ativo" aria-current="page">Metodologia</a>
-      <a href="sobre.html" class="menulink">Sobre</a>
-    </nav>
   </header>
+
+  <section class="banner">
+    <div class="bannertexto">
+      <h1 class="bannertitulo">Texto do banner</h1>
+    </div>
+    <!-- a imagem do banner entra aqui -->
+    <div class="bannerimagem" aria-hidden="true"></div>
+  </section>
+
+  <nav class="menu" aria-label="Navegação principal">
+    <a href="index.html" class="menulink">Visão geral</a>
+    <a href="composicao.html" class="menulink">Composição</a>
+    <a href="metodologia.html" class="menulink menulink-ativo" aria-current="page">Metodologia</a>
+    <a href="sobre.html" class="menulink">Sobre</a>
+  </nav>
+
   <main class="conteudo">
     <section class="secao" aria-labelledby="titulo-metodologia">
-      <h2 class="secaotitulo" id="titulo-metodologia">Metodologia utilizada na composição do score</h2>
-      <article class="painel">
-        <p>Descreva aqui a metodologia utilizada na composição do score.</p>
-      </article>
+      <h2 class="secaotitulo secaotitulo-destaque" id="titulo-metodologia">Metodologias usadas</h2>
+      <p class="textointro">Descreva aqui a metodologia utilizada na composição do score.</p>
+
+      <div class="colunas">
+        <div>
+          <h3 class="colunatitulo">Subtítulo</h3>
+          <ul>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="colunatitulo">Subtítulo</h3>
+          <ul>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+            <li>Item da lista</li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
+
+  <footer class="rodape"></footer>
 </body>
 </html>
