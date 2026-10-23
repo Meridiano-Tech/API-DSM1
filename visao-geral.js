@@ -16,26 +16,18 @@ async function carregarDados() {
   }
 }
 
-function formatarMoeda(valor) {
+function formatarMoedaBilhoes(valor) {
   const num = Number(valor);
   if (!Number.isFinite(num)) return "--";
-  if (num >= 1_000_000_000) {
-    return 'R$ ' + (num / 1_000_000_000).toLocaleString('pt-BR', {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1
-    }) + ' bi';
-  }
-  if (num >= 1_000_000) {
-    return 'R$ ' + (num / 1_000_000).toLocaleString('pt-BR', {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1
-    }) + ' mi';
-  }
-  return num.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
+  const emBilhoes = num / 1e9;
+  return `R$ ${emBilhoes.toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
     maximumFractionDigits: 2
-  });
+  })} Bi`;
+}
+
+function formatarMoeda(valor) {
+  return formatarMoedaBilhoes(valor);
 }
 
 function formatarPercentual(valor, comSinal = false) {
@@ -159,7 +151,9 @@ function desenharRanking(area, linhas) {
             item.regiao === "Norte" ? "#0a5c7a" :
             item.regiao === "Nordeste" ? "#cc5200" : "#64748b"
           ),
-          borderRadius: 4
+          borderRadius: 4,
+          barPercentage: 0.8,
+          categoryPercentage: 0.9
         }
       ]
     },
@@ -225,7 +219,7 @@ async function iniciar() {
   preencherCard(
     "card-2",
     cards.vol_pix_geral !== undefined
-      ? formatarMoeda(cards.vol_pix_geral)
+      ? formatarMoedaBilhoes(cards.vol_pix_geral)
       : "--",
     "Volume acumulado nas regiões monitoradas."
   );

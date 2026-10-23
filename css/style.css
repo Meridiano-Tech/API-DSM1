@@ -294,7 +294,7 @@ a {
 }
 
 .graficoarea {
-  min-height: 300px;
+  min-height: 600px;
 }
 
 
@@ -303,7 +303,7 @@ a {
 }
 
 .grafico-alto .graficoarea {
-  min-height: 340px;
+  min-height: 650px;
 }
 
 /* "Ver análises": <details> abre os gráficos do Colab */
