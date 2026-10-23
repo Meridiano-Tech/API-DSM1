@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="visao-geral.js" defer></script>
+  <script src="extrato.js" defer></script>
 </head>
 <body>
 <header class="banner">
@@ -80,6 +81,53 @@
           <figcaption class="graficotitulo">Ranking pelo Score dos Muncípios</figcaption>
           <div class="graficoarea"></div>
         </figure>
+      </div>
+    </section>
+
+    <section class="secao" id="secao-extrato" aria-labelledby="titulo-extrato">
+      <div class="extrato-topo">
+        <div>
+          <h2 class="secaotitulo" id="titulo-extrato">Extrato e Comportamento Financeiro</h2>
+          <p class="textointro">Histórico cronológico de marcos econômicos, liquidez via Pix e evolução da carteira de crédito.</p>
+        </div>
+        <div class="extrato-controles">
+          <div class="filtro-regiao-box">
+            <label for="filtro-regiao-extrato">Região:</label>
+            <select id="filtro-regiao-extrato" class="input-select">
+              <option value="todas">Todas as Regiões</option>
+              <option value="Norte">Norte</option>
+              <option value="Nordeste">Nordeste</option>
+              <option value="Sudeste">Sudeste</option>
+              <option value="Sul">Sul</option>
+            </select>
+          </div>
+          <div class="alternador-visualizacao" role="tablist" aria-label="Visualização do extrato">
+            <button type="button" class="btn-aba btn-aba-ativo" id="btn-ver-timeline" role="tab" aria-selected="true">Linha do Tempo</button>
+            <button type="button" class="btn-aba" id="btn-ver-tabela" role="tab" aria-selected="false">Tabela de Dados</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="extrato-painel" id="painel-timeline">
+        <div class="timeline-container" id="timeline-lista"></div>
+      </div>
+
+      <div class="extrato-painel" id="painel-tabela" style="display: none;">
+        <div class="tabela-container">
+          <table class="tabela-extrato">
+            <thead>
+              <tr>
+                <th>Competência</th>
+                <th>Região</th>
+                <th>Carteira de Crédito</th>
+                <th>Volume Pix</th>
+                <th>Inadimplência</th>
+                <th>Comportamento / Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-extrato-corpo"></tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
