@@ -1,4 +1,9 @@
+import os
+import sys
 import unittest
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from motor_score import MotorScore, BENCHMARK_MUNICIPIOS
 
 
