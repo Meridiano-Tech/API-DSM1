@@ -57,43 +57,90 @@ a { color: inherit; text-decoration: none; }
 }
 
 .banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 36px var(--espaco);
-  background: var(--cor-primaria);
-  color: var(--cor-sobre-primaria);
-  font-family: var(--fonte-titulo);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--cor-primaria), var(--cor-fundo));
+  color: var(--cor-texto-claro);
 }
 
-/* selo branco que dá contraste à logo */
-.bannerlogo {
-  flex: none;
+.bannerconteudo {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 136px;
-  height: 136px;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 48px;
+}
+
+.bannerlogo {
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   background: var(--cor-fundo);
+  flex: none;
 }
 
-.bannerlogo img {
-  display: flex;
-  width: 125%;
-  height: auto;
-  align-items: center;
+.bannertexto {
+  padding-left: 32px;
+  border-left: 1px solid var(--cor-texto-claro);
 }
 
-.bannerlogo:focus-visible { outline-color: var(--cor-sobre-primaria); }
+.bannermarca {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
 
 .bannertitulo {
   margin: 0;
-  max-width: 26ch;
-  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-  font-weight: var(--fonte-peso-titulo);
+  font-size: 1.9rem;
   line-height: 1.2;
+  font-weight: 700;
+}
+
+/* decoração à direita */
+.bannerdeco {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  padding-right: 48px;
+  pointer-events: none;
+}
+
+.bannergrafico {
+  height: 100%;
+  width: auto;
+  opacity: 0.35;
+}
+
+.decobarra { fill: var(--cor-texto-claro); }
+.decoponto { fill: var(--cor-texto-claro); }
+.decolinha {
+  fill: none;
+  stroke: var(--cor-texto-claro);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.bannerlema {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--cor-texto-claro);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.7;
+  opacity: 0.8;
 }
 
 .menu {
