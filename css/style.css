@@ -1,36 +1,31 @@
 /* root é o design system, é útil para que utilize apenas o var() para aplicar o css */
 
 :root {
-  --cor-fundo:          #ffffff;  /* fundo da página */
-  --cor-superficie:     #e0ebf5;  /* cards e gráficos claros */
-  --cor-moldura:        #ecf2f8;  /* moldura da seção "Ver análises" */
-  --cor-primaria:       #569ddc;  /* banner, botão, gráficos azuis */
-  --cor-destaque:       #4c86ba;  /* sublinhado do menu, títulos azuis, divisor do banner, painel do formulário */
-  --cor-rodape:         #4678a4;  /* rodapé */
-  --cor-logo:           #c8d1d9;  /* logo e logo da equipe (provisórios) */
-  --cor-borda:          #c5ced7;  /* linha abaixo do cabeçalho */
-  --cor-campo:          #a5c2dc;  /* borda dos campos do formulário */
-  --cor-amarelo:        #ffe192;  /* textos e botão do formulário */
+  --cor-fundo:          #ffffff;  
+  --cor-superficie:     #e0ebf5;  
+  --cor-moldura:        #ecf2f8;  
+  --cor-primaria:       #569ddc;  
+  --cor-destaque:       #4c86ba;  
+  --cor-rodape:         #4678a4;  
+  --cor-logo:           #c8d1d9;  
+  --cor-borda:          #c5ced7;  
+  --cor-campo:          #a5c2dc;  
+  --cor-amarelo:        #ffe192;  
   --cor-texto:          #000000;
   --cor-texto-suave:    #4d6571;
-  --cor-sobre-primaria: #ffffff;  /* texto sobre fundo azul */
-
-  --fonte: "Open Sans", system-ui, "Segoe UI", Arial, sans-serif;
-
+  --cor-sobre-primaria: #ffffff; 
+  --fonte-titulo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fonte-corpo:  "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fonte-peso-titulo: 700;
+  --fonte-peso-corpo: 400;
   --raio-sm: 10px;
   --raio-md: 16px;
   --raio-lg: 40px;
-
   --largura-max: 1240px;
   --espaco: 24px;
-  --recuo: 12px;         /* respiro lateral de cards, gráficos e formulário */
-  --recuo-largo: 72px;   /* respiro lateral das colunas de texto */
+  --recuo: 12px;         
+  --recuo-largo: 72px; 
 }
-
-
-/* ==========================================================
-   BASE
-   ========================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -38,8 +33,9 @@ body {
   margin: 0;
   background: var(--cor-fundo);
   color: var(--cor-texto);
-  font-family: var(--fonte);
-  font-size: 1.125rem;
+  font-family: var(--fonte-corpo);
+  font-weight: var(--fonte-peso-corpo);
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -60,65 +56,54 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
 }
 
-
-/* ==========================================================
-   CABEÇALHO, BANNER, MENU E RODAPÉ (iguais nas 4 telas)
-   ========================================================== */
-
-.topo {
+.banner {
   display: flex;
   align-items: center;
-  height: 112px;
-  padding: 0 var(--espaco);
-  border-bottom: 3px solid var(--cor-borda);
-}
-
-.logo {
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-  min-width: 200px;
-  height: 76px;
-  padding: 0 20px;
-  background: var(--cor-logo);
-  color: var(--cor-texto);
-  font-size: 1rem;
-  text-align: center;
-}
-
-/* banner: texto à esquerda, imagem à direita */
-.banner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: clamp(260px, 36vw, 488px);
+  gap: 40px;
+  padding: 36px var(--espaco);
   background: var(--cor-primaria);
   color: var(--cor-sobre-primaria);
+  font-family: var(--fonte-titulo);
 }
 
-.bannertexto {
+/* selo branco que dá contraste à logo */
+.bannerlogo {
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--espaco) var(--recuo-largo);
+  width: 136px;
+  height: 136px;
+  border-radius: 50%;
+  background: var(--cor-fundo);
 }
+
+.bannerlogo img {
+  display: flex;
+  width: 125%;
+  height: auto;
+  align-items: center;
+}
+
+.bannerlogo:focus-visible { outline-color: var(--cor-sobre-primaria); }
 
 .bannertitulo {
   margin: 0;
-  font-size: clamp(2rem, 5.5vw, 4.5rem);
-  font-weight: 700;
+  max-width: 26ch;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: var(--fonte-peso-titulo);
   line-height: 1.2;
-  text-align: center;
 }
 
-.bannerimagem { border-left: 4px solid var(--cor-destaque); }
-
-/* menu abaixo do banner: 4 colunas iguais */
 .menu {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   max-width: var(--largura-max);
   margin: 0 auto;
   padding: 28px var(--espaco) 0;
+  font-family: var(--fonte-corpo);
+  font-weight: var(--fonte-peso-corpo);
 }
 
 .menulink {
@@ -127,6 +112,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 1.5rem;
   border-bottom: 4px solid transparent;
   transition: border-color 0.2s;
+  font-family: var(--fonte-titulo);
 }
 
 .menulink:hover { border-bottom-color: var(--cor-superficie); }
@@ -138,10 +124,6 @@ a { color: inherit; text-decoration: none; }
   background: var(--cor-rodape);
 }
 
-
-/* ==========================================================
-   CONTEÚDO E TÍTULOS
-   ========================================================== */
 
 .conteudo {
   max-width: var(--largura-max);
@@ -156,6 +138,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 1.5rem;
   font-weight: 400;
   text-align: center;
+  font-family: var(--fonte-titulo);
 }
 
 /* título azul grande das telas Metodologia e Sobre */
@@ -189,15 +172,12 @@ a { color: inherit; text-decoration: none; }
 .botao:hover { background: var(--cor-destaque); }
 
 
-/* ==========================================================
-   TELA 1 — Visão geral
-   ========================================================== */
-
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 0 var(--recuo);
+  font-family: var(--fonte-corpo);
 }
 
 .card {
@@ -212,11 +192,11 @@ a { color: inherit; text-decoration: none; }
 
 .cardrotulo,
 .carddetalhe { margin: 0; color: var(--cor-texto-suave); font-size: 1rem; }
-.cardvalor   { margin: 4px 0; font-size: 2.5rem; line-height: 1.1; color: var(--cor-destaque); }
+.cardvalor   { margin: 4px 0; font-size: 2.5rem; line-height: 1.1; color: var(--cor-destaque); font-family: var(--fonte-titulo); }
 
 .graficos {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 32px;
   padding: 0 var(--recuo);
 }
@@ -234,15 +214,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 .graficoarea {
-  min-height: 300px;   /* altura reservada para o gráfico */
+  min-height: 300px;  
 }
 
 
-/* ==========================================================
-   TELA 2 — Composição
-   ========================================================== */
-
-/* os dois gráficos do topo ficam mais altos */
 .grafico-alto { border-radius: var(--raio-md); }
 .grafico-alto .graficoarea { min-height: 340px; }
 
@@ -258,7 +233,6 @@ a { color: inherit; text-decoration: none; }
 
 .analisesresumo::-webkit-details-marker { display: none; }
 
-/* linha clara ao lado do botão quando fechado */
 .analisesresumo::after {
   content: "";
   flex: 1;
@@ -266,7 +240,6 @@ a { color: inherit; text-decoration: none; }
   background: var(--cor-superficie);
 }
 
-/* aberto: moldura clara com o botão em cima da borda */
 .analises[open] {
   position: relative;
   padding: 56px 32px 32px;
@@ -367,12 +340,14 @@ a { color: inherit; text-decoration: none; }
   background: var(--cor-destaque);
   color: var(--cor-amarelo);
   border-radius: var(--raio-sm);
+  font-family: var(--fonte-corpo);
 }
 
 .formulariotitulo {
   margin: 0;
   font-size: 2rem;
   font-weight: 400;
+  font-family: var(--fonte-titulo);
 }
 
 .campo {
@@ -424,10 +399,6 @@ button.botao {
 }
 
 
-/* ==========================================================
-   RESPONSIVIDADE
-   ========================================================== */
-
 @media (max-width: 900px) {
   .cards          { grid-template-columns: 1fr; }
   .graficos       { grid-template-columns: 1fr; }
@@ -435,8 +406,8 @@ button.botao {
 }
 
 @media (max-width: 640px) {
-  .banner         { grid-template-columns: 1fr; }
-  .bannerimagem   { min-height: 160px; border-left: 0; border-top: 4px solid var(--cor-destaque); }
+  .banner         { flex-direction: column; gap: 20px; padding: 28px var(--espaco); text-align: center; }
+  .bannerlogo     { width: 112px; height: 112px; }
   .menu           { grid-template-columns: repeat(2, 1fr); row-gap: 12px; }
   .menulink       { font-size: 1.25rem; }
   .colunas,

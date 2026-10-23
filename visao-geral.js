@@ -1,3 +1,5 @@
+Chart.defaults.font.family = '"Archivo", system-ui, sans-serif';
+
 /* ---------- formatação ---------- */
 function formatarPercentual(valor, comSinal = false) {
   const sinal = comSinal && valor > 0 ? '+' : '';

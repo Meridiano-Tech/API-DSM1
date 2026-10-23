@@ -1,3 +1,5 @@
+Chart.defaults.font.family = '"Archivo", system-ui, sans-serif';
+
 /* ---------- formatação ---------- */
 function formatarMes(anoMes) {
   const nomes = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun',
