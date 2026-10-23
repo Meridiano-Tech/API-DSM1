@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,38 +11,40 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="composicao.js" defer></script>
+  <script src="simulador.js" defer></script>
 </head>
-<body>
-<header class="banner">
-  <div class="bannerconteudo">
-    <img class="bannerlogo" src="css/imagens/logo.png" alt="Logo Credit42">
-    <div class="bannertexto">
-      <p class="bannermarca">Credit42 · Análise de Indicadore </p>
-      <h1 class="bannertitulo">Composição e<br>análise de indicadores</h1>
-    </div>
-  </div>
 
-  <div class="bannerdeco" aria-hidden="true">
-    <svg class="bannergrafico" viewBox="0 0 520 140" preserveAspectRatio="xMidYMax meet">
-      <defs>
-        <pattern id="pontos" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" class="decoponto"/>
-        </pattern>
-      </defs>
-      <rect class="decobarra" x="20"  y="100" width="14" height="30"/>
-      <rect class="decobarra" x="40"  y="88"  width="14" height="42"/>
-      <rect class="decobarra" x="60"  y="74"  width="14" height="56"/>
-      <rect class="decobarra" x="80"  y="58"  width="14" height="72"/>
-      <path class="decolinha" d="M0 128 L90 126 L130 112 L190 52 L240 100 L330 18"/>
-      <circle class="decoponto" cx="130" cy="112" r="6"/>
-      <circle class="decoponto" cx="190" cy="52"  r="6"/>
-      <circle class="decoponto" cx="240" cy="100" r="6"/>
-      <circle class="decoponto" cx="330" cy="18"  r="6"/>
-      <rect x="380" y="20" width="130" height="110" fill="url(#pontos)"/>
-    </svg>
-    <p class="bannerlema">Mais dados<br>melhores<br>decisões</p>
-  </div>
-</header>
+<body>
+  <header class="banner">
+    <div class="bannerconteudo">
+      <img class="bannerlogo" src="css/imagens/logo.png" alt="Logo Credit42">
+      <div class="bannertexto">
+        <p class="bannermarca">Credit42 · Análise de Indicadore </p>
+        <h1 class="bannertitulo">Composição e<br>análise de indicadores</h1>
+      </div>
+    </div>
+
+    <div class="bannerdeco" aria-hidden="true">
+      <svg class="bannergrafico" viewBox="0 0 520 140" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <pattern id="pontos" width="16" height="16" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" class="decoponto" />
+          </pattern>
+        </defs>
+        <rect class="decobarra" x="20" y="100" width="14" height="30" />
+        <rect class="decobarra" x="40" y="88" width="14" height="42" />
+        <rect class="decobarra" x="60" y="74" width="14" height="56" />
+        <rect class="decobarra" x="80" y="58" width="14" height="72" />
+        <path class="decolinha" d="M0 128 L90 126 L130 112 L190 52 L240 100 L330 18" />
+        <circle class="decoponto" cx="130" cy="112" r="6" />
+        <circle class="decoponto" cx="190" cy="52" r="6" />
+        <circle class="decoponto" cx="240" cy="100" r="6" />
+        <circle class="decoponto" cx="330" cy="18" r="6" />
+        <rect x="380" y="20" width="130" height="110" fill="url(#pontos)" />
+      </svg>
+      <p class="bannerlema">Mais dados<br>melhores<br>decisões</p>
+    </div>
+  </header>
   <nav class="menu" aria-label="Navegação principal">
     <a href="index.html" class="menulink">Visão geral</a>
     <a href="composicao.html" class="menulink menulink-ativo" aria-current="page">Composição</a>
@@ -65,9 +68,129 @@
         </div>
       </div>
     </section>
+
+    <section class="secao" id="secao-simulador" aria-labelledby="titulo-simulador">
+      <h2 class="secaotitulo" id="titulo-simulador">Simulador Territorial de Score de Crédito</h2>
+      <p class="textointro">Selecione um município monitorado ou informe os dados territoriais para calcular o score e a
+        recomendação de IA em tempo real.</p>
+
+      <div class="simulador-grid">
+        <form class="simulador-form" id="form-score">
+          <div class="campo">
+            <label for="select-municipio">Cidades monitoradas</label>
+            <select id="select-municipio" class="input-select">
+              <option value="">-- Escolha um município ou preencha abaixo --</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="campo-localidade">Nome do município</label>
+            <input type="text" id="campo-localidade" name="localidade" required placeholder="Ex: Marabá - PA">
+          </div>
+
+          <div class="campos-linha">
+            <div class="campo">
+              <label for="campo-regiao">Região</label>
+              <select id="campo-regiao" name="regiao" class="input-select" required>
+                <option value="Norte">Norte</option>
+                <option value="Nordeste" selected>Nordeste</option>
+                <option value="Sudeste">Sudeste</option>
+                <option value="Sul">Sul</option>
+                <option value="Centro-Oeste">Centro-Oeste</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="campo-populacao">População Estimada</label>
+              <input type="number" id="campo-populacao" name="populacao" min="1000" step="1000" value="200000" required>
+            </div>
+          </div>
+
+          <div class="campos-linha">
+            <div class="campo">
+              <label for="campo-renda">Renda per capita (R$)</label>
+              <input type="number" id="campo-renda" name="renda_per_capita" min="200" step="50" value="1000" required>
+            </div>
+
+            <div class="campo">
+              <label for="campo-inadimplencia">Inadimplência Local (%)</label>
+              <input type="number" id="campo-inadimplencia" name="inadimplencia_local" min="0" max="30" step="0.1"
+                value="5.6" placeholder="Padrão BCB: 5.6">
+            </div>
+          </div>
+
+          <button type="submit" class="botao botao-calcular" id="btn-calcular">
+            <span class="btn-texto">Calcular Score Territorial</span>
+            <span class="btn-loading" style="display:none;">Calculando...</span>
+          </button>
+        </form>
+
+        <div class="simulador-resultado" id="painel-resultado" aria-live="polite">
+          <div class="resultado-placeholder" id="resultado-vazio">
+            <p>Selecione um município ou clique em <strong>Calcular Score Territorial</strong> para gerar a análise de
+              oportunidade.</p>
+          </div>
+
+          <div class="resultado-conteudo" id="resultado-ativo" style="display:none;">
+            <div class="score-cabecalho">
+              <div>
+                <span class="score-cidade" id="res-cidade">--</span>
+                <span class="score-regiao-badge" id="res-regiao">--</span>
+              </div>
+              <div class="score-badge-classe" id="res-classe">Classe --</div>
+            </div>
+
+            <div class="score-display">
+              <div class="score-valor" id="res-score">--</div>
+              <div class="score-detalhe">
+                <span class="score-faixa" id="res-faixa">--</span>
+                <span class="score-escala">Escala de 0 a 1000</span>
+              </div>
+            </div>
+
+            <div class="pilares-container">
+              <div class="pilar-item">
+                <div class="pilar-topo">
+                  <span>Pilar Microeconômico</span>
+                  <strong id="res-pilar-micro">--</strong>
+                </div>
+                <div class="barra-fundo">
+                  <div class="barra-preenchimento" id="barra-micro" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="pilar-item">
+                <div class="pilar-topo">
+                  <span>Pilar Macroeconômico</span>
+                  <strong id="res-pilar-macro">--</strong>
+                </div>
+                <div class="barra-fundo">
+                  <div class="barra-preenchimento" id="barra-macro" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-ia-resultado">
+              <div class="ia-titulo">
+                <span class="ia-tag">Inteligência Artificial</span>
+                <strong id="res-cluster-nome">--</strong>
+              </div>
+              <p class="ia-desc" id="res-ia-recomendacao">--</p>
+            </div>
+
+            <div class="alerta-bets" id="box-bets">
+              <span class="bets-rotulo">Comprometimento com Apostas (Bets):</span>
+              <strong id="res-bets">--</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <details class="analises" id="analises">
       <summary class="analisesresumo"><span class="botao">Explorar análises</span></summary>
-      <h2 class="soleitor">Explore a distribuição dos indicadores de crédito, compare o desempenho regional e analise as métricas utilizadas na avaliação de oportunidades.</h2>
+      <h2 class="soleitor">Explore a distribuição dos indicadores de crédito, compare o desempenho regional e analise as
+        métricas utilizadas na avaliação de oportunidades.</h2>
       <div class="graficos graficos-analises">
         <figure class="grafico grafico-solto" id="grafico-colab-1">
           <figcaption class="graficotitulo">Evolução da carteira de crédito por região</figcaption>
@@ -90,4 +213,5 @@
   </main>
   <footer class="rodape"></footer>
 </body>
+
 </html>
