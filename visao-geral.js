@@ -17,15 +17,32 @@ async function carregarDados() {
 }
 
 function formatarMoeda(valor) {
-  return Number(valor).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
+  const num = Number(valor);
+  if (!Number.isFinite(num)) return "--";
+  if (num >= 1_000_000_000) {
+    return 'R$ ' + (num / 1_000_000_000).toLocaleString('pt-BR', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    }) + ' bi';
+  }
+  if (num >= 1_000_000) {
+    return 'R$ ' + (num / 1_000_000).toLocaleString('pt-BR', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    }) + ' mi';
+  }
+  return num.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
     maximumFractionDigits: 2
   });
 }
 
-function formatarPercentual(valor) {
-  return `${Number(valor).toLocaleString("pt-BR", {
+function formatarPercentual(valor, comSinal = false) {
+  const num = Number(valor);
+  if (!Number.isFinite(num)) return "--";
+  const sinal = comSinal && num > 0 ? "+" : "";
+  return `${sinal}${num.toLocaleString("pt-BR", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 2
   })}%`;
@@ -190,12 +207,19 @@ async function iniciar() {
   // Indicadores em destaque
   const cards = dados.cards || {};
 
+  const textoCrescimento =
+    cards.yoy_norte === cards.yoy_nordeste
+      ? "Crescimento anual da carteira (Norte e Nordeste empatadas)."
+      : cards.yoy_norte > cards.yoy_nordeste
+      ? "Maior crescimento anual: Região Norte."
+      : "Maior crescimento anual: Região Nordeste.";
+
   preencherCard(
     "card-1",
     cards.yoy_norte !== undefined
-      ? formatarPercentual(cards.yoy_norte)
+      ? formatarPercentual(Math.max(cards.yoy_norte || 0, cards.yoy_nordeste || 0), true)
       : "--",
-    "Crescimento anual da carteira de crédito na região Norte."
+    textoCrescimento
   );
 
   preencherCard(
@@ -203,7 +227,7 @@ async function iniciar() {
     cards.vol_pix_geral !== undefined
       ? formatarMoeda(cards.vol_pix_geral)
       : "--",
-    "Volume total de transações Pix considerado nos dados."
+    "Volume acumulado nas regiões monitoradas."
   );
 
   preencherCard(
@@ -211,7 +235,7 @@ async function iniciar() {
     cards.inadimplencia_media !== undefined
       ? formatarPercentual(cards.inadimplencia_media)
       : "--",
-    "Taxa média de inadimplência informada no conjunto de dados."
+    "Taxa média da carteira de referência (BCB)."
   );
 
   // Gráficos principais
