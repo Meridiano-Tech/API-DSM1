@@ -1,239 +1,234 @@
-Chart.defaults.font.family = '"Archivo", system-ui, sans-serif';
 
-/* ---------- formatação ---------- */
-function formatarPercentual(valor, comSinal = false) {
-  const sinal = comSinal && valor > 0 ? '+' : '';
-  return sinal + valor.toLocaleString('pt-BR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }) + '%';
+"use strict";
+
+async function carregarDados() {
+  try {
+    const resposta = await fetch("./dados_site.json");
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    return await resposta.json();
+  } catch (erro) {
+    console.error("Não foi possível carregar dados_site.json:", erro);
+    return null;
+  }
 }
 
-function formatarVolume(valor) {
-  return valor.toLocaleString('pt-BR', {
-    notation: 'compact',
-    maximumFractionDigits: 1
+function formatarMoeda(valor) {
+  return Number(valor).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 2
   });
 }
 
-function formatarMes(anoMes) {
-  const nomes = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun',
-                 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-  const [ano, mes] = anoMes.split('-');
-  return nomes[Number(mes) - 1] + '/' + ano.slice(2);
+function formatarPercentual(valor) {
+  return `${Number(valor).toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 2
+  })}%`;
 }
 
-function preencher(seletor, texto) {
-  const el = document.querySelector(seletor);
-  if (el) el.textContent = texto;
+function preencherCard(id, valor, detalhe) {
+  const card = document.getElementById(id);
+
+  if (!card || valor === undefined || valor === null) return;
+
+  const valorElemento = card.querySelector(".cardvalor");
+  const detalheElemento = card.querySelector(".carddetalhe");
+
+  if (valorElemento) valorElemento.textContent = valor;
+  if (detalheElemento && detalhe) detalheElemento.textContent = detalhe;
 }
 
-/* ---------- cards ---------- */
-function preencherCards(cards) {
-  // Card 1: região com maior crescimento da carteira de crédito
-  const norte = cards.yoy_norte;
-  const nordeste = cards.yoy_nordeste;
+function criarCanvas(area) {
+  if (!area) return null;
 
-  if (norte === nordeste) {
-    preencher('#card-1 .cardvalor', formatarPercentual(norte, true));
-    preencher('#card-1 .carddetalhe', 'Norte e Nordeste (mesmo crescimento)');
-  } else if (norte > nordeste) {
-    preencher('#card-1 .cardvalor', formatarPercentual(norte, true));
-    preencher('#card-1 .carddetalhe', 'Maior crescimento: Região Norte');
-  } else {
-    preencher('#card-1 .cardvalor', formatarPercentual(nordeste, true));
-    preencher('#card-1 .carddetalhe', 'Maior crescimento: Região Nordeste');
-  }
+  area.replaceChildren();
 
-  // Card 2: volume total de Pix
-  preencher('#card-2 .cardvalor', formatarVolume(cards.vol_pix_geral));
-
-  // Card 3: inadimplência média da carteira
-  preencher('#card-3 .cardvalor', formatarPercentual(cards.inadimplencia_media));
-}
-
-/* ---------- gráficos ---------- */
-const COR_PRIMARIA = '#0A5C7A';
-const COR_AZUL_CLARO = '#2A9DC4';
-const COR_LARANJA = '#E8833A';
-const COR_TEXTO = '#12303D';
-const COR_TEXTO_SUAVE = '#4F6B78';
-const COR_GRADE = '#D3E5EC';
-
-function prepararArea(area, descricao) {
-  area.innerHTML = '';
-  area.style.position = 'relative';
-  area.style.height = '460px';
-  const canvas = document.createElement('canvas');
-  canvas.setAttribute('role', 'img');
-  canvas.setAttribute('aria-label', descricao);
+  const canvas = document.createElement("canvas");
   area.appendChild(canvas);
+
   return canvas;
 }
 
-function desenharLinha(area, serie) {
-  const canvas = prepararArea(
-    area,
-    'Gráfico de linhas com a evolução mensal da carteira de crédito das regiões Norte e Nordeste.'
-  );
+function mostrarMensagem(area, mensagem) {
+  if (!area) return;
+
+  area.replaceChildren();
+
+  const texto = document.createElement("p");
+  texto.textContent = mensagem;
+  area.appendChild(texto);
+}
+
+function desenharLinha(area, linhas) {
+  if (!Array.isArray(linhas) || linhas.length === 0) {
+    mostrarMensagem(area, "Não há dados disponíveis para este gráfico.");
+    return;
+  }
+
+  const canvas = criarCanvas(area);
 
   new Chart(canvas, {
-    type: 'line',
+    type: "line",
     data: {
-      labels: serie.map(d => formatarMes(d.mes)),
+      labels: linhas.map(item => item.mes),
       datasets: [
         {
-          label: 'Região Norte',
-          data: serie.map(d => d.Norte),
-          borderColor: COR_PRIMARIA,
-          backgroundColor: COR_PRIMARIA,
-          pointStyle: 'circle',
-          pointRadius: 4,
-          borderWidth: 2.5,
-          tension: 0.25
+          label: "Norte",
+          data: linhas.map(item => Number(item.Norte)),
+          borderColor: "#0a5c7a",
+          backgroundColor: "#0a5c7a",
+          borderWidth: 2,
+          pointRadius: 2,
+          tension: 0.3
         },
         {
-          label: 'Região Nordeste',
-          data: serie.map(d => d.Nordeste),
-          borderColor: COR_AZUL_CLARO,
-          backgroundColor: COR_AZUL_CLARO,
-          pointStyle: 'rect',
-          pointRadius: 4,
-          borderWidth: 2.5,
-          tension: 0.25
+          label: "Nordeste",
+          data: linhas.map(item => Number(item.Nordeste)),
+          borderColor: "#cc5200",
+          backgroundColor: "#cc5200",
+          borderWidth: 2,
+          pointRadius: 2,
+          tension: 0.3
         }
       ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: { usePointStyle: true, color: COR_TEXTO }
-        },
-        tooltip: {
-          callbacks: {
-            label: ctx =>
-              ctx.dataset.label + ': R$ ' +
-              ctx.parsed.y.toLocaleString('pt-BR', { maximumFractionDigits: 0 }) + ' mi'
-          }
-        }
+      interaction: {
+        intersect: false,
+        mode: "index"
       },
       scales: {
         x: {
-          ticks: { color: COR_TEXTO_SUAVE, maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
-          grid: { display: false },
-          title: { display: true, text: 'Mês', color: COR_TEXTO_SUAVE }
+          ticks: {
+            maxTicksLimit: 10
+          }
         },
         y: {
-          ticks: {
-            color: COR_TEXTO_SUAVE,
-            callback: v => 'R$ ' + (v / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 0 }) + ' bi'
-          },
-          grid: { color: COR_GRADE },
-          title: { display: true, text: 'Carteira de crédito (R$ bi)', color: COR_TEXTO_SUAVE }
+          beginAtZero: false
         }
       }
     }
   });
 }
 
-// desenha a linha tracejada da média no gráfico de barras
-const linhaMedia = {
-  id: 'linhaMedia',
-  afterDatasetsDraw(chart, args, opcoes) {
-    const { ctx, chartArea: { top, bottom }, scales: { x } } = chart;
-    const px = x.getPixelForValue(opcoes.valor);
-    ctx.save();
-    ctx.setLineDash([6, 4]);
-    ctx.strokeStyle = COR_TEXTO;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(px, top);
-    ctx.lineTo(px, bottom);
-    ctx.stroke();
-    ctx.restore();
+function desenharRanking(area, linhas) {
+  if (!Array.isArray(linhas) || linhas.length === 0) {
+    mostrarMensagem(area, "Não há dados disponíveis para este gráfico.");
+    return;
   }
-};
 
-function desenharBarras(area, ranking) {
-  const ordenado = [...ranking].sort((a, b) => b.Score_Final - a.Score_Final);
-  const media = ordenado.reduce((soma, d) => soma + d.Score_Final, 0) / ordenado.length;
-  const mediaTexto = media.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
-
-  const canvas = prepararArea(
-    area,
-    'Gráfico de barras com o score de cada município, em ordem decrescente, e a média indicada por uma linha tracejada.'
+  const ranking = [...linhas].sort(
+    (a, b) => Number(b.score_final) - Number(a.score_final)
   );
 
+  const canvas = criarCanvas(area);
+
   new Chart(canvas, {
-    type: 'bar',
+    type: "bar",
     data: {
-      labels: ordenado.map(d => d.localidade),
-      datasets: [{
-        label: 'Score final',
-        data: ordenado.map(d => d.Score_Final),
-        backgroundColor: ordenado.map(d => d.Score_Final >= media ? COR_PRIMARIA : COR_LARANJA)
-      }]
+      labels: ranking.map(item => item.localidade),
+      datasets: [
+        {
+          label: "Score final",
+          data: ranking.map(item => Number(item.score_final)),
+          backgroundColor: ranking.map(item =>
+            item.regiao === "Norte" ? "#0a5c7a" :
+            item.regiao === "Nordeste" ? "#cc5200" : "#64748b"
+          ),
+          borderRadius: 4
+        }
+      ]
     },
     options: {
-      indexAxis: 'y',
+      indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
-        subtitle: {
-          display: true,
-          text: 'Azul: acima da média · Laranja: abaixo · Linha tracejada: média (' + mediaTexto + ')',
-          color: COR_TEXTO_SUAVE,
-          padding: { bottom: 12 }
+        legend: {
+          display: false
         },
         tooltip: {
           callbacks: {
-            label: ctx => 'Score: ' + ctx.parsed.x.toLocaleString('pt-BR', {
-              minimumFractionDigits: 1, maximumFractionDigits: 1
-            })
+            label: contexto =>
+              `Score: ${Number(contexto.raw).toLocaleString("pt-BR", {
+                maximumFractionDigits: 2
+              })}`
           }
-        },
-        linhaMedia: { valor: media }
+        }
       },
       scales: {
         x: {
-          ticks: { color: COR_TEXTO_SUAVE },
-          grid: { color: COR_GRADE },
-          title: { display: true, text: 'Pontos de score', color: COR_TEXTO_SUAVE }
+          beginAtZero: true
         },
         y: {
-          ticks: { color: COR_TEXTO, font: { size: 11 } },
-          grid: { display: false }
+          ticks: {
+            autoSkip: false
+          }
         }
       }
-    },
-    plugins: [linhaMedia]
+    }
   });
 }
 
-/* ---------- início ---------- */
 async function iniciar() {
-  try {
-    const resposta = await fetch('dados_site.json');
-    if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
-    const dados = await resposta.json();
+  const dados = await carregarDados();
 
-    preencherCards(dados.cards);
-
-    if (typeof Chart === 'undefined') {
-      throw new Error('Chart.js não carregou. Confira a linha do CDN no index.html.');
-    }
-
-    const areas = document.querySelectorAll('.graficos .graficoarea');
-    if (areas[0]) desenharLinha(areas[0], dados.serie_temporal_credito);
-    if (areas[1]) desenharBarras(areas[1], dados.ranking_municipal);
-  } catch (erro) {
-    console.error('Erro ao carregar a página:', erro);
+  if (!dados) {
+    document.querySelectorAll(".graficoarea").forEach(area => {
+      mostrarMensagem(area, "Não foi possível carregar os dados.");
+    });
+    return;
   }
+
+  // Indicadores em destaque
+  const cards = dados.cards || {};
+
+  preencherCard(
+    "card-1",
+    cards.yoy_norte !== undefined
+      ? formatarPercentual(cards.yoy_norte)
+      : "--",
+    "Crescimento anual da carteira de crédito na região Norte."
+  );
+
+  preencherCard(
+    "card-2",
+    cards.vol_pix_geral !== undefined
+      ? formatarMoeda(cards.vol_pix_geral)
+      : "--",
+    "Volume total de transações Pix considerado nos dados."
+  );
+
+  preencherCard(
+    "card-3",
+    cards.inadimplencia_media !== undefined
+      ? formatarPercentual(cards.inadimplencia_media)
+      : "--",
+    "Taxa média de inadimplência informada no conjunto de dados."
+  );
+
+  // Gráficos principais
+  const principais = dados.principais || {};
+
+  const areaLinha = document.querySelector("#grafico-1 .graficoarea");
+  const areaRanking = document.querySelector("#grafico-2 .graficoarea");
+
+  desenharLinha(
+    areaLinha,
+    principais.grafico_p1_serie_temporal_credito
+  );
+
+  desenharRanking(
+    areaRanking,
+    principais.grafico_p2_ranking_score_municipal
+  );
 }
 
-iniciar();
+document.addEventListener("DOMContentLoaded", iniciar);

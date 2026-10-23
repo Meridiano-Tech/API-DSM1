@@ -1,0 +1,23 @@
+{
+  "titulo": "Perfil por componente",
+  "subtitulo": "Comparação com a média nacional",
+  "eixos": [
+    "Acesso a crédito",
+    "Educação financeira",
+    "Inclusão digital",
+    "Renda e emprego",
+    "Atendimento e canais"
+  ],
+  "series": [
+    {
+      "nome": "Média nacional",
+      "valores": [
+        16.9,
+        37.1,
+        16.6,
+        70.3,
+        25.6
+      ]
+    }
+  ]
+}

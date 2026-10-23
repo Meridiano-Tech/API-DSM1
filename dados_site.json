@@ -2,472 +2,1062 @@
     "cards": {
         "yoy_norte": 6.24,
         "yoy_nordeste": 6.24,
-        "inadimplencia_media": 5.5,
-        "vol_pix_geral": 0.0
+        "vol_pix_geral": 26067199872.1875,
+        "inadimplencia_media": 5.5
     },
-    "serie_temporal_credito": [
-        {
-            "mes": "2024-01",
-            "Norte": 111718.1,
-            "Nordeste": 312810.68000000005
-        },
-        {
-            "mes": "2024-02",
-            "Norte": 111765.1,
-            "Nordeste": 312942.28
-        },
-        {
-            "mes": "2024-03",
-            "Norte": 114288.75,
-            "Nordeste": 320008.50000000006
-        },
-        {
-            "mes": "2024-04",
-            "Norte": 113443.95000000001,
-            "Nordeste": 317643.06000000006
-        },
-        {
-            "mes": "2024-05",
-            "Norte": 113915.45000000001,
-            "Nordeste": 318963.26
-        },
-        {
-            "mes": "2024-06",
-            "Norte": 116842.90000000001,
-            "Nordeste": 327160.12000000005
-        },
-        {
-            "mes": "2024-07",
-            "Norte": 116168.1,
-            "Nordeste": 325270.68000000005
-        },
-        {
-            "mes": "2024-08",
-            "Norte": 117219.85,
-            "Nordeste": 328215.58
-        },
-        {
-            "mes": "2024-09",
-            "Norte": 119241.40000000001,
-            "Nordeste": 333875.92000000004
-        },
-        {
-            "mes": "2024-10",
-            "Norte": 119876.65000000001,
-            "Nordeste": 335654.62000000005
-        },
-        {
-            "mes": "2024-11",
-            "Norte": 121801.1,
-            "Nordeste": 341043.08
-        },
-        {
-            "mes": "2024-12",
-            "Norte": 124958.85,
-            "Nordeste": 349884.78
-        },
-        {
-            "mes": "2025-01",
-            "Norte": 122597.85,
-            "Nordeste": 343273.98000000004
-        },
-        {
-            "mes": "2025-02",
-            "Norte": 123857.55,
-            "Nordeste": 346801.14
-        },
-        {
-            "mes": "2025-03",
-            "Norte": 124913.1,
-            "Nordeste": 349756.68000000005
-        },
-        {
-            "mes": "2025-04",
-            "Norte": 125621.3,
-            "Nordeste": 351739.64
-        },
-        {
-            "mes": "2025-05",
-            "Norte": 126635.40000000001,
-            "Nordeste": 354579.12000000005
-        },
-        {
-            "mes": "2025-06",
-            "Norte": 127384.65000000001,
-            "Nordeste": 356677.02
-        },
-        {
-            "mes": "2025-07",
-            "Norte": 127220.0,
-            "Nordeste": 356216.00000000006
-        },
-        {
-            "mes": "2025-08",
-            "Norte": 127313.25,
-            "Nordeste": 356477.10000000003
-        },
-        {
-            "mes": "2025-09",
-            "Norte": 129490.85,
-            "Nordeste": 362574.38000000006
-        },
-        {
-            "mes": "2025-10",
-            "Norte": 129881.5,
-            "Nordeste": 363668.2
-        },
-        {
-            "mes": "2025-11",
-            "Norte": 130845.1,
-            "Nordeste": 366366.28
-        },
-        {
-            "mes": "2025-12",
-            "Norte": 135086.75,
-            "Nordeste": 378242.9
-        },
-        {
-            "mes": "2026-01",
-            "Norte": 132711.0,
-            "Nordeste": 371590.80000000005
-        },
-        {
-            "mes": "2026-02",
-            "Norte": 132824.2,
-            "Nordeste": 371907.76
-        },
-        {
-            "mes": "2026-03",
-            "Norte": 134376.75,
-            "Nordeste": 376254.9
-        },
-        {
-            "mes": "2026-04",
-            "Norte": 134269.85,
-            "Nordeste": 375955.58
-        },
-        {
-            "mes": "2026-05",
-            "Norte": 135407.7,
-            "Nordeste": 379141.56000000006
-        },
-        {
-            "mes": "2026-06",
-            "Norte": 137531.7,
-            "Nordeste": 385088.76
-        },
-        {
-            "mes": "2026-07",
-            "Norte": 136458.1,
-            "Nordeste": 382082.68000000005
-        },
-        {
-            "mes": "2026-08",
-            "Norte": 136374.95,
-            "Nordeste": 381849.86000000004
-        }
-    ],
-    "ranking_municipal": [
-        {
-            "localidade": "Araguaína - TO",
-            "Score_Final": 310.99929539691055,
-            "regiao": "Norte",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Arapiraca - AL",
-            "Score_Final": 316.02951080867484,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Campina Grande - PB",
-            "Score_Final": 331.18208118170185,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Caruaru - PE",
-            "Score_Final": 326.9044072605857,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Castanhal - PA",
-            "Score_Final": 313.5344382694694,
-            "regiao": "Norte",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Caucaia - CE",
-            "Score_Final": 325.11830190655445,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Caxias - MA",
-            "Score_Final": 308.8624087903996,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Ilhéus - BA",
-            "Score_Final": 310.5866233325187,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Imperatriz - MA",
-            "Score_Final": 319.5775539481577,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Ji-Paraná - RO",
-            "Score_Final": 231.27251635345684,
-            "regiao": "Norte",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Juazeiro - BA",
-            "Score_Final": 316.11837966680525,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Marabá - PA",
-            "Score_Final": 319.4053038838865,
-            "regiao": "Norte",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Mossoró - RN",
-            "Score_Final": 317.9004843352768,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Parnaíba - PI",
-            "Score_Final": 308.77390334242125,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Petrolina - PE",
-            "Score_Final": 328.09742565961324,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Picos - PI",
-            "Score_Final": 229.5,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Santarém - PA",
-            "Score_Final": 323.2453113742617,
-            "regiao": "Norte",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Sobral - CE",
-            "Score_Final": 314.1263683423736,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Uberlândia - MG",
-            "Score_Final": 440.25000000000006,
-            "regiao": "Sudeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        },
-        {
-            "localidade": "Vitória da Conquista - BA",
-            "Score_Final": 325.8343770134351,
-            "regiao": "Nordeste",
-            "M1": 50.0,
-            "comp_bets_%": 7.5
-        }
-    ],
-    "card_total_municipios": 20,
-    "card_vol_pix_acumulado": 0.0,
-    "card_media_inadimplencia": 3.155416666666666,
-    "grafico_1_carteira_credito": [
-        {
-            "mes": "2024-01",
-            "Sudeste": 3500.2,
-            "Sul": 1210.5,
-            "Nordeste": 940.1,
-            "Centro-Oeste": 739.0,
-            "Norte": 335.5
-        },
-        {
-            "mes": "2024-06",
-            "Sudeste": 3680.0,
-            "Sul": 1275.2,
-            "Nordeste": 990.4,
-            "Centro-Oeste": 778.6,
-            "Norte": 353.0
-        },
-        {
-            "mes": "2024-12",
-            "Sudeste": 3850.4,
-            "Sul": 1334.1,
-            "Nordeste": 1036.2,
-            "Centro-Oeste": 814.6,
-            "Norte": 369.3
-        },
-        {
-            "mes": "2025-06",
-            "Sudeste": 4050.1,
-            "Sul": 1403.4,
-            "Nordeste": 1089.9,
-            "Centro-Oeste": 856.8,
-            "Norte": 388.5
-        },
-        {
-            "mes": "2025-12",
-            "Sudeste": 4220.0,
-            "Sul": 1462.3,
-            "Nordeste": 1135.6,
-            "Centro-Oeste": 892.8,
-            "Norte": 404.8
-        },
-        {
-            "mes": "2026-10",
-            "Sudeste": 4480.5,
-            "Sul": 1552.5,
-            "Nordeste": 1205.7,
-            "Centro-Oeste": 947.8,
-            "Norte": 429.8
-        }
-    ],
-    "grafico_2_volume_pix": [
-        {
-            "mes": "2024-01",
-            "Sudeste": 1800,
-            "Nordeste": 450,
-            "Sul": 400,
-            "Centro-Oeste": 300,
-            "Norte": 150
-        },
-        {
-            "mes": "2024-07",
-            "Sudeste": 2450,
-            "Nordeste": 610,
-            "Sul": 540,
-            "Centro-Oeste": 410,
-            "Norte": 205
-        },
-        {
-            "mes": "2024-12",
-            "Sudeste": 3100,
-            "Nordeste": 770,
-            "Sul": 680,
-            "Centro-Oeste": 520,
-            "Norte": 260
-        },
-        {
-            "mes": "2025-07",
-            "Sudeste": 3500,
-            "Nordeste": 860,
-            "Sul": 765,
-            "Centro-Oeste": 585,
-            "Norte": 290
-        },
-        {
-            "mes": "2025-12",
-            "Sudeste": 3800,
-            "Nordeste": 920,
-            "Sul": 820,
-            "Centro-Oeste": 625,
-            "Norte": 310
-        },
-        {
-            "mes": "2026-10",
-            "Sudeste": 3900,
-            "Nordeste": 950,
-            "Sul": 850,
-            "Centro-Oeste": 650,
-            "Norte": 320
-        }
-    ],
-    "grafico_3_inadimplencia_municipal": [
-        {
-            "municipio": "Ji-Paraná - RO",
-            "taxa_inadimplencia": 4.8
-        },
-        {
-            "municipio": "Santarém - PA",
-            "taxa_inadimplencia": 5.1
-        },
-        {
-            "municipio": "Marabá - PA",
-            "taxa_inadimplencia": 5.3
-        },
-        {
-            "municipio": "Uberlândia - MG",
-            "taxa_inadimplencia": 5.5
-        },
-        {
-            "municipio": "Campina Grande - PB",
-            "taxa_inadimplencia": 6.8
-        },
-        {
-            "municipio": "Caucaia - CE",
-            "taxa_inadimplencia": 7.2
-        }
-    ],
-    "grafico_4_score_inclusivo": [
-        {
-            "localidade": "Uberlândia - MG",
-            "score_final": 780,
-            "regiao": "Sudeste"
-        },
-        {
-            "localidade": "Ji-Paraná - RO",
-            "score_final": 695,
-            "regiao": "Norte"
-        },
-        {
-            "localidade": "Santarém - PA",
-            "score_final": 640,
-            "regiao": "Norte"
-        },
-        {
-            "localidade": "Marabá - PA",
-            "score_final": 615,
-            "regiao": "Norte"
-        },
-        {
-            "localidade": "Campina Grande - PB",
-            "score_final": 580,
-            "regiao": "Nordeste"
-        },
-        {
-            "localidade": "Caucaia - CE",
-            "score_final": 535,
-            "regiao": "Nordeste"
-        }
-    ]
+    "principais": {
+        "grafico_p1_serie_temporal_credito": [
+            {
+                "mes": "2024-01",
+                "Norte": 111718.1,
+                "Nordeste": 312810.68000000005
+            },
+            {
+                "mes": "2024-02",
+                "Norte": 111765.1,
+                "Nordeste": 312942.28
+            },
+            {
+                "mes": "2024-03",
+                "Norte": 114288.75,
+                "Nordeste": 320008.50000000006
+            },
+            {
+                "mes": "2024-04",
+                "Norte": 113443.95000000001,
+                "Nordeste": 317643.06000000006
+            },
+            {
+                "mes": "2024-05",
+                "Norte": 113915.45000000001,
+                "Nordeste": 318963.26
+            },
+            {
+                "mes": "2024-06",
+                "Norte": 116842.90000000001,
+                "Nordeste": 327160.12000000005
+            },
+            {
+                "mes": "2024-07",
+                "Norte": 116168.1,
+                "Nordeste": 325270.68000000005
+            },
+            {
+                "mes": "2024-08",
+                "Norte": 117219.85,
+                "Nordeste": 328215.58
+            },
+            {
+                "mes": "2024-09",
+                "Norte": 119241.40000000001,
+                "Nordeste": 333875.92000000004
+            },
+            {
+                "mes": "2024-10",
+                "Norte": 119876.65000000001,
+                "Nordeste": 335654.62000000005
+            },
+            {
+                "mes": "2024-11",
+                "Norte": 121801.1,
+                "Nordeste": 341043.08
+            },
+            {
+                "mes": "2024-12",
+                "Norte": 124958.85,
+                "Nordeste": 349884.78
+            },
+            {
+                "mes": "2025-01",
+                "Norte": 122597.85,
+                "Nordeste": 343273.98000000004
+            },
+            {
+                "mes": "2025-02",
+                "Norte": 123857.55,
+                "Nordeste": 346801.14
+            },
+            {
+                "mes": "2025-03",
+                "Norte": 124913.1,
+                "Nordeste": 349756.68000000005
+            },
+            {
+                "mes": "2025-04",
+                "Norte": 125621.3,
+                "Nordeste": 351739.64
+            },
+            {
+                "mes": "2025-05",
+                "Norte": 126635.40000000001,
+                "Nordeste": 354579.12000000005
+            },
+            {
+                "mes": "2025-06",
+                "Norte": 127384.65000000001,
+                "Nordeste": 356677.02
+            },
+            {
+                "mes": "2025-07",
+                "Norte": 127220.0,
+                "Nordeste": 356216.00000000006
+            },
+            {
+                "mes": "2025-08",
+                "Norte": 127313.25,
+                "Nordeste": 356477.10000000003
+            },
+            {
+                "mes": "2025-09",
+                "Norte": 129490.85,
+                "Nordeste": 362574.38000000006
+            },
+            {
+                "mes": "2025-10",
+                "Norte": 129881.5,
+                "Nordeste": 363668.2
+            },
+            {
+                "mes": "2025-11",
+                "Norte": 130845.1,
+                "Nordeste": 366366.28
+            },
+            {
+                "mes": "2025-12",
+                "Norte": 135086.75,
+                "Nordeste": 378242.9
+            },
+            {
+                "mes": "2026-01",
+                "Norte": 132711.0,
+                "Nordeste": 371590.80000000005
+            },
+            {
+                "mes": "2026-02",
+                "Norte": 132824.2,
+                "Nordeste": 371907.76
+            },
+            {
+                "mes": "2026-03",
+                "Norte": 134376.75,
+                "Nordeste": 376254.9
+            },
+            {
+                "mes": "2026-04",
+                "Norte": 134269.85,
+                "Nordeste": 375955.58
+            },
+            {
+                "mes": "2026-05",
+                "Norte": 135407.7,
+                "Nordeste": 379141.56000000006
+            },
+            {
+                "mes": "2026-06",
+                "Norte": 137531.7,
+                "Nordeste": 385088.76
+            },
+            {
+                "mes": "2026-07",
+                "Norte": 136458.1,
+                "Nordeste": 382082.68000000005
+            },
+            {
+                "mes": "2026-08",
+                "Norte": 136374.95,
+                "Nordeste": 381849.86000000004
+            }
+        ],
+        "grafico_p2_ranking_score_municipal": [
+            {
+                "localidade": "Araguaína - TO",
+                "score_final": 111.87479752790198,
+                "regiao": "Norte"
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "score_final": 105.25007394806852,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "score_final": 165.68968836690678,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "score_final": 153.86528261108415,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "score_final": 108.84194672914187,
+                "regiao": "Norte"
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "score_final": 120.355679798516,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Caxias - MA",
+                "score_final": 82.11965563441501,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "score_final": 99.3378469868983,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "score_final": 128.63689493512592,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "score_final": 43.4445302934566,
+                "regiao": "Norte"
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "score_final": 107.0887287089641,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Marabá - PA",
+                "score_final": 138.05019742072622,
+                "regiao": "Norte"
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "score_final": 121.11226773025714,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "score_final": 97.96133361504407,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "score_final": 152.01389610387693,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Picos - PI",
+                "score_final": 8.941984784501736,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Santarém - PA",
+                "score_final": 118.80323776955755,
+                "regiao": "Norte"
+            },
+            {
+                "localidade": "Sobral - CE",
+                "score_final": 108.33819797434133,
+                "regiao": "Nordeste"
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "score_final": 719.1026626221833,
+                "regiao": "Sudeste"
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "score_final": 144.63416197514263,
+                "regiao": "Nordeste"
+            }
+        ]
+    },
+    "apoio": {
+        "grafico_a1_evolucao_inadimplencia": [],
+        "grafico_a2_pix_pf_vs_pj": [
+            {
+                "localidade": "Araguaína - TO",
+                "valor_pf": 291113201.9250001,
+                "valor_pj": 436669802.8875
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "valor_pf": 360862702.2,
+                "valor_pj": 541294053.3
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "valor_pf": 760182259.2,
+                "valor_pj": 1140273388.8
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "valor_pf": 673064878.1999999,
+                "valor_pj": 1009597317.3
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "valor_pf": 328961743.5,
+                "valor_pj": 493442615.25
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "valor_pf": 540918043.3800001,
+                "valor_pj": 811377065.07
+            },
+            {
+                "localidade": "Caxias - MA",
+                "valor_pf": 223573504.44,
+                "valor_pj": 335360256.65999997
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "valor_pf": 280553881.335,
+                "valor_pj": 420830822.00249994
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "valor_pf": 464129961.75,
+                "valor_pj": 696194942.625
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "valor_pf": 231417904.575,
+                "valor_pj": 347126856.86249995
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "valor_pf": 366401468.16,
+                "valor_pj": 549602202.2399999
+            },
+            {
+                "localidade": "Marabá - PA",
+                "valor_pf": 504803999.70000005,
+                "valor_pj": 757205999.5500001
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "valor_pf": 436782231.9900001,
+                "valor_pj": 655173347.985
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "valor_pf": 257205254.67000002,
+                "valor_pj": 385807882.005
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "valor_pf": 676094192.2800001,
+                "valor_pj": 1014141288.4199998
+            },
+            {
+                "localidade": "Picos - PI",
+                "valor_pf": 122377860.15,
+                "valor_pj": 183566790.225
+            },
+            {
+                "localidade": "Santarém - PA",
+                "valor_pf": 510378032.7750001,
+                "valor_pj": 765567049.1625001
+            },
+            {
+                "localidade": "Sobral - CE",
+                "valor_pf": 337625395.96500003,
+                "valor_pj": 506438093.94749993
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "valor_pf": 2424168583.2,
+                "valor_pj": 3636252874.8
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "valor_pf": 636264849.48,
+                "valor_pj": 954397274.2199999
+            }
+        ],
+        "grafico_a3_comprometimento_renda": [
+            {
+                "localidade": "Araguaína - TO",
+                "comp_bets_%": 12.72
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "comp_bets_%": 13.85
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "comp_bets_%": 11.93
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "comp_bets_%": 12.16
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "comp_bets_%": 13.28
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "comp_bets_%": 13.96
+            },
+            {
+                "localidade": "Caxias - MA",
+                "comp_bets_%": 14.64
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "comp_bets_%": 13.62
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "comp_bets_%": 12.72
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "comp_bets_%": 11.59
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "comp_bets_%": 13.74
+            },
+            {
+                "localidade": "Marabá - PA",
+                "comp_bets_%": 12.16
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "comp_bets_%": 13.06
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "comp_bets_%": 13.51
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "comp_bets_%": 12.38
+            },
+            {
+                "localidade": "Picos - PI",
+                "comp_bets_%": 14.3
+            },
+            {
+                "localidade": "Santarém - PA",
+                "comp_bets_%": 13.85
+            },
+            {
+                "localidade": "Sobral - CE",
+                "comp_bets_%": 13.4
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "comp_bets_%": 2.1
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "comp_bets_%": 12.61
+            }
+        ],
+        "grafico_a4_pilares_micro_macro": [
+            {
+                "localidade": "Marabá - PA",
+                "P_micro": 26.218952843122672,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Marabá - PA",
+                "P_micro": 26.775387499531693,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Marabá - PA",
+                "P_micro": 27.331822155940735,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Marabá - PA",
+                "P_micro": 27.88825681234976,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Marabá - PA",
+                "P_micro": 28.444691468758787,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Marabá - PA",
+                "P_micro": 29.001126125167815,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "P_micro": 24.411569231440687,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "P_micro": 24.93789313367448,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "P_micro": 25.46421703590829,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "P_micro": 25.99054093814209,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "P_micro": 26.516864840375888,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Imperatriz - MA",
+                "P_micro": 27.043188742609686,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "P_micro": 18.483750181786355,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "P_micro": 18.927156798275337,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "P_micro": 19.370563414764327,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "P_micro": 19.8139700312533,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "P_micro": 20.257376647742294,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Parnaíba - PI",
+                "P_micro": 20.700783264231276,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "P_micro": 20.592061143540143,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "P_micro": 21.062592424455435,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "P_micro": 21.533123705370727,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "P_micro": 22.00365498628602,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "P_micro": 22.47418626720131,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Castanhal - PA",
+                "P_micro": 22.9447175481166,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Sobral - CE",
+                "P_micro": 20.494952949843658,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Sobral - CE",
+                "P_micro": 20.964027607853495,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Sobral - CE",
+                "P_micro": 21.433102265863344,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Sobral - CE",
+                "P_micro": 21.902176923873185,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Sobral - CE",
+                "P_micro": 22.371251581883037,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Sobral - CE",
+                "P_micro": 22.840326239892875,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "P_micro": 19.899651932730823,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "P_micro": 20.35979707548397,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "P_micro": 20.819942218237127,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "P_micro": 21.28008736099028,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "P_micro": 21.740232503743435,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Arapiraca - AL",
+                "P_micro": 22.200377646496584,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "P_micro": 20.2540914047107,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "P_micro": 20.71955313954355,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "P_micro": 21.1850148743764,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "P_micro": 21.650476609209242,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "P_micro": 22.115938344042096,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Juazeiro - BA",
+                "P_micro": 22.581400078874946,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "P_micro": 22.953809770261163,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "P_micro": 23.461267280577268,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "P_micro": 23.968724790893376,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "P_micro": 24.47618230120948,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "P_micro": 24.983639811525595,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Mossoró - RN",
+                "P_micro": 25.4910973218417,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "P_micro": 28.914364637464974,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "P_micro": 29.509730470789137,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "P_micro": 30.1050963041133,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "P_micro": 30.70046213743747,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "P_micro": 31.295827970761632,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Petrolina - PE",
+                "P_micro": 31.89119380408579,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "P_micro": 7.435932674010454,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "P_micro": 7.937122027882793,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "P_micro": 8.438311381755149,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "P_micro": 8.939500735627488,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "P_micro": 9.440690089499844,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ji-Paraná - RO",
+                "P_micro": 9.941879443372185,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Santarém - PA",
+                "P_micro": 22.508695560969677,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Santarém - PA",
+                "P_micro": 23.009476358146408,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Santarém - PA",
+                "P_micro": 23.510257155323146,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Santarém - PA",
+                "P_micro": 24.011037952499876,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Santarém - PA",
+                "P_micro": 24.511818749676614,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Santarém - PA",
+                "P_micro": 25.01259954685335,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caxias - MA",
+                "P_micro": 15.433547197568704,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caxias - MA",
+                "P_micro": 15.82970076929442,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caxias - MA",
+                "P_micro": 16.225854341020145,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caxias - MA",
+                "P_micro": 16.622007912745858,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caxias - MA",
+                "P_micro": 17.018161484471584,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caxias - MA",
+                "P_micro": 17.414315056197303,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Picos - PI",
+                "P_micro": 0.0,
+                "P_macro": 2.0
+            },
+            {
+                "localidade": "Picos - PI",
+                "P_micro": 0.042334574288502624,
+                "P_macro": 1.630352774714185
+            },
+            {
+                "localidade": "Picos - PI",
+                "P_micro": 0.4224186948565025,
+                "P_macro": 1.2742551145271723
+            },
+            {
+                "localidade": "Picos - PI",
+                "P_micro": 0.8025028154245017,
+                "P_macro": 0.931123462134321
+            },
+            {
+                "localidade": "Picos - PI",
+                "P_micro": 1.182586935992497,
+                "P_macro": 0.6004784711106641
+            },
+            {
+                "localidade": "Picos - PI",
+                "P_micro": 1.5626710565604918,
+                "P_macro": 0.2816578417932458
+            },
+            {
+                "localidade": "Araguaína - TO",
+                "P_micro": 21.176707080650523,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Araguaína - TO",
+                "P_micro": 21.65600805062247,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Araguaína - TO",
+                "P_micro": 22.135309020594416,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Araguaína - TO",
+                "P_micro": 22.61460999056637,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Araguaína - TO",
+                "P_micro": 23.09391096053832,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Araguaína - TO",
+                "P_micro": 23.573211930510258,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "P_micro": 22.807961494262866,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "P_micro": 23.31323128043899,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "P_micro": 23.818501066615134,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "P_micro": 24.32377085279126,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "P_micro": 24.8290406389674,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caucaia - CE",
+                "P_micro": 25.334310425143528,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "P_micro": 18.75271661491488,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "P_micro": 19.198657727900788,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "P_micro": 19.64459884088671,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "P_micro": 20.090539953872614,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "P_micro": 20.536481066858535,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Ilhéus - BA",
+                "P_micro": 20.98242217984444,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "P_micro": 31.5542763990129,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "P_micro": 32.187740908760276,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "P_micro": 32.82120541850766,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "P_micro": 33.45466992825505,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "P_micro": 34.088134438002434,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Campina Grande - PB",
+                "P_micro": 34.72159894774981,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "P_micro": 29.267643964155532,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "P_micro": 29.869808987380043,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "P_micro": 30.47197401060457,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "P_micro": 31.074139033829095,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "P_micro": 31.676304057053617,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Caruaru - PE",
+                "P_micro": 32.27846908027814,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "P_micro": 27.484536371684868,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "P_micro": 28.061454781022327,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "P_micro": 28.638373190359793,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "P_micro": 29.215291599697252,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "P_micro": 29.792210009034726,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Vitória da Conquista - BA",
+                "P_micro": 30.369128418372178,
+                "P_macro": 0.0
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "P_micro": 86.40395179645493,
+                "P_macro": 14.972412414622926
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "P_micro": 87.86316143716392,
+                "P_macro": 15.976618924482146
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "P_micro": 89.32237107787297,
+                "P_macro": 16.981510115814714
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "P_micro": 90.78158071858196,
+                "P_macro": 17.987055286378286
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "P_micro": 92.24079035929098,
+                "P_macro": 18.99322738384752
+            },
+            {
+                "localidade": "Uberlândia - MG",
+                "P_micro": 93.7,
+                "P_macro": 20.0
+            }
+        ]
+    }
 }
