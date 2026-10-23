@@ -16,13 +16,15 @@ async function carregarDados() {
   }
 }
 
-function formatarMoeda(valor) {
-  return Number(valor).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
+function formatarMoedaBilhoes(valor) {
+  const num = Number(valor);
+  const emBilhoes = num / 1e9;
+  return `R$ ${emBilhoes.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  });
+  })} Bi`;
 }
+
 
 function formatarPercentual(valor) {
   return `${Number(valor).toLocaleString("pt-BR", {
@@ -142,7 +144,9 @@ function desenharRanking(area, linhas) {
             item.regiao === "Norte" ? "#0a5c7a" :
             item.regiao === "Nordeste" ? "#cc5200" : "#64748b"
           ),
-          borderRadius: 4
+          borderRadius: 4,
+          barPercentage: 0.8,
+          categoryPercentage: 0.9
         }
       ]
     },
@@ -201,7 +205,7 @@ async function iniciar() {
   preencherCard(
     "card-2",
     cards.vol_pix_geral !== undefined
-      ? formatarMoeda(cards.vol_pix_geral)
+      ? formatarMoedaBilhoes(cards.vol_pix_geral)
       : "--",
     "Volume total de transações Pix considerado nos dados."
   );
