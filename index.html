@@ -92,6 +92,23 @@
         </div>
         <div class="extrato-controles">
           <div class="filtro-regiao-box">
+            <label for="filtro-periodo-extrato">Período:</label>
+            <select id="filtro-periodo-extrato" class="input-select">
+              <option value="todos">Todo o Histórico (2024 - 2026)</option>
+              <option value="2024">Ano 2024</option>
+              <option value="2025">Ano 2025</option>
+              <option value="2026">Ano 2026 (Atual)</option>
+              <option value="recente">Últimos 12 meses</option>
+              <option value="personalizado">Personalizado (De / Até)</option>
+            </select>
+          </div>
+          <div class="filtro-intervalo-box" id="caixa-intervalo-personalizado" style="display: none;">
+            <label for="filtro-data-inicio">De:</label>
+            <select id="filtro-data-inicio" class="input-select"></select>
+            <label for="filtro-data-fim">Até:</label>
+            <select id="filtro-data-fim" class="input-select"></select>
+          </div>
+          <div class="filtro-regiao-box">
             <label for="filtro-regiao-extrato">Região:</label>
             <select id="filtro-regiao-extrato" class="input-select">
               <option value="todas">Todas as Regiões</option>

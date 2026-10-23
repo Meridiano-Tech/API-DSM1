@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const painelTimeline = document.getElementById('painel-timeline');
   const painelTabela = document.getElementById('painel-tabela');
   const filtroRegiao = document.getElementById('filtro-regiao-extrato');
+  const filtroPeriodo = document.getElementById('filtro-periodo-extrato');
+  const caixaIntervalo = document.getElementById('caixa-intervalo-personalizado');
+  const filtroDataInicio = document.getElementById('filtro-data-inicio');
+  const filtroDataFim = document.getElementById('filtro-data-fim');
   const listaTimeline = document.getElementById('timeline-lista');
   const corpoTabela = document.getElementById('tabela-extrato-corpo');
 
@@ -250,11 +254,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function popularSeletoresIntervalo() {
+    if (!filtroDataInicio || !filtroDataFim) return;
+
+    const mapaMeses = new Map();
+    dadosExtrato.forEach(d => {
+      if (!mapaMeses.has(d.mes)) {
+        mapaMeses.set(d.mes, d.mesFormatado);
+      }
+    });
+
+    const mesesOrdenados = Array.from(mapaMeses.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+
+    filtroDataInicio.innerHTML = '';
+    filtroDataFim.innerHTML = '';
+
+    mesesOrdenados.forEach(([valor, rotulo]) => {
+      filtroDataInicio.add(new Option(rotulo, valor));
+      filtroDataFim.add(new Option(rotulo, valor));
+    });
+
+    if (mesesOrdenados.length > 0) {
+      filtroDataInicio.value = mesesOrdenados[0][0];
+      filtroDataFim.value = mesesOrdenados[mesesOrdenados.length - 1][0];
+    }
+  }
+
   function atualizarVisualizacoes() {
     const regiaoSel = filtroRegiao ? filtroRegiao.value : 'todas';
-    const filtrados = regiaoSel === 'todas'
-      ? dadosExtrato
-      : dadosExtrato.filter(d => d.regiao.toLowerCase() === regiaoSel.toLowerCase());
+    const periodoSel = filtroPeriodo ? filtroPeriodo.value : 'todos';
+
+    let filtrados = dadosExtrato;
+
+    if (regiaoSel !== 'todas') {
+      filtrados = filtrados.filter(d => d.regiao.toLowerCase() === regiaoSel.toLowerCase());
+    }
+
+    if (periodoSel === '2024' || periodoSel === '2025' || periodoSel === '2026') {
+      filtrados = filtrados.filter(d => d.mes.startsWith(periodoSel));
+    } else if (periodoSel === 'recente') {
+      filtrados = filtrados.filter(d => d.mes >= '2025-10');
+    } else if (periodoSel === 'personalizado') {
+      const inicio = filtroDataInicio ? filtroDataInicio.value : '';
+      const fim = filtroDataFim ? filtroDataFim.value : '';
+      if (inicio && fim) {
+        const minData = inicio <= fim ? inicio : fim;
+        const maxData = inicio <= fim ? fim : inicio;
+        filtrados = filtrados.filter(d => d.mes >= minData && d.mes <= maxData);
+      }
+    }
 
     renderizarTimeline(filtrados);
     renderizarTabela(filtrados);
@@ -272,5 +320,23 @@ document.addEventListener('DOMContentLoaded', () => {
     filtroRegiao.addEventListener('change', atualizarVisualizacoes);
   }
 
+  if (filtroPeriodo) {
+    filtroPeriodo.addEventListener('change', () => {
+      if (caixaIntervalo) {
+        caixaIntervalo.style.display = filtroPeriodo.value === 'personalizado' ? 'flex' : 'none';
+      }
+      atualizarVisualizacoes();
+    });
+  }
+
+  if (filtroDataInicio) {
+    filtroDataInicio.addEventListener('change', atualizarVisualizacoes);
+  }
+
+  if (filtroDataFim) {
+    filtroDataFim.addEventListener('change', atualizarVisualizacoes);
+  }
+
+  popularSeletoresIntervalo();
   atualizarVisualizacoes();
 });
