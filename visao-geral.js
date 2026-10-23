@@ -18,16 +18,23 @@ async function carregarDados() {
 
 function formatarMoedaBilhoes(valor) {
   const num = Number(valor);
+  if (!Number.isFinite(num)) return "--";
   const emBilhoes = num / 1e9;
   return `R$ ${emBilhoes.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 1,
     maximumFractionDigits: 2
   })} Bi`;
 }
 
+function formatarMoeda(valor) {
+  return formatarMoedaBilhoes(valor);
+}
 
-function formatarPercentual(valor) {
-  return `${Number(valor).toLocaleString("pt-BR", {
+function formatarPercentual(valor, comSinal = false) {
+  const num = Number(valor);
+  if (!Number.isFinite(num)) return "--";
+  const sinal = comSinal && num > 0 ? "+" : "";
+  return `${sinal}${num.toLocaleString("pt-BR", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 2
   })}%`;
@@ -194,12 +201,19 @@ async function iniciar() {
   // Indicadores em destaque
   const cards = dados.cards || {};
 
+  const textoCrescimento =
+    cards.yoy_norte === cards.yoy_nordeste
+      ? "Crescimento anual da carteira (Norte e Nordeste empatadas)."
+      : cards.yoy_norte > cards.yoy_nordeste
+      ? "Maior crescimento anual: Região Norte."
+      : "Maior crescimento anual: Região Nordeste.";
+
   preencherCard(
     "card-1",
     cards.yoy_norte !== undefined
-      ? formatarPercentual(cards.yoy_norte)
+      ? formatarPercentual(Math.max(cards.yoy_norte || 0, cards.yoy_nordeste || 0), true)
       : "--",
-    "Crescimento anual da carteira de crédito na região Norte."
+    textoCrescimento
   );
 
   preencherCard(
@@ -207,7 +221,7 @@ async function iniciar() {
     cards.vol_pix_geral !== undefined
       ? formatarMoedaBilhoes(cards.vol_pix_geral)
       : "--",
-    "Volume total de transações Pix considerado nos dados."
+    "Volume acumulado nas regiões monitoradas."
   );
 
   preencherCard(
@@ -215,7 +229,7 @@ async function iniciar() {
     cards.inadimplencia_media !== undefined
       ? formatarPercentual(cards.inadimplencia_media)
       : "--",
-    "Taxa média de inadimplência informada no conjunto de dados."
+    "Taxa média da carteira de referência (BCB)."
   );
 
   // Gráficos principais
