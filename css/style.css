@@ -826,24 +826,49 @@ button.botao {
 .timeline-container {
   position: relative;
   display: grid;
-  gap: 20px;
+  gap: 14px;
   padding-left: 28px;
+  padding-right: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cor-destaque) var(--cor-superficie);
 }
 
-.timeline-container::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 10px;
-  width: 2px;
-  background: var(--cor-primaria);
+.timeline-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+  background: var(--cor-superficie);
+  border-radius: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+  background-color: var(--cor-destaque);
+  border-radius: 4px;
 }
 
 .timeline-item {
   position: relative;
   display: grid;
-  gap: 10px;
+  gap: 8px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  bottom: -16px;
+  left: -22px;
+  width: 2px;
+  background: var(--cor-primaria);
+}
+
+.timeline-item:last-child::before {
+  display: none;
 }
 
 .timeline-marcador {
@@ -855,7 +880,7 @@ button.botao {
 .timeline-ponto {
   position: absolute;
   left: -28px;
-  top: 18px;
+  top: 14px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -868,9 +893,9 @@ button.botao {
   background: var(--cor-moldura);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-md);
-  padding: 20px 24px;
+  padding: 14px 18px;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -888,7 +913,7 @@ button.botao {
 }
 
 .timeline-data {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--cor-texto-suave);
   text-transform: uppercase;
@@ -896,44 +921,45 @@ button.botao {
 
 .timeline-regiao-tag {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  padding: 3px 10px;
+  padding: 2px 8px;
   background: var(--cor-destaque);
   color: #ffffff;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .timeline-desc {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--cor-texto);
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .timeline-metricas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  padding-top: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  padding-top: 8px;
   border-top: 1px dashed var(--cor-borda);
 }
 
 .metrica-bloco {
   background: var(--cor-fundo);
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: var(--raio-sm);
   display: flex;
   flex-direction: column;
 }
 
 .metrica-rotulo {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--cor-texto-suave);
 }
 
 .metrica-valor {
-  font-size: 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
   color: var(--cor-texto);
 }
 
