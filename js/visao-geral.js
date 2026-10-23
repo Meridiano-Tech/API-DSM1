@@ -3,7 +3,10 @@
 
 async function carregarDados() {
   try {
-    const resposta = await fetch("./dados_site.json");
+    let resposta = await fetch("./dados/dados_site.json");
+    if (!resposta.ok) {
+      resposta = await fetch("./dados_site.json");
+    }
 
     if (!resposta.ok) {
       throw new Error(`Erro HTTP ${resposta.status}`);
