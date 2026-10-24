@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview Novo Layout | Credit42</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/extrato.js" defer></script>
+  <style>
+    :root {
+      --cor-fundo: #f8fafc;
+      --cor-card: #ffffff;
+      --cor-primaria: #0a2540;
+      --cor-primaria-hover: #0f172a;
+      --cor-destaque: #0284c7;
+      --cor-destaque-hover: #0369a1;
+      --cor-azul-claro: #e0f2fe;
+      --cor-azul-gelo: #f0f7ff;
+      --cor-borda: #e2e8f0;
+      --cor-borda-card: #e5e7eb;
+      --cor-texto: #0f172a;
+      --cor-texto-suave: #64748b;
+      --cor-texto-muted: #94a3b8;
+      --cor-verde: #10b981;
+      --fonte: "Archivo", "Inter", system-ui, -apple-system, sans-serif;
+      --raio-card: 20px;
+      --raio-pill: 9999px;
+      --sombra-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      --sombra-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.1);
+      --largura-max: 1200px;
+      --transicao: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--cor-fundo);
+      color: var(--cor-texto);
+      font-family: var(--fonte);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Top Navbar */
+    .topo-navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--cor-borda);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topo-container {
+      max-width: var(--largura-max);
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--cor-primaria);
+      letter-spacing: -0.02em;
+    }
+
+    .marca-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .marca-separador {
+      color: var(--cor-texto-muted);
+      font-weight: 400;
+      font-size: 1.25rem;
+    }
+
+    .marca-sub {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--cor-texto-suave);
+      letter-spacing: normal;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--cor-texto-suave);
+      transition: color var(--transicao);
+    }
+
+    .nav-link:hover,
+    .nav-link.ativo {
+      color: var(--cor-destaque);
+    }
+
+    /* Hero Banner Moderno */
+    .hero-secao {
+      background: linear-gradient(180deg, #edf5fc 0%, #f1f6fa 60%, var(--cor-fundo) 100%);
+      padding: 56px 24px 64px;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .hero-container {
+      max-width: var(--largura-max);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .hero-texto-col {
+      max-width: 760px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cor-destaque);
+      margin-bottom: 12px;
+    }
+
+    .hero-titulo {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--cor-primaria);
+      margin-bottom: 16px;
+    }
+
+    .hero-titulo span {
+      color: var(--cor-destaque);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--cor-texto-suave);
+      max-width: 640px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .hero-acoes {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .btn-primario {
+      background: var(--cor-primaria);
+      color: #ffffff;
+      padding: 12px 26px;
+      border-radius: var(--raio-pill);
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transicao);
+    }
+
+    .btn-primario:hover {
+      background: var(--cor-destaque);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.25);
+    }
+
+    .link-secundario {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--cor-texto);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transicao);
+    }
+
+    .link-secundario:hover {
+      color: var(--cor-destaque);
+    }
+
+    /* Conteúdo Principal */
+    .conteudo-principal {
+      max-width: var(--largura-max);
+      margin: 0 auto;
+      padding: 40px 24px 0;
+    }
+
+    .secao-topo {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+
+    .secao-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cor-texto-suave);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .secao-saudacao {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cor-primaria);
+    }
+
+    .filtro-select {
+      background: #ffffff;
+      border: 1px solid var(--cor-borda);
+      padding: 8px 16px;
+      border-radius: var(--raio-pill);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--cor-texto);
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Grid de Cards de Resumo */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .card-resumo {
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio-card);
+      padding: 24px;
+      box-shadow: var(--sombra-card);
+      transition: all var(--transicao);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 130px;
+    }
+
+    .card-resumo-destaque {
+      background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+      border-color: #bae6fd;
+    }
+
+    .card-resumo:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sombra-hover);
+      border-color: #cbd5e1;
+    }
+
+    .card-rotulo {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--cor-texto-suave);
+    }
+
+    .card-valor {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--cor-primaria);
+      letter-spacing: -0.02em;
+      margin-top: 10px;
+    }
+
+    .card-subtexto {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--cor-verde);
+      margin-top: 4px;
+    }
+
+    /* Grid dos Gráficos Principais */
+    .graficos-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .card-grafico {
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--sombra-card);
+    }
+
+    .grafico-cabecalho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .grafico-titulo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cor-primaria);
+    }
+
+    .grafico-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cor-destaque);
+      background: var(--cor-azul-claro);
+      padding: 4px 10px;
+      border-radius: var(--raio-pill);
+    }
+
+    .canvas-container {
+      position: relative;
+      height: 320px;
+      width: 100%;
+    }
+
+    /* Seção de Extrato e Relatórios Econômicos */
+    .secao-extrato-card {
+      background: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--sombra-card);
+      margin-bottom: 40px;
+    }
+
+    .extrato-topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .extrato-subtitulo {
+      font-size: 0.92rem;
+      color: var(--cor-texto-suave);
+      margin-top: 6px;
+    }
+
+    .extrato-controles {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .filtro-regiao-box,
+    .filtro-intervalo-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--cor-texto-suave);
+    }
+
+    .filtro-select-sm {
+      background: #ffffff;
+      border: 1px solid var(--cor-borda);
+      padding: 8px 12px;
+      border-radius: var(--raio-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cor-texto);
+      cursor: pointer;
+      outline: none;
+      transition: border-color var(--transicao);
+    }
+
+    .filtro-select-sm:focus {
+      border-color: var(--cor-destaque);
+    }
+
+    .alternador-visualizacao {
+      display: inline-flex;
+      background: #f1f5f9;
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio-pill);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .btn-aba {
+      border: 0;
+      background: transparent;
+      color: var(--cor-texto-suave);
+      padding: 6px 14px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--raio-pill);
+      cursor: pointer;
+      transition: all var(--transicao);
+    }
+
+    .btn-aba:hover {
+      color: var(--cor-texto);
+    }
+
+    .btn-aba-ativo {
+      background: var(--cor-primaria);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(10, 37, 64, 0.2);
+    }
+
+    /* Linha do Tempo Estilizada */
+    .timeline-container {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      padding-left: 28px;
+      padding-right: 14px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      max-height: 520px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--cor-destaque) #f1f5f9;
+    }
+
+    .timeline-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .timeline-container::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+
+    .timeline-container::-webkit-scrollbar-thumb {
+      background-color: var(--cor-destaque);
+      border-radius: 4px;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 24px;
+      bottom: -16px;
+      left: -22px;
+      width: 2px;
+      background: #cbd5e1;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-marcador {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timeline-ponto {
+      position: absolute;
+      left: -28px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid var(--cor-destaque);
+      box-shadow: 0 0 0 3px #f1f5f9;
+    }
+
+    .timeline-data {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cor-destaque);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-conteudo {
+      background: #f8fafc;
+      border: 1px solid var(--cor-borda);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: grid;
+      gap: 10px;
+      transition: border-color var(--transicao);
+    }
+
+    .timeline-conteudo:hover {
+      border-color: #cbd5e1;
+    }
+
+    .timeline-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-regiao-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cor-primaria);
+      background: #e2e8f0;
+      padding: 2px 10px;
+      border-radius: var(--raio-pill);
+    }
+
+    .badge-status {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--raio-pill);
+    }
+
+    .status-azul {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .status-verde {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status-alerta {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .status-neutro {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--cor-texto);
+      line-height: 1.5;
+    }
+
+    .timeline-metricas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+
+    .metrica-bloco {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metrica-rotulo {
+      font-size: 0.72rem;
+      color: var(--cor-texto-suave);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .metrica-valor {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--cor-primaria);
+    }
+
+    /* Tabela do Extrato */
+    .tabela-container {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--cor-borda);
+    }
+
+    .tabela-extrato {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .tabela-extrato th {
+      background: #f8fafc;
+      color: var(--cor-texto-suave);
+      font-weight: 600;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .tabela-extrato td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--cor-borda);
+      color: var(--cor-texto);
+    }
+
+    .tabela-extrato tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tabela-extrato tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .tabela-regiao-tag {
+      font-weight: 600;
+      color: var(--cor-primaria);
+    }
+
+    .extrato-vazio {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--cor-texto-suave);
+      font-size: 0.92rem;
+    }
+
+    /* Rodapé Minimalista */
+    .rodape-novo {
+      max-width: var(--largura-max);
+      margin: 40px auto 0;
+      padding: 24px;
+      border-top: 1px solid var(--cor-borda);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--cor-texto-suave);
+    }
+
+    .rodape-icone {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--cor-primaria);
+    }
+
+    @media (max-width: 900px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .graficos-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .marca-sub,
+      .marca-separador {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Navbar -->
+  <header class="topo-navbar">
+    <div class="topo-container">
+      <div class="marca">
+        <img class="marca-logo" src="css/imagens/logo.png" alt="Logo Credit42">
+        <span class="marca-nome">Credit42</span>
+        <span class="marca-separador">·</span>
+        <span class="marca-sub">Inteligência de Dados</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="preview.html" class="nav-link ativo">Início</a>
+        <a href="composicao.html" class="nav-link">Indicadores</a>
+        <a href="composicao.html" class="nav-link">Gráficos</a>
+        <a href="#secao-extrato" class="nav-link">Relatórios</a>
+        <a href="sobre.html" class="nav-link">Sobre Nós</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-secao">
+    <div class="hero-container">
+      <div class="hero-texto-col">
+        <h1 class="hero-titulo">Mais dados,<br><span>Melhores decisões.</span></h1>
+        <p class="hero-desc">
+          Uma visão clara e estratégica para acompanhar indicadores, planejar a concessão de crédito inclusivo e
+          impulsionar o desenvolvimento econômico regional.
+        </p>
+        <div class="hero-acoes">
+          <a href="#dashboard" class="btn-primario">
+            Ver Indicadores →
+          </a>
+          <a href="sobre.html" class="link-secundario">
+            Conheça a Equipe ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Principal -->
+  <main class="conteudo-principal" id="dashboard">
+    <div class="secao-topo">
+      <div>
+        <h2 class="secao-saudacao">Resumo do Período</h2>
+      </div>
+      <div>
+        <select class="filtro-select" aria-label="Filtro de período">
+          <option>Ano 2026 (Atual) ▾</option>
+          <option>Ano 2025</option>
+          <option>Ano 2024</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 4 Cards de Resumo (incluindo Evolução Mensal) -->
+    <div class="cards-grid">
+      <article class="card-resumo card-resumo-destaque">
+        <span class="card-rotulo">Evolução Mensal (YoY)</span>
+        <div class="card-valor">+6,24%</div>
+        <span class="card-subtexto" style="color: #0284c7;">↑ Crescimento anual da carteira</span>
+      </article>
+
+      <article class="card-resumo">
+        <span class="card-rotulo">Volume Transacionado (Pix)</span>
+        <div class="card-valor">R$ 26,07 Bi</div>
+        <span class="card-subtexto">↑ Liquidez monitorada</span>
+      </article>
+
+      <article class="card-resumo">
+        <span class="card-rotulo">Taxa Média de Inadimplência</span>
+        <div class="card-valor">5,5%</div>
+        <span class="card-subtexto" style="color: #64748b;">Referência estável (BCB)</span>
+      </article>
+
+      <article class="card-resumo">
+        <span class="card-rotulo">Municípios Monitorados</span>
+        <div class="card-valor">20 Polos</div>
+        <span class="card-subtexto" style="color: #0284c7;">★ Score inclusivo ativo</span>
+      </article>
+    </div>
+
+    <!-- 2 Gráficos no Estilo do Mockup -->
+    <div class="graficos-grid">
+      <section class="card-grafico">
+        <div class="grafico-cabecalho">
+          <h3 class="grafico-titulo">Fluxo da Carteira de Crédito</h3>
+          <span class="grafico-tag">Evolução Histórica</span>
+        </div>
+        <div class="canvas-container">
+          <canvas id="grafico-linha"></canvas>
+        </div>
+      </section>
+
+      <section class="card-grafico">
+        <div class="grafico-cabecalho">
+          <h3 class="grafico-titulo">Ranking de Score</h3>
+          <span class="grafico-tag">Top Municípios</span>
+        </div>
+        <div class="canvas-container">
+          <canvas id="grafico-ranking"></canvas>
+        </div>
+      </section>
+    </div>
+
+    <!-- Seção de Extrato e Relatórios Econômicos -->
+    <section class="secao-extrato-card" id="secao-extrato" aria-labelledby="titulo-extrato">
+      <div class="extrato-topo">
+        <div>
+          <span class="grafico-tag">RELATÓRIOS ECONÔMICOS</span>
+          <h3 class="grafico-titulo" id="titulo-extrato" style="margin-top: 8px;">Extrato e Comportamento Financeiro
+          </h3>
+          <p class="extrato-subtitulo">Histórico cronológico de marcos econômicos, liquidez via Pix e evolução da
+            carteira de crédito regional.</p>
+        </div>
+        <div class="extrato-controles">
+          <div class="filtro-regiao-box">
+            <label for="filtro-periodo-extrato">Período:</label>
+            <select id="filtro-periodo-extrato" class="filtro-select-sm">
+              <option value="todos">Todo o Histórico (2024 - 2026)</option>
+              <option value="2024">Ano 2024</option>
+              <option value="2025">Ano 2025</option>
+              <option value="2026">Ano 2026 (Atual)</option>
+              <option value="recente">Últimos 12 meses</option>
+              <option value="personalizado">Personalizado (De / Até)</option>
+            </select>
+          </div>
+          <div class="filtro-intervalo-box" id="caixa-intervalo-personalizado" style="display: none;">
+            <label for="filtro-data-inicio">De:</label>
+            <select id="filtro-data-inicio" class="filtro-select-sm"></select>
+            <label for="filtro-data-fim">Até:</label>
+            <select id="filtro-data-fim" class="filtro-select-sm"></select>
+          </div>
+          <div class="filtro-regiao-box">
+            <label for="filtro-regiao-extrato">Região:</label>
+            <select id="filtro-regiao-extrato" class="filtro-select-sm">
+              <option value="todas">Todas as Regiões</option>
+              <option value="Norte">Norte</option>
+              <option value="Nordeste">Nordeste</option>
+              <option value="Sudeste">Sudeste</option>
+              <option value="Sul">Sul</option>
+            </select>
+          </div>
+          <div class="alternador-visualizacao" role="tablist" aria-label="Visualização do extrato">
+            <button type="button" class="btn-aba btn-aba-ativo" id="btn-ver-timeline" role="tab"
+              aria-selected="true">Linha do Tempo</button>
+            <button type="button" class="btn-aba" id="btn-ver-tabela" role="tab" aria-selected="false">Tabela de
+              Dados</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="extrato-painel" id="painel-timeline">
+        <div class="timeline-container" id="timeline-lista"></div>
+      </div>
+
+      <div class="extrato-painel" id="painel-tabela" style="display: none;">
+        <div class="tabela-container">
+          <table class="tabela-extrato">
+            <thead>
+              <tr>
+                <th>Competência</th>
+                <th>Região</th>
+                <th>Carteira de Crédito</th>
+                <th>Volume Pix</th>
+                <th>Inadimplência</th>
+                <th>Comportamento / Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-extrato-corpo"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé Minimalista -->
+    <footer class="rodape-novo">
+      <p class="rodape-icone">© 2026 Credit42 · Meridiano Tech</p>
+    </footer>
+  </main>
+
+  <script>
+    async function carregarGraficosPreview() {
+      try {
+        let res = await fetch('./dados/dados_site.json');
+        if (!res.ok) res = await fetch('./dados_site.json');
+        const dados = await res.json();
+
+        // 1. Gráfico de Linha (Fluxo financeiro)
+        const ctxLinha = document.getElementById('grafico-linha');
+        const serie = dados.principais?.grafico_p1_serie_temporal_credito || [];
+
+        new Chart(ctxLinha, {
+          type: 'line',
+          data: {
+            labels: serie.map(d => d.mes),
+            datasets: [
+              {
+                label: 'Região Norte',
+                data: serie.map(d => Number(d.Norte)),
+                borderColor: '#0a2540',
+                backgroundColor: 'rgba(10, 37, 64, 0.04)',
+                fill: true,
+                borderWidth: 2.5,
+                tension: 0.3,
+                pointRadius: 1.5
+              },
+              {
+                label: 'Região Nordeste',
+                data: serie.map(d => Number(d.Nordeste)),
+                borderColor: '#0284c7',
+                backgroundColor: 'rgba(2, 132, 199, 0.04)',
+                fill: true,
+                borderWidth: 2.5,
+                tension: 0.3,
+                pointRadius: 1.5
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Archivo', size: 12 } } }
+            },
+            scales: {
+              x: { ticks: { maxTicksLimit: 8 }, grid: { display: false } },
+              y: { beginAtZero: false, grid: { color: '#f1f5f9' } }
+            }
+          }
+        });
+
+        // 2. Gráfico de Ranking (Metas)
+        const ctxRanking = document.getElementById('grafico-ranking');
+        const ranking = (dados.principais?.grafico_p2_ranking_score_municipal || [])
+          .slice(0, 7)
+          .sort((a, b) => Number(b.score_final) - Number(a.score_final));
+
+        new Chart(ctxRanking, {
+          type: 'bar',
+          data: {
+            labels: ranking.map(d => d.localidade.split(' - ')[0]),
+            datasets: [{
+              label: 'Score',
+              data: ranking.map(d => Number(d.score_final)),
+              backgroundColor: '#0a2540',
+              hoverBackgroundColor: '#0284c7',
+              borderRadius: 8
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+              y: { grid: { display: false } }
+            }
+          }
+        });
+
+      } catch (e) {
+        console.error('Erro ao renderizar gráficos do preview:', e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarGraficosPreview);
+  </script>
+</body>
+
+</html>
