@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from motor_score import MotorScore
 
 app = Flask(__name__, static_folder=None)
+app.json.ensure_ascii = False
 motor = MotorScore()
 
 
