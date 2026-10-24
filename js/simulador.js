@@ -79,14 +79,37 @@ document.addEventListener('DOMContentLoaded', () => {
     painelAtivo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
+  const elErro = document.getElementById('simulador-erro');
+
+  function mostrarErro(mensagem) {
+    if (elErro) {
+      elErro.textContent = mensagem;
+      elErro.style.display = 'block';
+    } else {
+      alert(mensagem);
+    }
+  }
+
+  function limparErro() {
+    if (elErro) {
+      elErro.textContent = '';
+      elErro.style.display = 'none';
+    }
+  }
+
   async function calcularScoreAssincrono() {
+    limparErro();
+
     const localidade = document.getElementById('campo-localidade').value.trim();
     const regiao = document.getElementById('campo-regiao').value;
     const populacao = Number(document.getElementById('campo-populacao').value);
     const renda_per_capita = Number(document.getElementById('campo-renda').value);
     const inadimplencia_local = Number(document.getElementById('campo-inadimplencia').value);
 
-    if (!localidade) return;
+    if (!localidade) {
+      mostrarErro('Por favor, informe o nome do município.');
+      return;
+    }
 
     if (btnTexto && btnLoading) {
       btnTexto.style.display = 'none';
@@ -107,14 +130,18 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       });
 
+      const dados = await resposta.json().catch(() => ({}));
+
       if (!resposta.ok) {
-        throw new Error('Falha ao processar cálculo');
+        const mensagem = dados.erro || 'Falha ao processar cálculo territorial.';
+        mostrarErro(mensagem);
+        return;
       }
 
-      const dados = await resposta.json();
+      limparErro();
       exibirResultado(dados);
     } catch (erro) {
-      alert('Erro ao calcular score territorial. Verifique os valores informados.');
+      mostrarErro('Não foi possível conectar ao servidor. Verifique se a API está online.');
     } finally {
       if (btnTexto && btnLoading) {
         btnTexto.style.display = 'inline';
