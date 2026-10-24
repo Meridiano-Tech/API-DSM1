@@ -77,7 +77,7 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 
  - Notebook Google Colab disponível para execução manual e exploração dos dados
 
-📓 Notebook:  [Abrir no Google Colab](https://colab.research.google.com/drive/1zkPyrjhyuS1CkKiQuGVwPTBM4CSTLsV8#scrollTo=O6NNuk1_cDmQ)
+📓 Notebook:  [Abrir no Google Colab](https://colab.research.google.com/drive/1u0DDo4MZbz0CQg1OwxbfW0UxdBu0q_Z4)
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -89,6 +89,8 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 | Sprint | Foco do MVP | Entregas Principais (Épicos) | Resultado |
 |:---: | :--- | :---: | :---: |
 | Sprint 1 07/09 -27/09| Estruturação de indicadores confiáveis, com criação de pipelines de dados e ambiente para visualização gráfica |Google Colab e métricas |Concluido|
+| Sprint 1 05/10 -25/10| Como instituição financeira, preciso de um ambiente em que os dados estejam analisados e expostos graficamente para otimização do meu tempo de decisão.|Em andamento|
+
 
 ## 👥 Colaboradores
 | Nome | Função | LinkedIn | GitHub |
