@@ -48,8 +48,8 @@ function preencherCard(id, valor, detalhe) {
 
   if (!card || valor === undefined || valor === null) return;
 
-  const valorElemento = card.querySelector(".cardvalor");
-  const detalheElemento = card.querySelector(".carddetalhe");
+  const valorElemento = card.querySelector(".cardvalor, .card-valor");
+  const detalheElemento = card.querySelector(".carddetalhe, .card-subtexto");
 
   if (valorElemento) valorElemento.textContent = valor;
   if (detalheElemento && detalhe) detalheElemento.textContent = detalhe;
@@ -90,22 +90,24 @@ function desenharLinha(area, linhas) {
       labels: linhas.map(item => item.mes),
       datasets: [
         {
-          label: "Norte",
+          label: "Região Norte",
           data: linhas.map(item => Number(item.Norte)),
-          borderColor: "#0a5c7a",
-          backgroundColor: "#0a5c7a",
-          borderWidth: 2,
-          pointRadius: 2,
-          tension: 0.3
+          borderColor: "#0a2540",
+          backgroundColor: "rgba(10, 37, 64, 0.04)",
+          borderWidth: 2.5,
+          tension: 0.3,
+          pointRadius: 1.5,
+          fill: true
         },
         {
-          label: "Nordeste",
+          label: "Região Nordeste",
           data: linhas.map(item => Number(item.Nordeste)),
-          borderColor: "#cc5200",
-          backgroundColor: "#cc5200",
-          borderWidth: 2,
-          pointRadius: 2,
-          tension: 0.3
+          borderColor: "#0284c7",
+          backgroundColor: "rgba(2, 132, 199, 0.04)",
+          borderWidth: 2.5,
+          tension: 0.3,
+          pointRadius: 1.5,
+          fill: true
         }
       ]
     },
@@ -116,14 +118,29 @@ function desenharLinha(area, linhas) {
         intersect: false,
         mode: "index"
       },
+      plugins: {
+        legend: {
+          position: "top",
+          labels: {
+            boxWidth: 12,
+            font: { family: "'Archivo', 'Inter', system-ui, sans-serif", size: 12 }
+          }
+        }
+      },
       scales: {
         x: {
           ticks: {
-            maxTicksLimit: 10
+            maxTicksLimit: 8
+          },
+          grid: {
+            display: false
           }
         },
         y: {
-          beginAtZero: false
+          beginAtZero: false,
+          grid: {
+            color: "#f1f5f9"
+          }
         }
       }
     }
@@ -136,25 +153,26 @@ function desenharRanking(area, linhas) {
     return;
   }
 
-  const ranking = [...linhas].sort(
-    (a, b) => Number(b.score_final) - Number(a.score_final)
-  );
+  const ranking = [...linhas]
+    .slice(0, 7)
+    .sort((a, b) => Number(b.score_final) - Number(a.score_final));
 
   const canvas = criarCanvas(area);
 
   new Chart(canvas, {
     type: "bar",
     data: {
-      labels: ranking.map(item => item.localidade),
+      labels: ranking.map(item => item.localidade.split(" - ")[0]),
       datasets: [
         {
           label: "Score final",
           data: ranking.map(item => Number(item.score_final)),
           backgroundColor: ranking.map(item =>
-            item.regiao === "Norte" ? "#0a5c7a" :
-            item.regiao === "Nordeste" ? "#cc5200" : "#64748b"
+            item.regiao === "Norte" ? "#0a2540" :
+            item.regiao === "Nordeste" ? "#0284c7" : "#64748b"
           ),
-          borderRadius: 4,
+          hoverBackgroundColor: "#0284c7",
+          borderRadius: 8,
           barPercentage: 0.8,
           categoryPercentage: 0.9
         }
@@ -179,11 +197,18 @@ function desenharRanking(area, linhas) {
       },
       scales: {
         x: {
-          beginAtZero: true
+          beginAtZero: true,
+          grid: {
+            color: "#f1f5f9"
+          }
         },
         y: {
+          grid: {
+            display: false
+          },
           ticks: {
-            autoSkip: false
+            autoSkip: false,
+            font: { family: "'Archivo', 'Inter', system-ui, sans-serif", size: 12 }
           }
         }
       }
@@ -203,13 +228,14 @@ async function iniciar() {
 
   // Indicadores em destaque
   const cards = dados.cards || {};
+  const principais = dados.principais || {};
 
   const textoCrescimento =
     cards.yoy_norte === cards.yoy_nordeste
-      ? "Crescimento anual da carteira (Norte e Nordeste empatadas)."
+      ? "↑ Crescimento anual consolidado"
       : cards.yoy_norte > cards.yoy_nordeste
-      ? "Maior crescimento anual: Região Norte."
-      : "Maior crescimento anual: Região Nordeste.";
+      ? "↑ Maior crescimento: Região Norte"
+      : "↑ Maior crescimento: Região Nordeste";
 
   preencherCard(
     "card-1",
@@ -224,7 +250,7 @@ async function iniciar() {
     cards.vol_pix_geral !== undefined
       ? formatarMoedaBilhoes(cards.vol_pix_geral)
       : "--",
-    "Volume acumulado nas regiões monitoradas."
+    "↑ Liquidez monitorada"
   );
 
   preencherCard(
@@ -232,24 +258,33 @@ async function iniciar() {
     cards.inadimplencia_media !== undefined
       ? formatarPercentual(cards.inadimplencia_media)
       : "--",
-    "Taxa média da carteira de referência (BCB)."
+    "Referência estável (BCB)"
+  );
+
+  const totalMunicipios = principais.grafico_p2_ranking_score_municipal?.length || 20;
+  preencherCard(
+    "card-4",
+    `${totalMunicipios} Polos`,
+    "★ Score inclusivo ativo"
   );
 
   // Gráficos principais
-  const principais = dados.principais || {};
-
   const areaLinha = document.querySelector("#grafico-1 .graficoarea");
   const areaRanking = document.querySelector("#grafico-2 .graficoarea");
 
-  desenharLinha(
-    areaLinha,
-    principais.grafico_p1_serie_temporal_credito
-  );
+  if (areaLinha) {
+    desenharLinha(
+      areaLinha,
+      principais.grafico_p1_serie_temporal_credito
+    );
+  }
 
-  desenharRanking(
-    areaRanking,
-    principais.grafico_p2_ranking_score_municipal
-  );
+  if (areaRanking) {
+    desenharRanking(
+      areaRanking,
+      principais.grafico_p2_ranking_score_municipal
+    );
+  }
 }
 
 document.addEventListener("DOMContentLoaded", iniciar);

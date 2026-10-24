@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/visao-geral.js" defer></script>
   <script src="js/extrato.js" defer></script>
   <style>
     :root {
@@ -763,53 +764,49 @@
       </div>
     </div>
 
-    <!-- 4 Cards de Resumo (incluindo Evolução Mensal) -->
+    <!-- 4 Cards de Resumo (alimentados dinamicamente via js/visao-geral.js) -->
     <div class="cards-grid">
-      <article class="card-resumo card-resumo-destaque">
+      <article class="card-resumo card-resumo-destaque" id="card-1">
         <span class="card-rotulo">Evolução Mensal (YoY)</span>
-        <div class="card-valor">+6,24%</div>
-        <span class="card-subtexto" style="color: #0284c7;">↑ Crescimento anual da carteira</span>
+        <div class="card-valor cardvalor">--</div>
+        <span class="card-subtexto carddetalhe" style="color: #0284c7;">↑ Crescimento anual consolidado</span>
       </article>
 
-      <article class="card-resumo">
+      <article class="card-resumo" id="card-2">
         <span class="card-rotulo">Volume Transacionado (Pix)</span>
-        <div class="card-valor">R$ 26,07 Bi</div>
-        <span class="card-subtexto">↑ Liquidez monitorada</span>
+        <div class="card-valor cardvalor">--</div>
+        <span class="card-subtexto carddetalhe">↑ Liquidez monitorada</span>
       </article>
 
-      <article class="card-resumo">
+      <article class="card-resumo" id="card-3">
         <span class="card-rotulo">Taxa Média de Inadimplência</span>
-        <div class="card-valor">5,5%</div>
-        <span class="card-subtexto" style="color: #64748b;">Referência estável (BCB)</span>
+        <div class="card-valor cardvalor">--</div>
+        <span class="card-subtexto carddetalhe" style="color: #64748b;">Referência estável (BCB)</span>
       </article>
 
-      <article class="card-resumo">
+      <article class="card-resumo" id="card-4">
         <span class="card-rotulo">Municípios Monitorados</span>
-        <div class="card-valor">20 Polos</div>
-        <span class="card-subtexto" style="color: #0284c7;">★ Score inclusivo ativo</span>
+        <div class="card-valor cardvalor">--</div>
+        <span class="card-subtexto carddetalhe" style="color: #0284c7;">★ Score inclusivo ativo</span>
       </article>
     </div>
 
-    <!-- 2 Gráficos no Estilo do Mockup -->
+    <!-- 2 Gráficos no Estilo do Mockup (alimentados dinamicamente via js/visao-geral.js) -->
     <div class="graficos-grid">
-      <section class="card-grafico">
+      <section class="card-grafico" id="grafico-1">
         <div class="grafico-cabecalho">
           <h3 class="grafico-titulo">Fluxo da Carteira de Crédito</h3>
           <span class="grafico-tag">Evolução Histórica</span>
         </div>
-        <div class="canvas-container">
-          <canvas id="grafico-linha"></canvas>
-        </div>
+        <div class="canvas-container graficoarea"></div>
       </section>
 
-      <section class="card-grafico">
+      <section class="card-grafico" id="grafico-2">
         <div class="grafico-cabecalho">
           <h3 class="grafico-titulo">Ranking de Score</h3>
           <span class="grafico-tag">Top Municípios</span>
         </div>
-        <div class="canvas-container">
-          <canvas id="grafico-ranking"></canvas>
-        </div>
+        <div class="canvas-container graficoarea"></div>
       </section>
     </div>
 
@@ -888,95 +885,6 @@
       <p class="rodape-icone">© 2026 Credit42 · Meridiano Tech</p>
     </footer>
   </main>
-
-  <script>
-    async function carregarGraficosPreview() {
-      try {
-        let res = await fetch('./dados/dados_site.json');
-        if (!res.ok) res = await fetch('./dados_site.json');
-        const dados = await res.json();
-
-        // 1. Gráfico de Linha (Fluxo financeiro)
-        const ctxLinha = document.getElementById('grafico-linha');
-        const serie = dados.principais?.grafico_p1_serie_temporal_credito || [];
-
-        new Chart(ctxLinha, {
-          type: 'line',
-          data: {
-            labels: serie.map(d => d.mes),
-            datasets: [
-              {
-                label: 'Região Norte',
-                data: serie.map(d => Number(d.Norte)),
-                borderColor: '#0a2540',
-                backgroundColor: 'rgba(10, 37, 64, 0.04)',
-                fill: true,
-                borderWidth: 2.5,
-                tension: 0.3,
-                pointRadius: 1.5
-              },
-              {
-                label: 'Região Nordeste',
-                data: serie.map(d => Number(d.Nordeste)),
-                borderColor: '#0284c7',
-                backgroundColor: 'rgba(2, 132, 199, 0.04)',
-                fill: true,
-                borderWidth: 2.5,
-                tension: 0.3,
-                pointRadius: 1.5
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Archivo', size: 12 } } }
-            },
-            scales: {
-              x: { ticks: { maxTicksLimit: 8 }, grid: { display: false } },
-              y: { beginAtZero: false, grid: { color: '#f1f5f9' } }
-            }
-          }
-        });
-
-        // 2. Gráfico de Ranking (Metas)
-        const ctxRanking = document.getElementById('grafico-ranking');
-        const ranking = (dados.principais?.grafico_p2_ranking_score_municipal || [])
-          .slice(0, 7)
-          .sort((a, b) => Number(b.score_final) - Number(a.score_final));
-
-        new Chart(ctxRanking, {
-          type: 'bar',
-          data: {
-            labels: ranking.map(d => d.localidade.split(' - ')[0]),
-            datasets: [{
-              label: 'Score',
-              data: ranking.map(d => Number(d.score_final)),
-              backgroundColor: '#0a2540',
-              hoverBackgroundColor: '#0284c7',
-              borderRadius: 8
-            }]
-          },
-          options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              x: { beginAtZero: true, grid: { color: '#f1f5f9' } },
-              y: { grid: { display: false } }
-            }
-          }
-        });
-
-      } catch (e) {
-        console.error('Erro ao renderizar gráficos do preview:', e);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', carregarGraficosPreview);
-  </script>
 </body>
 
 </html>
