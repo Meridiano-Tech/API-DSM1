@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sobre | Nome do projeto</title>
+  <title>Sobre | Credit42</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
   </nav>
   <main class="conteudo">
     <section class="secao" aria-labelledby="titulo-sobre">
-      <div class="logoequipe">Logo da equipe</div>
+      <div class="logoequipe">Equipe Meridiano Tech · FATEC São José dos Campos</div>
       <h2 class="secaotitulo secaotitulo-destaque" id="titulo-sobre">Equipe e projeto</h2>
       <p class="textointro">O CREDIT42 é um projeto desenvolvido para instituições financeiras que desejam ampliar seu alcance e explorar oportunidades de crédito para públicos que tradicionalmente enfrentam dificuldades para obtê-lo.
 
@@ -59,37 +59,35 @@ A equipe Meridiano Tech desenvolveu um sistema de score que permite realizar an�
 Sentiu falta de algum dado que gostaria de consultar? Não entre em pânico: entre em contato conosco por meio do formulário abaixo.</p>
       <div class="colunas colunas-equipe">
         <div>
-          <h3 class="colunatitulo">PO</h3>
+          <h3 class="colunatitulo">Product Owner</h3>
           <ul>
-            <li>Nome</li>
+            <li>Alicia Cavalcante</li>
           </ul>
         </div>
         <div>
           <h3 class="colunatitulo">Scrum Master</h3>
           <ul>
-            <li>Nome</li>
+            <li>Denilson Brito</li>
           </ul>
         </div>
         <div>
-          <h3 class="colunatitulo">Dev team back</h3>
+          <h3 class="colunatitulo">Dev Team (Back-end & IA)</h3>
           <ul>
-            <li>Nome</li>
-            <li>Nome</li>
-            <li>Nome</li>
+            <li>Jônatas Eugênio</li>
+            <li>Renan Maia</li>
           </ul>
         </div>
         <div>
-          <h3 class="colunatitulo">Dev team front</h3>
+          <h3 class="colunatitulo">Dev Team (Front-end & Dados)</h3>
           <ul>
-            <li>Nome</li>
-            <li>Nome</li>
-            <li>Nome</li>
+            <li>Ithalo Henrique</li>
+            <li>Giovanna Noccerino</li>
           </ul>
         </div>
       </div>
     </section>
     <section class="secao">
-      <form class="formulario" action="#" method="post" aria-labelledby="titulo-contato">
+      <form class="formulario" id="form-contato" action="#" method="post" aria-labelledby="titulo-contato">
         <h2 class="formulariotitulo" id="titulo-contato">Formulário de contato</h2>
         <div class="campo">
           <label for="nome">Nome</label>
@@ -104,7 +102,16 @@ Sentiu falta de algum dado que gostaria de consultar? Não entre em pânico: ent
           <textarea id="mensagem" name="mensagem" required></textarea>
         </div>
         <button type="submit" class="botao botao-enviar">Enviar</button>
+        <p id="msg-sucesso" style="display:none; color: #0a5c7a; font-weight: 600; margin-top: 1rem;">Obrigado pelo contato! Sua mensagem foi registrada com sucesso.</p>
       </form>
+      <script>
+        document.getElementById('form-contato')?.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var msg = document.getElementById('msg-sucesso');
+          if (msg) msg.style.display = 'block';
+          this.reset();
+        });
+      </script>
     </section>
   </main>
   <footer class="rodape"></footer>
