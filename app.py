@@ -2,8 +2,15 @@ import os
 from flask import Flask, request, jsonify, send_from_directory
 from motor_score import MotorScore
 
-app = Flask(__name__, static_folder='.', static_url_path='')
+app = Flask(__name__, static_folder=None)
 motor = MotorScore()
+
+
+EXTENSOES_PERMITIDAS = {
+    '.html', '.css', '.js', '.json', '.png',
+    '.jpg', '.jpeg', '.svg', '.ico', '.webp',
+    '.woff2', '.ttf'
+}
 
 
 @app.route('/')
@@ -13,8 +20,18 @@ def index():
 
 @app.route('/<path:filename>')
 def arquivos_estaticos(filename):
-    if os.path.exists(filename):
-        return send_from_directory('.', filename)
+    caminho = filename.replace('\\', '/')
+    partes = caminho.split('/')
+    if any(p.startswith('.') for p in partes) or '..' in partes:
+        return jsonify({"erro": "Acesso não permitido"}), 403
+
+    _, extensao = os.path.splitext(caminho)
+    if extensao.lower() not in EXTENSOES_PERMITIDAS:
+        return jsonify({"erro": "Acesso não permitido para este tipo de arquivo"}), 403
+
+    if os.path.isfile(caminho):
+        return send_from_directory('.', caminho)
+
     return jsonify({"erro": "Arquivo não encontrado"}), 404
 
 
