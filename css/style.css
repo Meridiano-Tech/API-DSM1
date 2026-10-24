@@ -1,26 +1,47 @@
-/* root é o design system, é útil para que utilize apenas o var() para aplicar o css */
+/* Design System Credit42 - Paleta Fintech Premium e Tokens Visuais */
 
 :root {
-  --cor-fundo: #ffffff;
-  --cor-superficie: #e0ebf5;
-  --cor-moldura: #ecf2f8;
-  --cor-primaria: #569ddc;
-  --cor-destaque: #4c86ba;
-  --cor-rodape: #4678a4;
-  --cor-logo: #c8d1d9;
-  --cor-borda: #c5ced7;
-  --cor-campo: #a5c2dc;
-  --cor-amarelo: #ffe192;
-  --cor-texto: #000000;
-  --cor-texto-suave: #4d6571;
+  --cor-fundo: #f8fafc;
+  --cor-card: #ffffff;
+  --cor-superficie: #f1f5f9;
+  --cor-moldura: #e2e8f0;
+  --cor-primaria: #0a2540;
+  --cor-primaria-suave: #1e3a5f;
+  --cor-destaque: #0284c7;
+  --cor-destaque-hover: #0369a1;
+  --cor-rodape: #0a2540;
+  --cor-logo: #0284c7;
+  --cor-borda: #e2e8f0;
+  --cor-borda-foco: #38bdf8;
+  --cor-campo: #ffffff;
+  --cor-amarelo: #f59e0b;
+  --cor-verde: #10b981;
+  --cor-vermelho: #ef4444;
+  --cor-texto: #0f172a;
+  --cor-texto-suave: #475569;
+  --cor-texto-muted: #64748b;
+  --cor-texto-claro: #ffffff;
   --cor-sobre-primaria: #ffffff;
+
   --fonte-titulo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --fonte-corpo: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --fonte-peso-titulo: 700;
   --fonte-peso-corpo: 400;
-  --raio-sm: 10px;
-  --raio-md: 16px;
-  --raio-lg: 40px;
+
+  --raio-sm: 8px;
+  --raio-md: 14px;
+  --raio-lg: 24px;
+  --raio-pill: 9999px;
+
+  --sombra-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --sombra-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --sombra-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --sombra-card: 0 2px 8px -2px rgba(15, 23, 42, 0.06), 0 6px 20px -4px rgba(15, 23, 42, 0.04);
+  --sombra-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+
+  --transicao-rapida: 0.15s ease;
+  --transicao: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
   --largura-max: 1240px;
   --espaco: 24px;
   --recuo: 12px;
@@ -33,6 +54,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: rgba(2, 132, 199, 0.2);
+  color: var(--cor-texto);
+}
+
 body {
   margin: 0;
   background: var(--cor-fundo);
@@ -40,7 +66,9 @@ body {
   font-family: var(--fonte-corpo);
   font-weight: var(--fonte-peso-corpo);
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
