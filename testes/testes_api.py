@@ -62,6 +62,38 @@ class TestesAPI(unittest.TestCase):
         dados = json.loads(resposta.data)
         self.assertIn('erro', dados)
 
+    def test_cabecalhos_cors_e_preflight(self):
+        resposta_get = self.cliente.get('/api/status')
+        self.assertEqual(resposta_get.headers.get('Access-Control-Allow-Origin'), '*')
+        self.assertIn('OPTIONS', resposta_get.headers.get('Access-Control-Allow-Methods', ''))
+
+        resposta_opt = self.cliente.open('/api/calcular-score', method='OPTIONS')
+        self.assertEqual(resposta_opt.status_code, 204)
+        self.assertEqual(resposta_opt.headers.get('Access-Control-Allow-Origin'), '*')
+
+    def test_seguranca_arquivos_estaticos(self):
+        self.assertEqual(self.cliente.get('/motor_score.py').status_code, 403)
+        self.assertEqual(self.cliente.get('/app.py').status_code, 403)
+        self.assertEqual(self.cliente.get('/.gitignore').status_code, 403)
+        with self.cliente.get('/index.html') as resp:
+            self.assertEqual(resp.status_code, 200)
+
+    def test_validacao_limites_negativos(self):
+        testes = [
+            {"populacao": -500},
+            {"renda_per_capita": 0},
+            {"inadimplencia_local": 105.0},
+            {"vol_pix_total": -10.0}
+        ]
+        for payload in testes:
+            resp = self.cliente.post(
+                '/api/calcular-score',
+                data=json.dumps(payload),
+                content_type='application/json'
+            )
+            self.assertEqual(resp.status_code, 400)
+            self.assertIn('erro', json.loads(resp.data))
+
 
 if __name__ == '__main__':
     unittest.main()
