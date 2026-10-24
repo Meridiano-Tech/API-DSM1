@@ -35,6 +35,20 @@ def arquivos_estaticos(filename):
     return jsonify({"erro": "Arquivo não encontrado"}), 404
 
 
+@app.before_request
+def tratar_preflight_cors():
+    if request.method == 'OPTIONS':
+        return ('', 204)
+
+
+@app.after_request
+def adicionar_cabecalhos_cors(resposta):
+    resposta.headers['Access-Control-Allow-Origin'] = '*'
+    resposta.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    resposta.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    return resposta
+
+
 @app.route('/api/status', methods=['GET'])
 def status():
     return jsonify({
