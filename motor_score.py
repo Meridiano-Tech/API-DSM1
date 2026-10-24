@@ -31,15 +31,25 @@ BENCHMARK_MUNICIPIOS = {
 }
 
 
+_CACHE_INADIMPLENCIA_BCB = None
+
+
 def obter_inadimplencia_nacional_bcb(fallback=5.6):
+    global _CACHE_INADIMPLENCIA_BCB
+    if _CACHE_INADIMPLENCIA_BCB is not None:
+        return _CACHE_INADIMPLENCIA_BCB
+
     url = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21082/dados/ultimos/1?formato=json"
     try:
-        res = requests.get(url, timeout=5, verify=False)
+        res = requests.get(url, timeout=2, verify=False)
         if res.status_code == 200 and len(res.json()) > 0:
-            return float(res.json()[0]['valor'])
+            _CACHE_INADIMPLENCIA_BCB = float(res.json()[0]['valor'])
+            return _CACHE_INADIMPLENCIA_BCB
     except Exception:
         pass
-    return float(fallback)
+
+    _CACHE_INADIMPLENCIA_BCB = float(fallback)
+    return _CACHE_INADIMPLENCIA_BCB
 
 
 class MotorScore:
