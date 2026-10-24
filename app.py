@@ -98,6 +98,24 @@ def calcular_score():
     except (ValueError, TypeError):
         return jsonify({"erro": "Valores numéricos inválidos enviados no formulário."}), 400
 
+    if populacao < 1000:
+        return jsonify({"erro": "População deve ser um valor positivo com no mínimo 1.000 habitantes."}), 400
+
+    if renda_per_capita <= 0:
+        return jsonify({"erro": "Renda per capita deve ser um valor numérico positivo."}), 400
+
+    if inadimplencia_local is not None and not (0.0 <= inadimplencia_local <= 100.0):
+        return jsonify({"erro": "Taxa de inadimplência local deve estar entre 0% e 100%."}), 400
+
+    if vol_pix_total is not None and vol_pix_total < 0:
+        return jsonify({"erro": "Volume Pix total não pode ser negativo."}), 400
+
+    if valor_pf is not None and valor_pf < 0:
+        return jsonify({"erro": "Volume Pix PF não pode ser negativo."}), 400
+
+    if valor_pj is not None and valor_pj < 0:
+        return jsonify({"erro": "Volume Pix PJ não pode ser negativo."}), 400
+
     try:
         resultado = motor.calcular_score(
             localidade=localidade,
