@@ -1,121 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sobre | Credit42</title>
+  <title>Sobre Nós | Credit42</title>
+  <link rel="icon" type="image/png" href="css/imagens/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<header class="banner">
-  <div class="bannerconteudo">
-    <img class="bannerlogo" src="css/imagens/logo.png" alt="Logo Credit42">
-    <div class="bannertexto">
-      <p class="bannermarca">Credit42 · Inteligência de dados</p>
-      <h1 class="bannertitulo">Inteligência de dados para<br>decisões mais estratégicas</h1>
+
+  <!-- Top Navbar -->
+  <header class="topo-navbar">
+    <div class="topo-container">
+      <div class="marca">
+        <img class="marca-logo" src="css/imagens/logo.png" alt="Logo Credit42">
+        <span class="marca-nome">Credit42</span>
+        <span class="marca-separador">·</span>
+        <span class="marca-sub">Inteligência de Dados</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Início</a>
+        <a href="composicao.html" class="nav-link">Composição</a>
+        <a href="sobre.html" class="nav-link ativo">Sobre Nós</a>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <div class="bannerdeco" aria-hidden="true">
-    <svg class="bannergrafico" viewBox="0 0 520 140" preserveAspectRatio="xMidYMax meet">
-      <defs>
-        <pattern id="pontos" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" class="decoponto"/>
-        </pattern>
-      </defs>
-      <rect class="decobarra" x="20"  y="100" width="14" height="30"/>
-      <rect class="decobarra" x="40"  y="88"  width="14" height="42"/>
-      <rect class="decobarra" x="60"  y="74"  width="14" height="56"/>
-      <rect class="decobarra" x="80"  y="58"  width="14" height="72"/>
-      <path class="decolinha" d="M0 128 L90 126 L130 112 L190 52 L240 100 L330 18"/>
-      <circle class="decoponto" cx="130" cy="112" r="6"/>
-      <circle class="decoponto" cx="190" cy="52"  r="6"/>
-      <circle class="decoponto" cx="240" cy="100" r="6"/>
-      <circle class="decoponto" cx="330" cy="18"  r="6"/>
-      <rect x="380" y="20" width="130" height="110" fill="url(#pontos)"/>
-    </svg>
-    <p class="bannerlema">Mais dados<br>melhores<br>decisões</p>
-  </div>
-</header>
-  <nav class="menu" aria-label="Navegação principal">
-    <a href="index.html" class="menulink">Visão geral</a>
-    <a href="composicao.html" class="menulink">Composição</a>
-    <a href="metodologia.html" class="menulink">Metodologia</a>
-    <a href="sobre.html" class="menulink menulink-ativo" aria-current="page">Sobre</a>
-  </nav>
-  <main class="conteudo">
-    <section class="secao" aria-labelledby="titulo-sobre">
-      <div class="logoequipe">Equipe Meridiano Tech · FATEC São José dos Campos</div>
-      <h2 class="secaotitulo secaotitulo-destaque" id="titulo-sobre">Equipe e projeto</h2>
-      <p class="textointro">O CREDIT42 é um projeto desenvolvido para instituições financeiras que desejam ampliar seu alcance e explorar oportunidades de crédito para públicos que tradicionalmente enfrentam dificuldades para obtê-lo.
+  <!-- Conteúdo Principal -->
+  <main class="sobre-container">
+    <!-- Destaque: Meridiano Tech e Credit42 -->
+    <section class="sobre-destaque-grid">
+      <div class="logo-meridiano-box" title="Meridiano Tech">
+        <img class="logo-meridiano-img" src="css/imagens/logomeridiano.jpg" alt="Logo Equipe Meridiano Tech">
+      </div>
+      <div class="sobre-texto-bloco">
+        <h2>Equipe Meridiano Tech & Projeto Credit42</h2>
+        <p>
+          O <strong>Credit42</strong> é uma plataforma desenvolvida para instituições financeiras que desejam ampliar seu alcance e explorar oportunidades de crédito para públicos que tradicionalmente enfrentam dificuldades de acesso ao sistema bancário.
+        </p>
+        <p>
+          Desenvolvido pela equipe <strong>Meridiano Tech</strong> da FATEC São José dos Campos (Prof. Jessen Vidal), o sistema integra indicadores socioeconômicos, métricas do Banco Central e modelos analíticos para identificar potencial de crédito em diferentes regiões brasileiras.
+        </p>
+      </div>
+    </section>
 
-Quando surgirem novas perguntas, o C42 está aqui para te dar a resposta!
+    <!-- Estrutura do Time -->
+    <section>
+      <div class="secao-titulo-bloco">
+        <h2>Integrantes</h2>
+      </div>
 
-A equipe Meridiano Tech desenvolveu um sistema de score que permite realizar análises comparativas a partir dos indicadores apresentados na plataforma, contribuindo para a identificação de oportunidades em diferentes regiões.
-
-Sentiu falta de algum dado que gostaria de consultar? Não entre em pânico: entre em contato conosco por meio do formulário abaixo.</p>
-      <div class="colunas colunas-equipe">
-        <div>
-          <h3 class="colunatitulo">Product Owner</h3>
-          <ul>
-            <li>Alicia Cavalcante</li>
-          </ul>
+      <div class="equipe-cards-grid">
+        <div class="equipe-card">
+          <span class="equipe-cargo-badge badge-po">Product Owner</span>
+          <div class="equipe-membro-nome">Alicia Cavalcante</div>
         </div>
-        <div>
-          <h3 class="colunatitulo">Scrum Master</h3>
-          <ul>
-            <li>Denilson Brito</li>
-          </ul>
+
+        <div class="equipe-card">
+          <span class="equipe-cargo-badge badge-scrum">Scrum Master</span>
+          <div class="equipe-membro-nome">Denilson Brito</div>
         </div>
-        <div>
-          <h3 class="colunatitulo">Dev Team (Back-end & IA)</h3>
-          <ul>
-            <li>Jônatas Eugênio</li>
-            <li>Renan Maia</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="colunatitulo">Dev Team (Front-end & Dados)</h3>
-          <ul>
-            <li>Ithalo Henrique</li>
-            <li>Giovanna Noccerino</li>
-          </ul>
+
+        <div class="equipe-card">
+          <span class="equipe-cargo-badge badge-dev">Dev Team</span>
+          <div class="equipe-dev-lista">
+            <div class="equipe-membro-nome">Jônatas Eugênio</div>
+            <div class="equipe-membro-nome">Renan Maia</div>
+            <div class="equipe-membro-nome">Ithalo Henrique</div>
+            <div class="equipe-membro-nome">Giovanna Noccerino</div>
+          </div>
         </div>
       </div>
     </section>
-    <section class="secao">
-      <form class="formulario" id="form-contato" action="#" method="post" aria-labelledby="titulo-contato">
-        <h2 class="formulariotitulo" id="titulo-contato">Formulário de contato</h2>
-        <div class="campo">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required>
+
+    <!-- Formulário de Contato -->
+    <section class="contato-card-moderno">
+      <h2>Fale Conosco</h2>
+
+      <form class="form-moderno-grid" id="form-contato" action="#" method="post">
+        <div class="campo-moderno">
+          <label for="nome">Nome Completo</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
         </div>
-        <div class="campo">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" required>
+
+        <div class="campo-moderno">
+          <label for="email">E-mail Corporativo</label>
+          <input type="email" id="email" name="email" placeholder="nome@empresa.com.br" required>
         </div>
-        <div class="campo">
+
+        <div class="campo-moderno">
           <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" required></textarea>
+          <textarea id="mensagem" name="mensagem" placeholder="Descreva sua solicitação, dúvida ou sugestão de melhoria..." required></textarea>
         </div>
-        <button type="submit" class="botao botao-enviar">Enviar</button>
-        <p id="msg-sucesso" style="display:none; color: #0a5c7a; font-weight: 600; margin-top: 1rem;">Obrigado pelo contato! Sua mensagem foi registrada com sucesso.</p>
+
+        <button type="submit" class="btn-primario" style="justify-content: center; width: 100%; border: none; cursor: pointer; padding: 12px;">
+          Enviar Mensagem
+        </button>
+
+        <div id="msg-sucesso" class="alerta-sucesso">
+          ✓ Obrigado pelo contato!
+        </div>
       </form>
-      <script>
-        document.getElementById('form-contato')?.addEventListener('submit', function(e) {
-          e.preventDefault();
-          var msg = document.getElementById('msg-sucesso');
-          if (msg) msg.style.display = 'block';
-          this.reset();
-        });
-      </script>
     </section>
+
+    <!-- Rodapé -->
+    <footer class="rodape-novo">
+      <p class="rodape-icone">© 2026 Credit42 · Meridiano Tech</p>
+    </footer>
   </main>
-  <footer class="rodape">
-    <p>© 2026 Credit42 · Meridiano Tech</p>
-  </footer>
+
+  <script>
+    document.getElementById('form-contato')?.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = document.getElementById('msg-sucesso');
+      if (msg) msg.style.display = 'block';
+      this.reset();
+    });
+  </script>
 </body>
+
 </html>
