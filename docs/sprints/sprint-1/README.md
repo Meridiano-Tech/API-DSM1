@@ -1,12 +1,12 @@
 # 📅 Documentação - Sprint 1
 
-> Status da Sprint: Em andamento 🟡
+> Status da Sprint: Concluido 🟡
 
 ## 📋 Backlog da Sprint
 
 | ID | User Story | Prioridade | Sprint | Status
 | :---: | :--- | :---: | :---: | :---: |
-| #1 |Como instituição financeira,quero ter indicadores confiáveis para concessãode crédito com baixos riscos de inadimplência. | Alta | 1 | 🟡 |
+| #1 |Como instituição financeira,quero ter indicadores confiáveis para concessão de crédito com baixos riscos de inadimplência. | Alta | 1 | 🟡 |
 | #2 |Como analista de crédito, quero poder visualizar através de gráficos os dados obtidos para tomadas de decisões melhores.| Alta | 1 | 🟡 |
 | #3 |Como instituição financeira, preciso de um ambiente em que os dados estejam analisados e expostos graficamente para otimização do meu tempo de decisão. | Alta | 1 | 🟡 |
 
