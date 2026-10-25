@@ -1555,3 +1555,258 @@ button.botao {
     display: none;
   }
 }
+
+/* ==========================================================================
+   TELA SOBRE NÓS - CARD EMPRESA, INTEGRANTES E CONTATO MODERNO
+   ========================================================================== */
+
+.sobre-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 36px 24px 0;
+}
+
+.sobre-destaque-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 36px;
+  align-items: center;
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  padding: 30px 36px;
+  box-shadow: var(--sombra-card);
+  margin-bottom: 32px;
+}
+
+.logo-meridiano-box {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #1e293b 0%, #000000 85%);
+  border: 3px solid rgba(2, 132, 199, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.logo-meridiano-box:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: var(--cor-destaque);
+  box-shadow: 0 0 0 6px rgba(2, 132, 199, 0.2), 0 16px 36px rgba(2, 132, 199, 0.45);
+}
+
+.logo-meridiano-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.logo-meridiano-box:hover .logo-meridiano-img {
+  transform: scale(1.06);
+}
+
+.sobre-texto-bloco h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--cor-primaria);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.sobre-texto-bloco p {
+  color: var(--cor-texto-suave);
+  line-height: 1.65;
+  margin-bottom: 14px;
+  font-size: 0.96rem;
+}
+
+.sobre-texto-bloco p:last-child {
+  margin-bottom: 0;
+}
+
+.secao-titulo-bloco {
+  margin-bottom: 18px;
+}
+
+.secao-titulo-bloco h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.equipe-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.equipe-card {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 18px;
+  padding: 24px 26px;
+  box-shadow: var(--sombra-card);
+  transition: all var(--transicao);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.equipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-hover);
+  border-color: #cbd5e1;
+}
+
+.equipe-cargo-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: var(--raio-pill);
+  margin-bottom: 6px;
+}
+
+.badge-po {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.badge-scrum {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.badge-dev {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.equipe-membro-nome {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  line-height: 1.4;
+}
+
+.equipe-dev-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.equipe-dev-lista .equipe-membro-nome + .equipe-membro-nome {
+  padding-top: 8px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.contato-card-moderno {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  padding: 32px 40px;
+  box-shadow: var(--sombra-card);
+  max-width: 720px;
+  margin: 0 auto 36px;
+}
+
+.contato-card-moderno h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  margin-bottom: 18px;
+}
+
+.form-moderno-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.campo-moderno {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-moderno label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.campo-moderno input,
+.campo-moderno textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+  transition: all var(--transicao);
+}
+
+.campo-moderno input:focus,
+.campo-moderno textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--cor-destaque);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.campo-moderno textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.alerta-sucesso {
+  display: none;
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .sobre-destaque-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .logo-meridiano-box {
+    margin: 0 auto;
+  }
+
+  .equipe-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contato-card-moderno {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sobre-container {
+    padding: 24px 16px 0;
+  }
+}
