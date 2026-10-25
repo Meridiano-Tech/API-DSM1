@@ -65,10 +65,11 @@
         <h2 class="secao-saudacao">Resumo do Período</h2>
       </div>
       <div>
-        <select class="filtro-select" aria-label="Filtro de período">
-          <option>Ano 2026 (Atual) ▾</option>
-          <option>Ano 2025</option>
-          <option>Ano 2024</option>
+        <select class="filtro-select" id="filtro-ano" aria-label="Filtro de período">
+          <option value="2026" selected>Ano 2026 (Atual)</option>
+          <option value="2025">Ano 2025</option>
+          <option value="2024">Ano 2024</option>
+          <option value="todos">Todos os Anos</option>
         </select>
       </div>
     </div>
@@ -105,7 +106,7 @@
       <section class="card-grafico" id="grafico-1">
         <div class="grafico-cabecalho">
           <h3 class="grafico-titulo">Fluxo da Carteira de Crédito</h3>
-          <span class="grafico-tag">Evolução Histórica</span>
+          <span class="grafico-tag" id="tag-grafico-linha">Evolução 2026</span>
         </div>
         <div class="canvas-container graficoarea"></div>
       </section>
