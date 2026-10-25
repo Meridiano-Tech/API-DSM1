@@ -4,10 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Composição | Credit42</title>
+  <title>Composição & Indicadores | Credit42</title>
+  <link rel="icon" type="image/png" href="css/imagens/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="js/composicao.js" defer></script>
@@ -15,83 +18,87 @@
 </head>
 
 <body>
-  <header class="banner">
-    <div class="bannerconteudo">
-      <img class="bannerlogo" src="css/imagens/logo.png" alt="Logo Credit42">
-      <div class="bannertexto">
-        <p class="bannermarca">Credit42 · Análise de Indicadore </p>
-        <h1 class="bannertitulo">Composição e<br>análise de indicadores</h1>
-      </div>
-    </div>
 
-    <div class="bannerdeco" aria-hidden="true">
-      <svg class="bannergrafico" viewBox="0 0 520 140" preserveAspectRatio="xMidYMax meet">
-        <defs>
-          <pattern id="pontos" width="16" height="16" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" class="decoponto" />
-          </pattern>
-        </defs>
-        <rect class="decobarra" x="20" y="100" width="14" height="30" />
-        <rect class="decobarra" x="40" y="88" width="14" height="42" />
-        <rect class="decobarra" x="60" y="74" width="14" height="56" />
-        <rect class="decobarra" x="80" y="58" width="14" height="72" />
-        <path class="decolinha" d="M0 128 L90 126 L130 112 L190 52 L240 100 L330 18" />
-        <circle class="decoponto" cx="130" cy="112" r="6" />
-        <circle class="decoponto" cx="190" cy="52" r="6" />
-        <circle class="decoponto" cx="240" cy="100" r="6" />
-        <circle class="decoponto" cx="330" cy="18" r="6" />
-        <rect x="380" y="20" width="130" height="110" fill="url(#pontos)" />
-      </svg>
-      <p class="bannerlema">Mais dados<br>melhores<br>decisões</p>
+  <!-- Top Navbar -->
+  <header class="topo-navbar">
+    <div class="topo-container">
+      <div class="marca">
+        <img class="marca-logo" src="css/imagens/logo.png" alt="Logo Credit42">
+        <span class="marca-nome">Credit42</span>
+        <span class="marca-separador">·</span>
+        <span class="marca-sub">Inteligência de Dados</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Início</a>
+        <a href="composicao.html" class="nav-link ativo">Composição</a>
+        <a href="metodologia.html" class="nav-link">Metodologia</a>
+        <a href="index.html#secao-extrato" class="nav-link">Relatórios</a>
+        <a href="sobre.html" class="nav-link">Sobre Nós</a>
+      </nav>
     </div>
   </header>
-  <nav class="menu" aria-label="Navegação principal">
-    <a href="index.html" class="menulink">Visão geral</a>
-    <a href="composicao.html" class="menulink menulink-ativo" aria-current="page">Composição</a>
-    <a href="metodologia.html" class="menulink">Metodologia</a>
-    <a href="sobre.html" class="menulink">Sobre</a>
-  </nav>
-  <main class="conteudo">
-    <section class="secao" aria-label="Perfil por região e métricas do score">
-      <div class="graficos">
-        <div>
-          <h2 class="secaotitulo" id="titulo-perfil">Perfil por região</h2>
-          <figure class="grafico grafico-alto" id="grafico-perfil" aria-labelledby="titulo-perfil">
-            <div class="graficoarea"></div>
-          </figure>
-        </div>
-        <div>
-          <h2 class="secaotitulo" id="titulo-metricas">Métricas e peso do score</h2>
-          <figure class="grafico grafico-alto" id="grafico-metricas" aria-labelledby="titulo-metricas">
-            <div class="graficoarea"></div>
-          </figure>
-        </div>
-      </div>
-    </section>
 
-    <section class="secao" id="secao-simulador" aria-labelledby="titulo-simulador">
-      <h2 class="secaotitulo" id="titulo-simulador">Simulador Territorial de Score de Crédito</h2>
-      <p class="textointro">Selecione um município monitorado ou informe os dados territoriais para calcular o score e a
-        recomendação de IA em tempo real.</p>
+  <!-- Hero Banner da Página -->
+  <section class="hero-secao hero-secao-compacta">
+    <div class="hero-container">
+      <div class="hero-texto-col">
+        <h1 class="hero-titulo-compacto">Composição e <span>Análise de Indicadores</span></h1>
+        <p class="hero-desc-compacto">
+          Avaliação integrada de crédito regional, peso dos pilares socioeconômicos e simulação preditiva em tempo real.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdo Principal -->
+  <main class="conteudo-principal">
+    <!-- Grid dos Gráficos Principais de Composição -->
+    <div class="graficos-grid-duplo">
+      <div class="card-grafico card-grafico-alto" id="grafico-perfil">
+        <div class="grafico-cabecalho">
+          <h2 class="card-grafico-titulo">Perfil Territorial por Componente</h2>
+          <span class="card-grafico-badge">Radar Multidimensional</span>
+        </div>
+        <div class="graficoarea"></div>
+      </div>
+
+      <div class="card-grafico card-grafico-alto" id="grafico-metricas">
+        <div class="grafico-cabecalho">
+          <h2 class="card-grafico-titulo">Métricas e Pesos do Score</h2>
+          <span class="card-grafico-badge">Composição Relativa</span>
+        </div>
+        <div class="graficoarea"></div>
+      </div>
+    </div>
+
+    <!-- Seção do Simulador Territorial de IA -->
+    <section class="secao-simulador-box" id="secao-simulador" aria-labelledby="titulo-simulador">
+      <div class="simulador-header-limpo">
+        <h2 id="titulo-simulador" class="simulador-titulo-limpo">Simulador Territorial de Score de Crédito</h2>
+        <p class="simulador-desc-limpa">
+          Selecione um município monitorado ou informe os dados territoriais para calcular o score e a recomendação de IA em tempo real.
+        </p>
+      </div>
 
       <div class="simulador-grid">
         <form class="simulador-form" id="form-score">
           <div class="campo">
-            <label for="select-municipio">Cidades monitoradas</label>
-            <select id="select-municipio" class="input-select">
+            <label for="select-municipio">Municípios Monitorados</label>
+            <select id="select-municipio" class="input-select-moderno">
               <option value="">-- Escolha um município ou preencha abaixo --</option>
             </select>
           </div>
 
           <div class="campo">
-            <label for="campo-localidade">Nome do município</label>
+            <label for="campo-localidade">Nome do Município</label>
             <input type="text" id="campo-localidade" name="localidade" required placeholder="Ex: Marabá - PA">
           </div>
 
           <div class="campos-linha">
             <div class="campo">
               <label for="campo-regiao">Região</label>
-              <select id="campo-regiao" name="regiao" class="input-select" required>
+              <select id="campo-regiao" name="regiao" class="input-select-moderno" required>
                 <option value="Norte">Norte</option>
                 <option value="Nordeste" selected>Nordeste</option>
                 <option value="Sudeste">Sudeste</option>
@@ -123,13 +130,13 @@
             <span class="btn-texto">Calcular Score Territorial</span>
             <span class="btn-loading" style="display:none;">Calculando...</span>
           </button>
-          <div id="simulador-erro" style="display:none; color: #b91c1c; background: #fee2e2; border-left: 4px solid #b91c1c; padding: 0.6rem 0.8rem; border-radius: 4px; margin-top: 0.75rem; font-size: 0.88rem; font-weight: 500;" role="alert"></div>
+          <div id="simulador-erro" style="display:none; color: #b91c1c; background: #fee2e2; border-left: 4px solid #b91c1c; padding: 0.75rem 1rem; border-radius: 8px; margin-top: 0.75rem; font-size: 0.88rem; font-weight: 500;" role="alert"></div>
         </form>
 
         <div class="simulador-resultado" id="painel-resultado" aria-live="polite">
           <div class="resultado-placeholder" id="resultado-vazio">
-            <p>Selecione um município ou clique em <strong>Calcular Score Territorial</strong> para gerar a análise de
-              oportunidade.</p>
+            <div class="placeholder-icone">📊</div>
+            <p>Selecione um município monitorado ou clique em <strong>Calcular Score Territorial</strong> para gerar a análise de oportunidade.</p>
           </div>
 
           <div class="resultado-conteudo" id="resultado-ativo" style="display:none;">
@@ -188,33 +195,51 @@
       </div>
     </section>
 
-    <details class="analises" id="analises">
-      <summary class="analisesresumo"><span class="botao">Explorar análises</span></summary>
-      <h2 class="soleitor">Explore a distribuição dos indicadores de crédito, compare o desempenho regional e analise as
-        métricas utilizadas na avaliação de oportunidades.</h2>
-      <div class="graficos graficos-analises">
-        <figure class="grafico grafico-solto" id="grafico-colab-1">
-          <figcaption class="graficotitulo">Evolução da carteira de crédito por região</figcaption>
-          <div class="graficoarea"></div>
-        </figure>
-        <figure class="grafico grafico-solto" id="grafico-colab-2">
-          <figcaption class="graficotitulo">Volume de transações Pix: Pessoa Física vs Pessoa Jurídica</figcaption>
-          <div class="graficoarea"></div>
-        </figure>
-        <figure class="grafico grafico-solto" id="grafico-colab-3">
-          <figcaption class="graficotitulo">Comprometimento de renda com apostas (Bets) por município</figcaption>
-          <div class="graficoarea"></div>
-        </figure>
-        <figure class="grafico grafico-solto" id="grafico-colab-4">
-          <figcaption class="graficotitulo">Distribuição dos Pilares Microeconômico e Macroeconômico</figcaption>
-          <div class="graficoarea"></div>
-        </figure>
+    <!-- Seção Retrátil de Análises Complementares -->
+    <details class="analises-card-moderno" id="analises">
+      <summary class="analises-sumario">
+        <span class="analises-sumario-titulo">Explorar Análises Complementares</span>
+        <span class="analises-badge">4 Gráficos Detalhados ▾</span>
+      </summary>
+      <div class="analises-corpo">
+        <p class="analises-intro">
+          Explore a distribuição dos indicadores de crédito, compare o desempenho regional e analise as métricas utilizadas na avaliação de oportunidades.
+        </p>
+        <div class="grid-analises-graficos">
+          <div class="card-grafico" id="grafico-colab-1">
+            <div class="grafico-cabecalho">
+              <h3 class="card-grafico-titulo">Evolução da Carteira de Crédito por Região</h3>
+            </div>
+            <div class="graficoarea"></div>
+          </div>
+          <div class="card-grafico" id="grafico-colab-2">
+            <div class="grafico-cabecalho">
+              <h3 class="card-grafico-titulo">Volume Pix: Pessoa Física vs Pessoa Jurídica</h3>
+            </div>
+            <div class="graficoarea"></div>
+          </div>
+          <div class="card-grafico" id="grafico-colab-3">
+            <div class="grafico-cabecalho">
+              <h3 class="card-grafico-titulo">Comprometimento de Renda com Apostas (Bets)</h3>
+            </div>
+            <div class="graficoarea"></div>
+          </div>
+          <div class="card-grafico" id="grafico-colab-4">
+            <div class="grafico-cabecalho">
+              <h3 class="card-grafico-titulo">Distribuição dos Pilares Micro e Macroeconômico</h3>
+            </div>
+            <div class="graficoarea"></div>
+          </div>
+        </div>
       </div>
     </details>
+
+    <!-- Rodapé -->
+    <footer class="rodape-novo">
+      <p class="rodape-icone">© 2026 Credit42 · Meridiano Tech</p>
+    </footer>
   </main>
-  <footer class="rodape">
-    <p>© 2026 Credit42 · Meridiano Tech</p>
-  </footer>
+
 </body>
 
 </html>
