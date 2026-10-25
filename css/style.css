@@ -563,8 +563,10 @@ button.botao {
 
 .hero-secao-compacta {
   padding: 36px 24px 40px;
-  background: linear-gradient(180deg, #edf5fc 0%, #f1f6fa 60%, var(--cor-fundo) 100%);
-  border-bottom: 1px solid var(--cor-borda);
+  background:
+    radial-gradient(ellipse at 85% 20%, rgba(2, 132, 199, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, #d0e8fc 0%, #e2f1fd 50%, #f1f8fe 80%, var(--cor-fundo) 100%);
+  border-bottom: 1px solid #bae6fd;
   margin-bottom: 28px;
 }
 
@@ -578,12 +580,12 @@ button.botao {
 }
 
 .hero-titulo-compacto span {
-  color: var(--cor-destaque);
+  color: #0369a1;
 }
 
 .hero-desc-compacto {
   font-size: 1rem;
-  color: var(--cor-texto-suave);
+  color: #334155;
   max-width: 720px;
   line-height: 1.55;
   margin: 0;
@@ -1413,9 +1415,11 @@ button.botao {
 
 /* Hero Banner Moderno */
 .hero-secao {
-  background: linear-gradient(180deg, #edf5fc 0%, #f1f6fa 60%, var(--cor-fundo) 100%);
+  background:
+    radial-gradient(ellipse at 85% 20%, rgba(2, 132, 199, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, #d0e8fc 0%, #e2f1fd 50%, #f1f8fe 80%, var(--cor-fundo) 100%);
   padding: 56px 24px 64px;
-  border-bottom: 1px solid var(--cor-borda);
+  border-bottom: 1px solid #bae6fd;
 }
 
 .hero-container {
@@ -1441,12 +1445,12 @@ button.botao {
 }
 
 .hero-titulo span {
-  color: var(--cor-destaque);
+  color: #0369a1;
 }
 
 .hero-desc {
   font-size: 1.1rem;
-  color: var(--cor-texto-suave);
+  color: #334155;
   max-width: 640px;
   line-height: 1.6;
   margin-bottom: 24px;
