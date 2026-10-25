@@ -154,7 +154,7 @@ function desenharRanking(area, linhas) {
   }
 
   const ranking = [...linhas]
-    .slice(0, 7)
+    .slice(0, 5)
     .sort((a, b) => Number(b.score_final) - Number(a.score_final));
 
   const canvas = criarCanvas(area);

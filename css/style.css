@@ -94,8 +94,21 @@ a {
 .banner {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(90deg, var(--cor-primaria), var(--cor-fundo));
+  background: linear-gradient(135deg, #0a2540 0%, #0f172a 60%, #1e293b 100%);
   color: var(--cor-texto-claro);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.15) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .bannerconteudo {
@@ -104,17 +117,26 @@ a {
   display: flex;
   align-items: center;
   gap: 32px;
-  max-width: 1200px;
+  max-width: var(--largura-max);
   margin: 0 auto;
-  padding: 28px 48px;
+  padding: 32px var(--espaco);
 }
 
 .bannerlogo {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: var(--cor-fundo);
+  width: 80px;
+  height: 80px;
+  border-radius: var(--raio-md);
+  background: #ffffff;
+  padding: 6px;
+  object-fit: contain;
   flex: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: transform var(--transicao);
+}
+
+.bannerlogo:hover {
+  transform: scale(1.05);
 }
 
 .bannertexto {
@@ -143,45 +165,49 @@ a {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 55%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 24px;
-  padding-right: 48px;
+  padding-right: var(--espaco);
   pointer-events: none;
 }
 
 .bannergrafico {
-  height: 100%;
+  height: 90%;
   width: auto;
-  opacity: 0.35;
+  opacity: 0.22;
+  filter: drop-shadow(0 2px 8px rgba(2, 132, 199, 0.3));
 }
 
 .decobarra {
-  fill: var(--cor-texto-claro);
+  fill: #38bdf8;
 }
 
 .decoponto {
-  fill: var(--cor-texto-claro);
+  fill: #38bdf8;
 }
 
 .decolinha {
   fill: none;
-  stroke: var(--cor-texto-claro);
-  stroke-width: 2;
+  stroke: #38bdf8;
+  stroke-width: 2.5;
   stroke-linejoin: round;
 }
 
 .bannerlema {
   margin: 0;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--cor-texto-claro);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  padding: 10px 16px;
+  border-radius: var(--raio-sm);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  line-height: 1.7;
-  opacity: 0.8;
+  line-height: 1.6;
+  backdrop-filter: blur(4px);
 }
 
 .menu {
@@ -1130,5 +1156,402 @@ button.botao {
 
   .campos-linha {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   NOVO DESIGN SYSTEM - TOP NAVBAR, HERO, CARDS, GRÁFICOS E RODAPÉ MODERNO
+   ========================================================================== */
+
+/* Top Navbar */
+.topo-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topo-container {
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--cor-primaria);
+  letter-spacing: -0.02em;
+}
+
+.marca-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.marca-separador {
+  color: var(--cor-texto-muted);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.marca-sub {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  letter-spacing: normal;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+  transition: color var(--transicao);
+}
+
+.nav-link:hover,
+.nav-link.ativo {
+  color: var(--cor-destaque);
+}
+
+/* Hero Banner Moderno */
+.hero-secao {
+  background: linear-gradient(180deg, #edf5fc 0%, #f1f6fa 60%, var(--cor-fundo) 100%);
+  padding: 56px 24px 64px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.hero-container {
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.hero-texto-col {
+  max-width: 760px;
+}
+
+.hero-titulo {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--cor-primaria);
+  margin-bottom: 16px;
+}
+
+.hero-titulo span {
+  color: var(--cor-destaque);
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--cor-texto-suave);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.hero-acoes {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.btn-primario {
+  background: var(--cor-primaria);
+  color: #ffffff;
+  padding: 12px 26px;
+  border-radius: var(--raio-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transicao);
+}
+
+.btn-primario:hover {
+  background: var(--cor-destaque);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.25);
+}
+
+.link-secundario {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transicao);
+}
+
+.link-secundario:hover {
+  color: var(--cor-destaque);
+}
+
+/* Conteúdo Principal */
+.conteudo-principal {
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+.secao-topo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.secao-saudacao {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.filtro-select {
+  background: #ffffff;
+  border: 1px solid var(--cor-borda);
+  padding: 8px 16px;
+  border-radius: var(--raio-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  cursor: pointer;
+  outline: none;
+}
+
+/* Grid de Cards de Resumo */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 36px;
+}
+
+.card-resumo {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-card, 20px);
+  padding: 24px;
+  box-shadow: var(--sombra-card);
+  transition: all var(--transicao);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 130px;
+}
+
+.card-resumo-destaque {
+  background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+  border-color: #bae6fd;
+}
+
+.card-resumo:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-hover);
+  border-color: #cbd5e1;
+}
+
+.card-rotulo {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+}
+
+.card-valor {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--cor-primaria);
+  letter-spacing: -0.02em;
+  margin-top: 10px;
+}
+
+.card-subtexto {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cor-verde);
+  margin-top: 4px;
+}
+
+/* Grid dos Gráficos Principais */
+.graficos-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.card-grafico {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: var(--sombra-card);
+}
+
+.grafico-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.grafico-titulo {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.grafico-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cor-destaque);
+  background: #e0f2fe;
+  padding: 4px 10px;
+  border-radius: var(--raio-pill);
+}
+
+.card-grafico .canvas-container,
+.card-grafico .graficoarea {
+  position: relative;
+  height: 250px;
+  min-height: 250px;
+  max-height: 260px;
+  width: 100%;
+}
+
+/* Seção de Extrato e Relatórios Econômicos */
+.secao-extrato-card {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--sombra-card);
+  margin-bottom: 40px;
+}
+
+.extrato-subtitulo {
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+  margin-top: 6px;
+}
+
+.filtro-select-sm {
+  background: #ffffff;
+  border: 1px solid var(--cor-borda);
+  padding: 8px 12px;
+  border-radius: var(--raio-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transicao);
+}
+
+.filtro-select-sm:focus {
+  border-color: var(--cor-destaque);
+}
+
+.timeline-data {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cor-destaque);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--cor-texto);
+  line-height: 1.5;
+}
+
+.timeline-metricas {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+.metrica-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metrica-rotulo {
+  font-size: 0.72rem;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.metrica-valor {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+/* Rodapé Minimalista */
+.rodape-novo {
+  max-width: var(--largura-max);
+  margin: 40px auto 0;
+  padding: 28px 24px;
+  border-top: 1px solid var(--cor-borda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.rodape-icone {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--cor-primaria);
+}
+
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .graficos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .marca-sub,
+  .marca-separador {
+    display: none;
   }
 }
