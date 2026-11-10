@@ -1,0 +1,52 @@
+name: Qualidade do Projeto
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+  push:
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validar aplicação
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v6
+
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependências
+        run: python -m pip install -r requirements.txt
+
+      - name: Executar testes Python
+        run: python -m unittest discover -s testes -p "testes_*.py" -v
+
+      - name: Gerar pacote do site
+        run: python scripts/build_pages.py
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validar sintaxe JavaScript
+        shell: bash
+        run: |
+          for arquivo in js/*.js; do
+            node --check "$arquivo"
+          done
