@@ -73,7 +73,7 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 
 ## 🛠 Tecnologias Utilizadas
 
-![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white) &nbsp; ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![Google Colab](https://colab.research.google.com/drive/142KLVqxDdJAiUHxoXEBCM50PA1anlkJi) &nbsp; ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
 
  - Notebook Google Colab disponível para execução manual e exploração dos dados
 
