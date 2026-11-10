@@ -1,15 +1,14 @@
 # 📅 Documentação - Sprint 3
 
-> Status da Sprint: Em espera 🟡
+> Status da Sprint: Em andamento 🟡
 
 ## 📋 Backlog da Sprint
 
 | ID | User Story | Prioridade | Sprint | Status
 | :---: | :--- | :---: | :---: | :---: |
-| #1 |Como instituição financeira, quero poder exportar os dados que me interessam para ações futuras. 
-| Alta | 2| 🟡 |
-| #2 |Como instituição financeira, quero poder filtrar os dados por indicadores socioeconômicos para que eu possa direcionar análises e ofertas para perfis demográficos específicos| Alta | 2 | 🟡 |
-
+| #1 |Como instituição financeira, quero poder filtrar os dados por região| Alta | 3| 🟡 |
+| #2 |Como instituição financeira, quero poder exportar os dados que me interessam para ações futuras.| Alta | 3| 🟡 |
+| #3 |Como instituição financeira, quero poder filtrar os dados por indicadores socioeconômicos.| Alta |  3 |🟡 |
 
 ---
 
