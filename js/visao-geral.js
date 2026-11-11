@@ -3,6 +3,7 @@
 let dadosGlobais = null;
 let instanciaGraficoLinha = null;
 let instanciaGraficoRanking = null;
+let timerDebounceBusca = null;
 
 const METRICAS_POR_ANO = {
   "2026": {
@@ -137,6 +138,10 @@ function mostrarMensagem(area, mensagem) {
   area.replaceChildren();
   const texto = document.createElement("p");
   texto.textContent = mensagem;
+  texto.style.color = "#64748b";
+  texto.style.textAlign = "center";
+  texto.style.padding = "40px 16px";
+  texto.style.fontSize = "0.9rem";
   area.appendChild(texto);
 }
 
@@ -231,7 +236,7 @@ function desenharLinha(area, linhas) {
 
 function desenharRanking(area, linhas) {
   if (!Array.isArray(linhas) || linhas.length === 0) {
-    mostrarMensagem(area, "Não há dados disponíveis para este gráfico.");
+    mostrarMensagem(area, "Nenhum município atende aos filtros.");
     return;
   }
 
@@ -256,7 +261,7 @@ function desenharRanking(area, linhas) {
           data: ranking.map(item => Number(item.score_final)),
           backgroundColor: ranking.map(item =>
             item.regiao === "Norte" ? "#0a2540" :
-            item.regiao === "Nordeste" ? "#0284c7" : "#64748b"
+              item.regiao === "Nordeste" ? "#0284c7" : "#64748b"
           ),
           hoverBackgroundColor: "#0284c7",
           borderRadius: 8,
@@ -332,6 +337,89 @@ function aplicarFiltroAno(ano) {
   }
 }
 
+function obterEstadoFiltrosSocioeconomicos() {
+  const regiao = document.getElementById("filtro-regiao-macro")?.value || "todas";
+  const porte = document.getElementById("filtro-porte")?.value || "todos";
+  const renda = document.getElementById("filtro-renda")?.value || "todas";
+  const busca = document.getElementById("filtro-busca-muni")?.value || "";
+
+  return { regiao, porte, faixa_renda: renda, busca };
+}
+
+async function aplicarFiltrosSocioeconomicosAssincrono() {
+  const filtros = obterEstadoFiltrosSocioeconomicos();
+  const badgeTotal = document.getElementById("badge-total-filtrado");
+  const areaRanking = document.querySelector("#grafico-2 .graficoarea");
+
+  if (badgeTotal) {
+    badgeTotal.textContent = "Filtrando...";
+  }
+
+  try {
+    const resposta = await fetch("/api/dados-filtrados", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(filtros)
+    });
+
+    if (!resposta.ok) {
+      throw new Error(`Falha HTTP ${resposta.status}`);
+    }
+
+    const resultado = await resposta.json();
+    const total = resultado.total ?? 0;
+    const municipios = resultado.municipios || [];
+    const resumo = resultado.resumo || {};
+
+    if (badgeTotal) {
+      badgeTotal.textContent = `${total} Polo${total === 1 ? "" : "s"} Filtrado${total === 1 ? "" : "s"}`;
+    }
+
+    preencherCard(
+      "card-4",
+      `${total} Polos`,
+      filtros.regiao !== "todas" ? `★ Região ${filtros.regiao}` : "★ Amostra territorial ativa"
+    );
+
+    if (total > 0 && resumo.media_inadimplencia) {
+      preencherCard(
+        "card-3",
+        `${resumo.media_inadimplencia.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 2 })}%`,
+        `Média do grupo filtrado`
+      );
+    }
+
+    if (areaRanking) {
+      desenharRanking(areaRanking, municipios);
+    }
+
+  } catch (erro) {
+    console.error("Erro ao aplicar filtros socioeconômicos via AJAX:", erro);
+    if (badgeTotal) {
+      badgeTotal.textContent = "Erro na filtragem";
+    }
+  }
+}
+
+function exportarRelatorioCsv() {
+  const filtros = obterEstadoFiltrosSocioeconomicos();
+  const params = new URLSearchParams({
+    regiao: filtros.regiao,
+    porte: filtros.porte,
+    faixa_renda: filtros.faixa_renda,
+    busca: filtros.busca
+  });
+
+  const urlExportacao = `/api/exportar-dados?${params.toString()}`;
+
+  const link = document.createElement("a");
+  link.href = urlExportacao;
+  link.setAttribute("download", "");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 async function iniciar() {
   dadosGlobais = await carregarDados();
 
@@ -351,8 +439,8 @@ async function iniciar() {
         c.yoy_norte === c.yoy_nordeste
           ? "↑ Crescimento anual consolidado"
           : c.yoy_norte > c.yoy_nordeste
-          ? "↑ Maior crescimento: Região Norte"
-          : "↑ Maior crescimento: Região Nordeste";
+            ? "↑ Maior crescimento: Região Norte"
+            : "↑ Maior crescimento: Região Nordeste";
     }
     if (c.vol_pix_geral !== undefined) {
       METRICAS_POR_ANO["2026"].pix = formatarMoedaBilhoes(c.vol_pix_geral);
@@ -370,7 +458,7 @@ async function iniciar() {
   // Aplica ano inicial nos 4 cards e no gráfico de evolução
   aplicarFiltroAno(anoInicial);
 
-  // Gráfico de ranking municipal
+  // Gráfico de ranking municipal inicial
   const areaRanking = document.querySelector("#grafico-2 .graficoarea");
   if (areaRanking && dadosGlobais.principais?.grafico_p2_ranking_score_municipal) {
     desenharRanking(
@@ -383,6 +471,38 @@ async function iniciar() {
   if (filtroAno) {
     filtroAno.addEventListener("change", (e) => {
       aplicarFiltroAno(e.target.value);
+    });
+  }
+
+  // -------------------------------------------------------------
+  // Listeners dos Filtros Socioeconômicos e Exportação (AJAX)
+  // -------------------------------------------------------------
+  const filtroRegiao = document.getElementById("filtro-regiao-macro");
+  const filtroPorte = document.getElementById("filtro-porte");
+  const filtroRenda = document.getElementById("filtro-renda");
+  const filtroBusca = document.getElementById("filtro-busca-muni");
+  const btnExportar = document.getElementById("btn-exportar-csv");
+
+  [filtroRegiao, filtroPorte, filtroRenda].forEach(elemento => {
+    if (elemento) {
+      elemento.addEventListener("change", () => {
+        aplicarFiltrosSocioeconomicosAssincrono();
+      });
+    }
+  });
+
+  if (filtroBusca) {
+    filtroBusca.addEventListener("input", () => {
+      clearTimeout(timerDebounceBusca);
+      timerDebounceBusca = setTimeout(() => {
+        aplicarFiltrosSocioeconomicosAssincrono();
+      }, 300);
+    });
+  }
+
+  if (btnExportar) {
+    btnExportar.addEventListener("click", () => {
+      exportarRelatorioCsv();
     });
   }
 }
