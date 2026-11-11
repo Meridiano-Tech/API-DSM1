@@ -330,7 +330,7 @@ a {
 
 .graficos {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding: 0 var(--recuo);
 }
@@ -986,6 +986,7 @@ button.botao {
 }
 
 @media (max-width: 900px) {
+
   .simulador-grid,
   .graficos-grid-duplo,
   .grid-analises-graficos {
@@ -1518,6 +1519,108 @@ button.botao {
   color: var(--cor-primaria);
 }
 
+.secao-descricao-sm {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+  margin-top: 4px;
+}
+
+.controles-dashboard-topo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-exportar-dashboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--cor-primaria);
+  color: #ffffff;
+  border: 1px solid var(--cor-primaria);
+  padding: 9px 18px;
+  border-radius: var(--raio-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--sombra-sm);
+  transition: all var(--transicao);
+}
+
+.btn-exportar-dashboard:hover {
+  background-color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-exportar-dashboard:active {
+  transform: translateY(0);
+}
+
+/* Barra de Filtros Socioeconômicos */
+.barra-filtros-socioeconomicos {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-card);
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  box-shadow: var(--sombra-sm);
+}
+
+.filtro-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filtro-rotulo-sm {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cor-primaria);
+  white-space: nowrap;
+}
+
+.filtro-input-sm {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+  padding: 7px 12px;
+  font-size: 0.84rem;
+  font-family: inherit;
+  color: var(--cor-primaria);
+  background: #ffffff;
+  outline: none;
+  transition: all var(--transicao);
+  min-width: 170px;
+}
+
+.filtro-input-sm:focus {
+  border-color: var(--cor-destaque);
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+}
+
+.filtro-item-status {
+  margin-left: auto;
+}
+
+.badge-status-filtros {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--cor-destaque);
+  background-color: var(--cor-destaque-bg);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  padding: 5px 12px;
+  border-radius: var(--raio-pill);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
 .filtro-select {
   appearance: none;
   -webkit-appearance: none;
@@ -1562,8 +1665,15 @@ button.botao {
 }
 
 @keyframes pulsoAtualizacao {
-  0% { transform: scale(0.96); opacity: 0.65; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.96);
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .valor-atualizado {
@@ -1936,7 +2046,7 @@ button.botao {
   gap: 8px;
 }
 
-.equipe-dev-lista .equipe-membro-nome + .equipe-membro-nome {
+.equipe-dev-lista .equipe-membro-nome+.equipe-membro-nome {
   padding-top: 8px;
   border-top: 1px solid #f1f5f9;
 }
