@@ -94,6 +94,53 @@ class TestesAPI(unittest.TestCase):
             self.assertEqual(resp.status_code, 400)
             self.assertIn('erro', json.loads(resp.data))
 
+    def test_rota_dados_filtrados_get(self):
+        resp = self.cliente.get('/api/dados-filtrados?regiao=Norte&porte=todos')
+        self.assertEqual(resp.status_code, 200)
+        dados = json.loads(resp.data)
+        self.assertIn('municipios', dados)
+        self.assertIn('resumo', dados)
+        self.assertIn('filtros_aplicados', dados)
+        for m in dados['municipios']:
+            self.assertEqual(m['regiao'], 'Norte')
+
+    def test_rota_dados_filtrados_post(self):
+        payload = {'regiao': 'Nordeste', 'porte': 'medio'}
+        resp = self.cliente.post(
+            '/api/dados-filtrados',
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(resp.status_code, 200)
+        dados = json.loads(resp.data)
+        self.assertIn('municipios', dados)
+        for m in dados['municipios']:
+            self.assertEqual(m['regiao'], 'Nordeste')
+            self.assertGreaterEqual(m['populacao'], 150000)
+            self.assertLessEqual(m['populacao'], 350000)
+
+    def test_rota_exportar_dados_csv(self):
+        resp = self.cliente.get('/api/exportar-dados?regiao=Nordeste')
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn('attachment;', resp.headers.get('Content-Disposition', ''))
+        self.assertIn('.csv', resp.headers.get('Content-Disposition', ''))
+        self.assertIn('text/csv', resp.headers.get('Content-Type', ''))
+        texto_csv = resp.data.decode('utf-8-sig')
+        self.assertIn('Município;Código IBGE', texto_csv)
+        self.assertIn('Nordeste', texto_csv)
+
+    def test_rota_exportar_dados_post(self):
+        payload = {'regiao': 'Norte'}
+        resp = self.cliente.post(
+            '/exportar-dados',
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn('attachment;', resp.headers.get('Content-Disposition', ''))
+        texto_csv = resp.data.decode('utf-8-sig')
+        self.assertIn('Norte', texto_csv)
+
 
 if __name__ == '__main__':
     unittest.main()

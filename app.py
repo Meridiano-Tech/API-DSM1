@@ -1,6 +1,10 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory
+import io
+from datetime import datetime
+from flask import Flask, request, jsonify, send_from_directory, Response
+import pandas as pd
 from motor_score import MotorScore
+from servicos_dados import filtrar_municipios_socioeconomicos
 
 app = Flask(__name__, static_folder=None)
 app.json.ensure_ascii = False
@@ -131,6 +135,98 @@ def calcular_score():
         return jsonify(resultado), 200
     except Exception as e:
         return jsonify({"erro": f"Erro interno no processamento: {str(e)}"}), 500
+
+
+@app.route('/api/dados-filtrados', methods=['GET', 'POST'])
+def obter_dados_filtrados():
+    if request.method == 'POST':
+        filtros = request.get_json(silent=True) or {}
+    else:
+        filtros = {
+            'regiao': request.args.get('regiao', 'todas'),
+            'porte': request.args.get('porte', 'todos'),
+            'faixa_renda': request.args.get('faixa_renda', 'todas'),
+            'classe_risco': request.args.get('classe_risco', 'todas'),
+            'busca': request.args.get('busca', '')
+        }
+
+    try:
+        resultado = filtrar_municipios_socioeconomicos(filtros, motor=motor)
+        return jsonify(resultado), 200
+    except Exception as e:
+        return jsonify({"erro": f"Falha ao filtrar dados: {str(e)}"}), 500
+
+
+@app.route('/api/exportar-dados', methods=['GET', 'POST'])
+@app.route('/exportar-dados', methods=['GET', 'POST'])
+def exportar_dados():
+    if request.method == 'POST':
+        filtros = request.get_json(silent=True) or {}
+        if not filtros and request.form:
+            filtros = request.form.to_dict()
+    else:
+        filtros = {
+            'regiao': request.args.get('regiao', 'todas'),
+            'porte': request.args.get('porte', 'todos'),
+            'faixa_renda': request.args.get('faixa_renda', 'todas'),
+            'classe_risco': request.args.get('classe_risco', 'todas'),
+            'busca': request.args.get('busca', '')
+        }
+
+    try:
+        resultado = filtrar_municipios_socioeconomicos(filtros, motor=motor)
+        municipios = resultado.get('municipios', [])
+
+        colunas_ordem = [
+            ('localidade', 'Município'),
+            ('codigo_ibge', 'Código IBGE'),
+            ('uf', 'UF'),
+            ('regiao', 'Região'),
+            ('porte', 'Porte Populacional'),
+            ('populacao', 'População (Hab.)'),
+            ('renda_per_capita', 'Renda per Capita (R$)'),
+            ('faixa_renda', 'Faixa de Renda'),
+            ('score_final', 'Score Inclusivo'),
+            ('faixa_score', 'Faixa de Score'),
+            ('classe_risco', 'Classe de Risco'),
+            ('inadimplencia_estimada', 'Inadimplência Estimada (%)'),
+            ('volume_pix_total', 'Volume Pix Total (R$)'),
+            ('pix_per_capita', 'Giro Pix per Capita (R$)'),
+            ('comp_bets_percent', 'Comprometimento Apostas/Bets (%)'),
+            ('cluster_categoria', 'Categoria do Cluster IA'),
+            ('perfil_risco', 'Perfil de Risco')
+        ]
+
+        if municipios:
+            df = pd.DataFrame(municipios)
+            cols_existentes = [orig for orig, _ in colunas_ordem if orig in df.columns]
+            df = df[cols_existentes]
+            renomear = {orig: dest for orig, dest in colunas_ordem if orig in df.columns}
+            df = df.rename(columns=renomear)
+        else:
+            colunas_vazias = [dest for _, dest in colunas_ordem]
+            df = pd.DataFrame(columns=colunas_vazias)
+
+        csv_buffer = io.StringIO()
+        df.to_csv(csv_buffer, index=False, sep=';', decimal=',', encoding='utf-8')
+        conteudo_bytes = csv_buffer.getvalue().encode('utf-8-sig')
+
+        timestamp_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+        nome_arquivo = f"relatorio_credit42_municipios_{timestamp_str}.csv"
+
+        resposta = Response(
+            conteudo_bytes,
+            mimetype='text/csv; charset=utf-8-sig',
+            headers={
+                'Content-Disposition': f'attachment; filename="{nome_arquivo}"',
+                'Content-Type': 'text/csv; charset=utf-8-sig',
+                'Cache-Control': 'no-cache, no-store, must-revalidate'
+            }
+        )
+        return resposta
+
+    except Exception as e:
+        return jsonify({"erro": f"Falha na exportação de dados: {str(e)}"}), 500
 
 
 if __name__ == '__main__':
