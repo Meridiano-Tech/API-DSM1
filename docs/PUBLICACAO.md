@@ -26,7 +26,9 @@ python scripts/build_pages.py
 
 ## Dados do Colab e motor territorial
 
-Copie `dados_site.json`, `parameters.json`, `municipal_metrics.csv` e `perfil_radar.json` da **mesma execução** do Colab para `dados/`. Reinicie o Flask depois de trocar os arquivos. O motor valida o recorte, o conjunto de parâmetros e a concordância entre os scores recalculados e o ranking exportado. A base incluída neste conjunto de alterações é a execução `20261108T162802329411Z`.
+Execute todas as células do Colab, incluindo o bloco final de gráficos, e baixe o ZIP `credit42_outputs`. Copie `dados_site.json`, `parameters.json`, `municipal_metrics.csv`, `perfil_radar.json` e `run_manifest.json` da **mesma execução** para `dados/`. Preserve os arquivos originais para que os hashes SHA-256 continuem válidos.
+
+Execute os testes e o build antes de enviar os cinco arquivos em um único commit. O build valida os hashes, a versão, o conjunto de parâmetros e o status técnico. O motor valida o recorte e a concordância entre os scores recalculados e o ranking exportado. Reinicie o Flask depois de trocar os arquivos. A base incluída é a execução `20261108T162802329411Z`.
 
 A série usa janeiro/2024 a outubro/2026 e os 20 municípios definidos no Colab. O Downtrend combina volume Pix PF nominal por habitante (60%) e pagadores PF distintos por habitante (40%), após normalização min–max. O score é `300 + 7 × média do Downtrend dos meses válidos`. A inadimplência estimada é exibida com a competência da série nacional usada como base.
 
@@ -40,6 +42,6 @@ O navegador lê os gráficos e o ranking publicado de `dados/dados_site.json`. O
 
 ## Publicação no GitHub Pages
 
-Para publicar a versão de `develop`, abra **Settings → Pages → Build and deployment**. Selecione **Deploy from a branch**, a branch `develop` e a pasta `/(root)`. Acompanhe **Actions → pages build and deployment** e confira se o commit publicado corresponde ao commit enviado para `develop`.
+Abra **Settings → Pages → Build and deployment** e selecione **GitHub Actions**. Cada push na `develop` inicia o workflow **Publicar GitHub Pages**, que executa os testes e a validação do Colab antes de publicar `_site/`. Se o push aconteceu antes de configurar o Pages, reexecute o workflow daquele commit em **Actions**. Confira se o deploy corresponde ao commit enviado e se o SHA-256 do JSON público é o mesmo de `dados_site.json` no manifesto.
 
 O ranking, os gráficos, os filtros por região, porte e busca, e o CSV filtrado usam a exportação do Colab. O filtro de renda permanece indisponível enquanto a exportação não trouxer esse indicador. A simulação mensal requer Flask. A consulta municipal publicada funciona no Pages.

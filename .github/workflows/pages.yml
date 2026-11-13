@@ -2,6 +2,9 @@ name: Publicar GitHub Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - develop
 
 permissions:
   contents: read
@@ -13,7 +16,7 @@ concurrency:
 jobs:
   build:
     name: Preparar publicação
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 

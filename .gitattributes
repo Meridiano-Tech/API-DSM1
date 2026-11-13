@@ -1,0 +1,5 @@
+# Preserve os bytes usados nos hashes SHA-256 do Colab, inclusive no Windows.
+/dados/dados_site.json -text
+/dados/perfil_radar.json -text
+/dados/parameters.json -text
+/dados/municipal_metrics.csv -text
