@@ -5,16 +5,6 @@ let instanciaGraficoLinha = null;
 let instanciaGraficoRanking = null;
 let timerDebounceBusca;
 
-function formatarMoedaBilhoes(valor) {
-  const num = valor;
-  if (!Number.isFinite(num)) return "--";
-  const emBilhoes = num / 1e9;
-  return `R$ ${emBilhoes.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 2
-  })} Bi`;
-}
-
 function formatarPercentual(valor, comSinal = false) {
   const num = valor;
   if (!Number.isFinite(num)) return "--";
@@ -131,10 +121,7 @@ function desenharLinha(area, linhas) {
         },
         tooltip: {
           callbacks: {
-            label: contexto => {
-              const valor = Number(contexto.raw);
-              return `${contexto.dataset.label}: R$ ${valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mi`;
-            }
+            label: contexto => `${contexto.dataset.label}: ${formatarCarteira(contexto.raw)}`
           }
         }
       },
@@ -153,7 +140,7 @@ function desenharLinha(area, linhas) {
             color: "#f1f5f9"
           },
           ticks: {
-            callback: valor => `R$ ${(valor / 1000).toFixed(0)}k Mi`
+            callback: formatarCarteira
           }
         }
       }
@@ -188,7 +175,7 @@ function desenharRanking(area, linhas) {
       labels: ranking.map(item => item.localidade.split(" - ")[0]),
       datasets: [
         {
-          label: "Score final",
+          label: "Score inclusivo",
           data: ranking.map(item => Number(item.score_final)),
           backgroundColor: ranking.map(item =>
             item.regiao === "Norte" ? "#0a2540" :
@@ -212,15 +199,15 @@ function desenharRanking(area, linhas) {
         tooltip: {
           callbacks: {
             label: contexto =>
-              `Score: ${Number(contexto.raw).toLocaleString("pt-BR", {
-                maximumFractionDigits: 2
-              })}`
+              `Score inclusivo: ${numeroCredit42.format(contexto.raw)} pontos`
           }
         }
       },
       scales: {
         x: {
           beginAtZero: true,
+          max: 1000,
+          ticks: { callback: valor => numeroCredit42.format(valor) },
           grid: {
             color: "#f1f5f9"
           }
@@ -269,7 +256,7 @@ function aplicarFiltroAno(ano) {
 
   preencherCard("card-1", formatarPercentual(maior?.valor, true),
     maior ? `${maior.regiao} · ${maior.mes}` : "Sem comparação anual no recorte");
-  preencherCard("card-2", formatarMoedaBilhoes(pixTotal), "Total nacional no período selecionado");
+  preencherCard("card-2", formatarMoedaCredit42(pixTotal), "Total nacional no período selecionado");
   preencherCard("card-3", formatarPercentual(inad?.valor_inad),
     inad ? `Brasil · ${inad.mes}` : "Taxa nacional indisponível no recorte");
 

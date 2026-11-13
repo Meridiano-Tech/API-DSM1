@@ -1,10 +1,9 @@
 "use strict";
 
 const CORES_GRAFICOS = ["#00885a", "#0052cc", "#da8200", "#635bff", "#dc4089"];
-const rotuloBR = valor => valor.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
 const areaGrafico = id => document.querySelector(`#${id} .graficoarea`);
 
-function montarGrafico(id, tipo, labels, datasets, escalas = {}, eixo = "x") {
+function montarGrafico(id, tipo, labels, datasets, escalas = {}, eixo = "x", formatarTooltip) {
   const area = areaGrafico(id);
   if (!labels.length || !datasets.some(serie => serie.data.some(Number.isFinite))) {
     area.textContent = "Dados indisponíveis no período.";
@@ -24,7 +23,12 @@ function montarGrafico(id, tipo, labels, datasets, escalas = {}, eixo = "x") {
       maintainAspectRatio: false,
       indexAxis: eixo,
       scales: escalas,
-      plugins: { legend: { display: datasets.length > 1 || tipo === "doughnut", position: "bottom" } },
+      plugins: {
+        legend: { display: datasets.length > 1 || tipo === "doughnut", position: "bottom" },
+        ...(formatarTooltip && { tooltip: { callbacks: {
+          label: item => `${item.dataset.label}: ${formatarTooltip(item.raw)}`,
+        } } }),
+      },
     },
   });
 }
@@ -36,8 +40,15 @@ function linha(label, data, cor) {
 function eixoTemporal(unidade) {
   return {
     x: { ticks: { maxTicksLimit: 10 } },
-    y: { title: { display: true, text: unidade } },
+    y: {
+      title: { display: true, text: unidade },
+      ticks: { callback: valor => numeroCredit42.format(valor) },
+    },
   };
+}
+
+function formatarMilhoesDeOperacoes(operacoesEmMilhoes) {
+  return `${numeroCredit42.format(operacoesEmMilhoes)} Mi de operações`;
 }
 
 function serieRegional(dados, meses, campo, divisor) {
@@ -50,7 +61,7 @@ function serieRegional(dados, meses, campo, divisor) {
   );
 }
 
-function ranking(id, itens, campoValor, campoNome, unidade, cor) {
+function ranking(id, itens, campoValor, campoNome, unidade, cor, maximo) {
   const validos = itens.filter(item => Number.isFinite(item[campoValor]))
     .sort((a, b) => b[campoValor] - a[campoValor]);
   montarGrafico(id, "bar", validos.map(item => item[campoNome]), [{
@@ -59,9 +70,13 @@ function ranking(id, itens, campoValor, campoNome, unidade, cor) {
     backgroundColor: cor,
     borderRadius: 4,
   }], {
-    x: { beginAtZero: true, title: { display: true, text: unidade }, ticks: { callback: rotuloBR } },
+    x: {
+      beginAtZero: true, max: maximo,
+      title: { display: true, text: unidade },
+      ticks: { callback: valor => numeroCredit42.format(valor) },
+    },
     y: { ticks: { autoSkip: false } },
-  }, "y");
+  }, "y", valor => `${numeroCredit42.format(valor)} ${unidade === "Pontos" ? "pontos" : "%"}`);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -80,26 +95,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   const pixBrasil = new Map(dados.pix_brasil.map(item => [item.competencia, item]));
 
   ranking("grafico-perfil", dados.principais.grafico_p2_ranking_score_municipal,
-    "score_final", "localidade", "Pontos", "#0052cc");
+    "score_final", "localidade", "Pontos", "#0052cc", 1000);
   montarGrafico("grafico-metricas", "doughnut", ["Volume Pix PF por habitante", "Pagadores PF por habitante"], [{
     data: [60, 40],
     backgroundColor: ["#0a5c7a", "#cc5200"],
   }]);
 
   montarGrafico("grafico-colab-1", "line", meses, REGIOES_CREDIT42.map((regiao, i) =>
-    linha(regiao, credito.map(item => Number.isFinite(item[regiao]) ? item[regiao] / 1000 : null),
+    linha(regiao, credito.map(item => Number.isFinite(item[regiao]) ? item[regiao] / (BILHAO / MILHAO) : null),
       CORES_GRAFICOS[i])
-  ), eixoTemporal("R$ bilhões"));
+  ), eixoTemporal("R$ bilhões"), "x", formatarBilhoes);
   montarGrafico("grafico-colab-2", "line", meses, ["valor_pf", "valor_pj"].map((campo, i) =>
     linha(i === 0 ? "Pessoa física" : "Pessoa jurídica", meses.map(mes => {
       const valor = pixBrasil.get(mes)?.[campo];
-      return Number.isFinite(valor) ? valor / 1e9 : null;
+      return Number.isFinite(valor) ? valor / BILHAO : null;
     }), CORES_GRAFICOS[i])
-  ), eixoTemporal("R$ bilhões"));
+  ), eixoTemporal("R$ bilhões"), "x", formatarBilhoes);
   montarGrafico("grafico-colab-3", "line", meses,
-    serieRegional(dados, meses, "quantidade_total", 1e6), eixoTemporal("Milhões de operações"));
+    serieRegional(dados, meses, "quantidade_total", MILHAO), eixoTemporal("Milhões de operações"),
+    "x", formatarMilhoesDeOperacoes);
   montarGrafico("grafico-colab-4", "line", meses,
-    serieRegional(dados, meses, "vol_pix_total", 1e9), eixoTemporal("R$ bilhões"));
+    serieRegional(dados, meses, "vol_pix_total", BILHAO), eixoTemporal("R$ bilhões"), "x", formatarBilhoes);
 
   const estimativas = dados.ranking_inadimplencia_municipal;
   const competencias = [...new Set(estimativas.filter(item => Number.isFinite(item.taxa_inadimplencia))
