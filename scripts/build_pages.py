@@ -40,6 +40,14 @@ def validar_exportacao_colab(origem):
     if any(dado["parameter_set_id"] != manifesto["parameter_set_id"] for dado in (painel, parametros)):
         raise ValueError("Os arquivos não têm o mesmo conjunto de parâmetros do manifesto.")
 
+    serie = painel.get("serie_inadimplencia_regional", [])
+    fontes = painel["fontes"]["inadimplencia_regional"]
+    meses = [linha["mes"] for linha in painel["principais"]["grafico_p1_serie_temporal_credito"]]
+    esperadas = {(regiao, mes) for regiao in fontes for mes in meses}
+    chaves = {(linha["regiao"], linha["competencia"]) for linha in serie}
+    if len(serie) != len(esperadas) or chaves != esperadas:
+        raise ValueError("Série mensal de inadimplência regional ausente ou com grade incompleta.")
+
 
 class ValidadorHTML(HTMLParser):
     def handle_starttag(self, tag, attrs):

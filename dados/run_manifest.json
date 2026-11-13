@@ -1,6 +1,6 @@
 {
   "model_version": "credit42-municipal-20-3.1",
-  "code_sha256": "3261f7587a5570a42b9d75e6728d3ab0fd60c4eb69fffae4163412ce3461d1ce",
+  "code_sha256": "b5629947d54b7e55347ead06e838817fd213966ab2d4a2c0bf06c36a20bd5e76",
   "config": {
     "inicio": "2024-01",
     "fim": "2026-10",
@@ -18,10 +18,10 @@
     "python": "3.12.14",
     "pandas": "2.2.3",
     "numpy": "2.3.5",
-    "requests": "2.34.2"
+    "requests": "2.32.3"
   },
   "parameter_set_id": "fd0107d5cf145ddf37780579738d07807cd5e184a7dd1215ed880e9a3fdbf081",
-  "finished_at_utc": "2026-11-08T16:29:00.106998+00:00",
+  "finished_at_utc": "2026-11-13T19:49:50.615499+00:00",
   "http": [
     {
       "fonte": "BCB_SGS_14093",
@@ -657,101 +657,105 @@
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15926,
-      "source_hash": "72bbb5dbb986c502252bdb6c45c33169b098f7f4c1024a225bcf20373fe8c130",
+      "source_hash": "98c209c163880365f660ae7e39637369a0af7b6d7e8b68683eb0217dd58e166d",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15929,
-      "source_hash": "0cb8965ab09dc9a2c046d2fb1e45f937e78634898a97e8b50f9c1d423b5304f4",
+      "source_hash": "d00d7cc103b79da3b667aae0386041ef6d89199253abfe72af01e83a7d167ba5",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15930,
-      "source_hash": "9e3870035a53de0ea1ff3b8fe0c149db0939d9bc3329f15981e429a4f5096f35",
+      "source_hash": "418b62c395022d96a3063705ef3c1f57ae1943add8313fc6c14489b19ed2cf4e",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15934,
-      "source_hash": "36b4377704b64502ab22b31a68385edd693c99bdbf1fb097c18a4dead8ad3fa4",
+      "source_hash": "a3dec0ebaecd29663055e55b4f9263c6ade094400d06efaf1f1c8c16be6f8e2f",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15937,
-      "source_hash": "1d5885458044cfdad1e8a05e696632f7c906ebe6cc31f276d42877351c63e338",
+      "source_hash": "0880f26855e67e6e4168846d4e144837960d680b5a5dd02322f1a4b63c0caba9",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15938,
-      "source_hash": "f93d40e52eaf939d1dc5d42248c09002f606b293a3af38e5f39030516b8b85cd",
+      "source_hash": "0357cf90f11194a98691b08887b776f4627480f8bb17ba528d3d072a2a02a9d5",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15939,
-      "source_hash": "375b81501e0a0257fbfedc090a54c54b81d2b1811d044045f93e334edae3c79a",
+      "source_hash": "90bfd80bdc154cccd62c47772f5159d4a41d165ebcbb7d37d9dd912e45a7580f",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15941,
-      "source_hash": "5bbf7bf4875691d89e44778396addf2dfc9a70e58d89427517f40f7a2ee57faa",
+      "source_hash": "fa0ba12758132c299ab8254777015ac4d3ba8f80fb1cf0e815f9751be8106d84",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15942,
-      "source_hash": "acc701a10eff2705f5d9ea65387faa96dec311a3d46cb1004538b270868ef427",
+      "source_hash": "104dcf2548c29f8a860aa118841a8aaf96ad5fecf17e11a03566719264cd30de",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15944,
-      "source_hash": "57b0962f3b06eaf23d0ac2ef9d7d9be64b075a937dc25d6e7bbfef187d596630",
+      "source_hash": "905f6ccfc6479692ff9a40304d8166d847e60b321fdbcfbb5fe34c18ee1fec42",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15946,
-      "source_hash": "aad21304db85af07c6b44f4f25a13e2a1e4242d70f86ebc23b588b9d8cac666d",
+      "source_hash": "95eab3e7cf8963c68f876353e4563de97e907caed46616842f19625e7cdcad33",
       "status": "OK"
     },
     {
       "fonte": "BCB_WSSGS_METADATA",
       "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
       "serie_sgs": 15951,
-      "source_hash": "fb6485391ca89906f5e5083e4786e710ef06da3aa8fbef73e20bd5d517daec19",
+      "source_hash": "52a9f53de40afad8cea9f0732ba8ac634ee146f5a88a4bfdf4327b15b426f965",
       "status": "OK"
     }
   ],
   "output_sha256": {
-    "quality_report.json": "c953f0f559fb53eba95cf32b991753a565b699eb03091f9b9f69107d4bf8d9a2",
-    "inadimplencia_municipal.csv": "139a01ffd1e0201fb3ff6e67b2977bcf24fe2a0b45fe28ecef9463f5c40f3ecc",
     "perfil_radar.json": "c1d6a04c7f4c9d2acfd154a2d9dca1b931a3604482960adb81524ad4bd0e8eb0",
-    "dados_site.js": "a9b03cf331de757e6b7547fbd04c82859f90b17a788dba567d5bfe1321c3a185",
-    "municipal_metrics.csv": "ab15887fc324ce4e33d3d375745399c42137d92a3192fbe96ffe2d74fa17e000",
+    "inadimplencia_municipal.csv": "139a01ffd1e0201fb3ff6e67b2977bcf24fe2a0b45fe28ecef9463f5c40f3ecc",
     "metric_status.csv": "8bb25a9137df43dc818d226d05603e31c1c34f42e2d824c6a3d09bbcd7f2baca",
-    "scores_territoriais.csv": "43dadff34b73c0be42f1344cfa72285f40645b807b3e25c562385e0ead8c08ad",
-    "pix_regioes.csv": "ab502eb52a46b212445bee3122e5353841458a13071dd23e01e68079918bf256",
-    "dados_site.json": "879373bbcc64144a1cff4bad2d69bdf125a458451624af534b6d16a588f5e42f",
+    "catalogo_municipios.csv": "5c25db336f86f641cbd3b9882d6c6ed1992471df7a25414e5b597434feaf4b0f",
     "parameters.json": "eaa8b27eaac040d26e8934ac92c9f813505f38b3afd790e5202958e365a913e0",
-    "contexto_credito_regional.csv": "26fe5253a9b2b721fde9aacde06fe32d1b4931a83d330c8f721c480b111de334",
-    "catalogo_municipios.csv": "5c25db336f86f641cbd3b9882d6c6ed1992471df7a25414e5b597434feaf4b0f"
+    "contexto_credito_regional.csv": "dba6354928a30935ff96c4de99f3e8458c9f17e7caff753544e93bedfc6901b2",
+    "dados_site.json": "0cb82deb28c19da5e6b8ab2440e671025ec45ee8ad4fb59335c6c18783429089",
+    "dados_site.js": "7127956bd38ce35f4b7d83b2d851e709347d75e99cf894a46232404d00613314",
+    "quality_report.json": "85d1f375a704e2c4807f15b43e63369f5ac2c693353af72177975528624f5745",
+    "pix_regioes.csv": "ab502eb52a46b212445bee3122e5353841458a13071dd23e01e68079918bf256",
+    "municipal_metrics.csv": "ab15887fc324ce4e33d3d375745399c42137d92a3192fbe96ffe2d74fa17e000",
+    "scores_territoriais.csv": "43dadff34b73c0be42f1344cfa72285f40645b807b3e25c562385e0ead8c08ad"
   },
   "status_tecnico": "APROVADO",
-  "aprovacao_modelo": "NAO_HOMOLOGADO"
+  "aprovacao_modelo": "NAO_HOMOLOGADO",
+  "reproducao": {
+    "execucao_coleta_original": "20261108T162802329411Z",
+    "modo": "RESPOSTAS_OFICIAIS_ARQUIVADAS_VERIFICADAS_SHA256"
+  }
 }
