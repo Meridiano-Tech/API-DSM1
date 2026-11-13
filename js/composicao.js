@@ -1,332 +1,120 @@
-
 "use strict";
 
-async function carregarDados() {
-  try {
-    let resposta = await fetch("./dados/dados_site.json");
-    if (!resposta.ok) {
-      resposta = await fetch("./dados_site.json");
-    }
+const CORES_GRAFICOS = ["#00885a", "#0052cc", "#da8200", "#635bff", "#dc4089"];
+const rotuloBR = valor => valor.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
+const areaGrafico = id => document.querySelector(`#${id} .graficoarea`);
 
-    if (!resposta.ok) {
-      throw new Error(`Erro HTTP ${resposta.status}`);
-    }
-
-    return await resposta.json();
-  } catch (erro) {
-    console.error("Erro ao carregar dados_site.json:", erro);
-    return null;
-  }
-}
-
-function mostrarMensagem(area, mensagem) {
-  if (!area) return;
-
-  area.replaceChildren();
-
-  const texto = document.createElement("p");
-  texto.textContent = mensagem;
-  area.appendChild(texto);
-}
-
-function desenharGraficoBarras(area, linhas, configuracao) {
-  if (!area) return;
-
-  if (!Array.isArray(linhas) || linhas.length === 0) {
-    mostrarMensagem(area, "Dados ainda não disponíveis.");
+function montarGrafico(id, tipo, labels, datasets, escalas = {}, eixo = "x") {
+  const area = areaGrafico(id);
+  if (!labels.length || !datasets.some(serie => serie.data.some(Number.isFinite))) {
+    area.textContent = "Dados indisponíveis no período.";
     return;
   }
-
-  const {
-    campoCategoria,
-    series,
-    cores
-  } = configuracao;
-
   const canvas = document.createElement("canvas");
+  if (eixo === "y") {
+    area.style.height = `${Math.max(285, labels.length * 24 + 55)}px`;
+    area.style.maxHeight = "none";
+  }
   area.replaceChildren(canvas);
-
   new Chart(canvas, {
-    type: "bar",
-    data: {
-      labels: linhas.map(item => item[campoCategoria]),
-      datasets: series.map((serie, indice) => ({
-        label: serie.label,
-        data: linhas.map(item => Number(item[serie.campo]) || 0),
-        backgroundColor: cores[indice % cores.length],
-        borderRadius: 4
-      }))
-    },
+    type: tipo,
+    data: { labels, datasets },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: series.length > 1,
-          position: "top"
-        },
-        tooltip: {
-          mode: "index",
-          intersect: false
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            autoSkip: false
-          }
-        },
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
+      indexAxis: eixo,
+      scales: escalas,
+      plugins: { legend: { display: datasets.length > 1 || tipo === "doughnut", position: "bottom" } },
+    },
   });
 }
 
-async function carregarPerfilRadar() {
-  try {
-    let resposta = await fetch("./dados/perfil_radar.json");
-    if (!resposta.ok) {
-      resposta = await fetch("./perfil_radar.json");
-    }
-    if (resposta.ok) {
-      return await resposta.json();
-    }
-  } catch (erro) {
-    console.warn("Não foi possível carregar perfil_radar.json:", erro);
-  }
+function linha(label, data, cor) {
+  return { label, data, borderColor: cor, backgroundColor: cor, pointRadius: 2, spanGaps: false };
+}
+
+function eixoTemporal(unidade) {
   return {
-    titulo: "Perfil por componente",
-    eixos: ["Acesso a crédito", "Educação financeira", "Inclusão digital", "Renda e emprego", "Atendimento e canais"],
-    series: [{ nome: "Média nacional", valores: [16.9, 37.1, 16.6, 70.3, 25.6] }]
+    x: { ticks: { maxTicksLimit: 10 } },
+    y: { title: { display: true, text: unidade } },
   };
 }
 
-function desenharRadarPerfil(area, radar) {
-  if (!area || !radar) return;
-  const canvas = document.createElement("canvas");
-  area.replaceChildren(canvas);
-
-  const eixos = radar.eixos || ["Acesso a crédito", "Educação financeira", "Inclusão digital", "Renda e emprego", "Atendimento e canais"];
-  const serieNacional = radar.series && radar.series[0] ? radar.series[0].valores : [16.9, 37.1, 16.6, 70.3, 25.6];
-
-  new Chart(canvas, {
-    type: "radar",
-    data: {
-      labels: eixos,
-      datasets: [
-        {
-          label: radar.series && radar.series[0] ? radar.series[0].nome : "Média nacional",
-          data: serieNacional,
-          backgroundColor: "rgba(10, 92, 122, 0.25)",
-          borderColor: "#0a5c7a",
-          pointBackgroundColor: "#0a5c7a",
-          borderWidth: 2
-        },
-        {
-          label: "Regiões de Oportunidade (Norte/Nordeste)",
-          data: [14.8, 31.5, 18.2, 59.8, 22.4],
-          backgroundColor: "rgba(204, 82, 0, 0.25)",
-          borderColor: "#cc5200",
-          pointBackgroundColor: "#cc5200",
-          borderWidth: 2
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        r: {
-          beginAtZero: true,
-          suggestedMax: 80,
-          ticks: { stepSize: 20 }
-        }
-      },
-      plugins: {
-        legend: {
-          position: "bottom"
-        }
-      }
-    }
-  });
+function serieRegional(dados, meses, campo, divisor) {
+  const porChave = new Map(dados.pix_regioes.map(linha => [`${linha.regiao}/${linha.competencia}`, linha[campo]]));
+  return REGIOES_CREDIT42.map((regiao, i) =>
+    linha(regiao, meses.map(mes => {
+      const valor = porChave.get(`${regiao}/${mes}`);
+      return Number.isFinite(valor) ? valor / divisor : null;
+    }), CORES_GRAFICOS[i])
+  );
 }
 
-function desenharMetricasScore(area) {
-  if (!area) return;
-  const canvas = document.createElement("canvas");
-  area.replaceChildren(canvas);
-
-  new Chart(canvas, {
-    type: "doughnut",
-    data: {
-      labels: [
-        "Volume Pix Total (Micro)",
-        "Giro Pix per capita (Micro)",
-        "Pagadores Únicos e População (Macro)",
-        "Mitigação Inadimplência / Risco",
-        "Bônus Inclusivo (CadÚnico/IDHM)"
-      ],
-      datasets: [
-        {
-          data: [25, 20, 25, 15, 15],
-          backgroundColor: [
-            "#0a5c7a",
-            "#2a9dc4",
-            "#cc5200",
-            "#64748b",
-            "#f2c078"
-          ],
-          borderWidth: 2
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom",
-          labels: { boxWidth: 12, font: { size: 11 } }
-        },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.raw}% de peso relativo`
-          }
-        }
-      }
-    }
-  });
+function ranking(id, itens, campoValor, campoNome, unidade, cor) {
+  const validos = itens.filter(item => Number.isFinite(item[campoValor]))
+    .sort((a, b) => b[campoValor] - a[campoValor]);
+  montarGrafico(id, "bar", validos.map(item => item[campoNome]), [{
+    label: unidade,
+    data: validos.map(item => item[campoValor]),
+    backgroundColor: cor,
+    borderRadius: 4,
+  }], {
+    x: { beginAtZero: true, title: { display: true, text: unidade }, ticks: { callback: rotuloBR } },
+    y: { ticks: { autoSkip: false } },
+  }, "y");
 }
 
-function desenharCarteiraCredito(area, linhas) {
-  if (!area) return;
-  if (!Array.isArray(linhas) || linhas.length === 0) {
-    mostrarMensagem(area, "Dados de evolução ainda não disponíveis.");
+document.addEventListener("DOMContentLoaded", async () => {
+  let dados;
+  try {
+    dados = await carregarDadosCredit42();
+  } catch {
+    document.querySelectorAll(".graficoarea").forEach(area => {
+      area.textContent = "Não foi possível carregar os dados.";
+    });
     return;
   }
 
-  const canvas = document.createElement("canvas");
-  area.replaceChildren(canvas);
+  const credito = dados.principais.grafico_p1_serie_temporal_credito;
+  const meses = credito.map(item => item.mes);
+  const pixBrasil = new Map(dados.pix_brasil.map(item => [item.competencia, item]));
 
-  new Chart(canvas, {
-    type: "line",
-    data: {
-      labels: linhas.map(item => item.mes),
-      datasets: [
-        {
-          label: "Norte",
-          data: linhas.map(item => Number(item.Norte)),
-          borderColor: "#0a5c7a",
-          backgroundColor: "#0a5c7a",
-          borderWidth: 2,
-          pointRadius: 1.5,
-          tension: 0.3
-        },
-        {
-          label: "Nordeste",
-          data: linhas.map(item => Number(item.Nordeste)),
-          borderColor: "#cc5200",
-          backgroundColor: "#cc5200",
-          borderWidth: 2,
-          pointRadius: 1.5,
-          tension: 0.3
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { ticks: { maxTicksLimit: 10 } },
-        y: { beginAtZero: false }
-      }
-    }
-  });
-}
+  ranking("grafico-perfil", dados.principais.grafico_p2_ranking_score_municipal,
+    "score_final", "localidade", "Pontos", "#0052cc");
+  montarGrafico("grafico-metricas", "doughnut", ["Volume Pix PF por habitante", "Pagadores PF por habitante"], [{
+    data: [60, 40],
+    backgroundColor: ["#0a5c7a", "#cc5200"],
+  }]);
 
-function desenharPix(area, linhas) {
-  desenharGraficoBarras(area, linhas, {
-    campoCategoria: "localidade",
-    series: [
-      { campo: "valor_pf", label: "Pessoa física" },
-      { campo: "valor_pj", label: "Pessoa jurídica" }
-    ],
-    cores: ["#0a5c7a", "#cc5200"]
-  });
-}
+  montarGrafico("grafico-colab-1", "line", meses, REGIOES_CREDIT42.map((regiao, i) =>
+    linha(regiao, credito.map(item => Number.isFinite(item[regiao]) ? item[regiao] / 1000 : null),
+      CORES_GRAFICOS[i])
+  ), eixoTemporal("R$ bilhões"));
+  montarGrafico("grafico-colab-2", "line", meses, ["valor_pf", "valor_pj"].map((campo, i) =>
+    linha(i === 0 ? "Pessoa física" : "Pessoa jurídica", meses.map(mes => {
+      const valor = pixBrasil.get(mes)?.[campo];
+      return Number.isFinite(valor) ? valor / 1e9 : null;
+    }), CORES_GRAFICOS[i])
+  ), eixoTemporal("R$ bilhões"));
+  montarGrafico("grafico-colab-3", "line", meses,
+    serieRegional(dados, meses, "quantidade_total", 1e6), eixoTemporal("Milhões de operações"));
+  montarGrafico("grafico-colab-4", "line", meses,
+    serieRegional(dados, meses, "vol_pix_total", 1e9), eixoTemporal("R$ bilhões"));
 
-function desenharComprometimento(area, linhas) {
-  desenharGraficoBarras(area, linhas, {
-    campoCategoria: "localidade",
-    series: [
-      { campo: "comp_bets_%", label: "Comprometimento (%)" }
-    ],
-    cores: ["#cc5200"]
-  });
-}
+  const estimativas = dados.ranking_inadimplencia_municipal;
+  const competencias = [...new Set(estimativas.filter(item => Number.isFinite(item.taxa_inadimplencia))
+    .map(item => item.competencia_inadimplencia))].sort();
+  document.getElementById("competencia-inad-5").textContent = competencias.join(" a ");
+  ranking("grafico-colab-5", estimativas.map(item => ({
+    ...item, localidade: `${item.localidade} · ${item.competencia_inadimplencia ?? "—"}`,
+  })), "taxa_inadimplencia", "localidade", "Taxa estimada (%)", "#ba4949");
 
-function desenharPilares(area, linhas) {
-  desenharGraficoBarras(area, linhas, {
-    campoCategoria: "localidade",
-    series: [
-      { campo: "P_micro", label: "Pilar micro" },
-      { campo: "P_macro", label: "Pilar macro" }
-    ],
-    cores: ["#0a5c7a", "#cc5200"]
-  });
-}
-
-async function iniciar() {
-  const dados = await carregarDados();
-
-  if (!dados) {
-    console.error("Não foi possível iniciar os gráficos de composição.");
-    return;
-  }
-
-  // Preenche os dois gráficos principais do topo
-  const areaPerfil = document.querySelector("#grafico-perfil .graficoarea");
-  const areaMetricas = document.querySelector("#grafico-metricas .graficoarea");
-
-  if (areaPerfil) {
-    const radarDados = await carregarPerfilRadar();
-    desenharRadarPerfil(areaPerfil, radarDados);
-  }
-
-  if (areaMetricas) {
-    desenharMetricasScore(areaMetricas);
-  }
-
-  // Preenche os quatro gráficos da seção de análises exploratórias
-  const principais = dados.principais || {};
-  const apoio = dados.apoio || {};
-
-  const analise1 = document.querySelector("#grafico-colab-1 .graficoarea");
-  const analise2 = document.querySelector("#grafico-colab-2 .graficoarea");
-  const analise3 = document.querySelector("#grafico-colab-3 .graficoarea");
-  const analise4 = document.querySelector("#grafico-colab-4 .graficoarea");
-
-  desenharCarteiraCredito(
-    analise1,
-    principais.grafico_p1_serie_temporal_credito
-  );
-
-  desenharPix(
-    analise2,
-    apoio.grafico_a2_pix_pf_vs_pj
-  );
-
-  desenharComprometimento(
-    analise3,
-    apoio.grafico_a3_comprometimento_renda
-  );
-
-  desenharPilares(
-    analise4,
-    apoio.grafico_a4_pilares_micro_macro
-  );
-}
-
-document.addEventListener("DOMContentLoaded", iniciar);
+  const estados = dados.inadimplencia_estadual;
+  const ufs = [...new Set(estados.map(item => item.uf))];
+  const competencia = [...meses].reverse().find(mes =>
+    ufs.length && ufs.every(uf => estados.some(item =>
+      item.uf === uf && item.competencia === mes && Number.isFinite(item.valor))));
+  document.getElementById("competencia-inad-6").textContent = competencia ?? "";
+  ranking("grafico-colab-6", estados.filter(item => item.competencia === competencia),
+    "valor", "uf", "Taxa observada (%)", "#286b78");
+});

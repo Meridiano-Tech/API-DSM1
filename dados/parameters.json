@@ -1,0 +1,132 @@
+{
+  "model_version": "credit42-municipal-20-3.1",
+  "aprovacao": "NAO_HOMOLOGADO",
+  "calibracao_inicio": "2024-03",
+  "calibracao_fim": "2024-12",
+  "normalizacao": "log1p_min_max_referencia_fixa",
+  "universo": [
+    "1100122",
+    "1502400",
+    "1504208",
+    "1506807",
+    "1702109",
+    "2103000",
+    "2105302",
+    "2207702",
+    "2208007",
+    "2303709",
+    "2312908",
+    "2408003",
+    "2504009",
+    "2604106",
+    "2611101",
+    "2700300",
+    "2913606",
+    "2918407",
+    "2933307",
+    "3170206"
+  ],
+  "denominador": "Censo2022_18mais_idades_simples_18a99_e_100mais",
+  "precos": "SGS433_IPCA_base_2024_01",
+  "n_referencia": 200,
+  "pesos": {
+    "volume": 0.6,
+    "pagadores": 0.4
+  },
+  "limites": {
+    "v_3m": {
+      "L": 8.023646689532706,
+      "H": 9.071333456960742
+    },
+    "u_3m": {
+      "L": 0.541927511714933,
+      "H": 0.7128232096951399
+    }
+  },
+  "source_hashes": [
+    "014ba948bf7104d9f9043e909cf4ecad41162c27e5fe9c46166ad9b0e78f8298",
+    "0c443919200097d13a44b9e83ecc0294ed6979d1ab84dd2d9c80ec477359f36d",
+    "0e0d171aa9c0e463ddce24fdc0e1e5bf9885a0820f8275e5841ca72ee4b44299",
+    "26ff396dda893a537314a1c18d904f5a014cb6eb8435889b830785cb55e7036d",
+    "39a11462806888413926e9315c9c89d5a46e180ff60587ccfe8184258613893c",
+    "3cd6d9c803081171884db1b80ac9d05228bee333a58ff43246b2f51adf9d1bba",
+    "3d3c459da2a79be239bf41d3626cbb9a8789cbdb8f793dcc34f942280157e8f6",
+    "3d45c0b2ec405b82fd8aae6f44438be37a8a6d8dbfed9d8f9d2c4f70a8b5767d",
+    "4f88cfc88b42e8632f474e915b176abb7c023b7366f7286603ca1e8875f85718",
+    "505d7fb5037359ceb2fdcec54efba4c906001c3cc62053c796bb7b656b8e9128",
+    "535d60f50afdb8a77056f138110e1a05a079a4b4cef1852ced392ab134a16678",
+    "553a2c561e89d5c30f49ccb90c2d15c7a1043bd540c4253787ab6c91f2e15c30",
+    "55ba9e845194e43d2684f3ee71472afe8f56b723e27b5b4ed6776bb6b3e96b85",
+    "5d629b1c0d7b1a12276227f74084d233be652a4d15f7edbfa3f96d8a498b6194",
+    "5d888cb4d9a8e745f39d2bdf671191d82f1ecaa2cc12a426267f7a4bd5986998",
+    "61bb89ae51559259227b86fe1d87da7223908ad3811f732344e697f019ca2769",
+    "6305194617ca984df30c171bed6e781993a32ed85fc055563bd0b3efa3277083",
+    "675ffdb9a108c08181a510aec89a9a47cd609e58ff3aa23a0e2ca29fb6f9aa66",
+    "67f15b0adbaf30680f6f8e3fb184e40b47a96018aefdf78ad014435fcbdf6ce8",
+    "691095d07938500465f1cdf0403766252c193032092cb6f56ab302e08c40cc3c",
+    "76dc1ce0416d2328378aef62d38a41a1d30c26fe1a54aed88a3b3fa88ec06a4d",
+    "7da000dd2cc9816534925173d249c31f249dc31750d9617f5f03cc2f3660d03b",
+    "7f83ae5522526f3ebceab1ee13d1f81f547ed8131a9e5f5aff39104dbe0a8acb",
+    "94bfc3a98cf9ea0948086763cdb44a431b791e43a1aac94b2efabe684d84de3b",
+    "9a1d50b38d5d2cbf3c829cbe6bba23b240479f78f68ca30e21ad710cacb8edfd",
+    "b8d9fc782fe8b88fd3b00e11d4c7c3ee33afa988a0b5d402c88bd86a110b052f",
+    "ba9f416cf99a7454f08e259c443f4b061616ed25d91086e65ad8d04ec7dfbe1b",
+    "c2fb50e2127d84778a2e07633ac015c11511b3ee29898d381a2951d471c7c4bf",
+    "c7491230133663fcadfd7f1ca901de2d78887a4743f62396e2f8dd33df651ef8",
+    "cd60fb7f12c130a8cd622663ba30a0fbd8f9e35e921102811ee82184699978ea",
+    "e01d7b5e2a872046f3c73fc24239d07b125de61ed0edc0f0948a7ff8c4bb8da4",
+    "e5538461052ff2fede3d2e1712e5481ddeff8b2e85007e31659737c6ff383869",
+    "e5c8bd8701c1b69e3dc5f38f627ac02ad9d8904451b4abed5d3e5db30a2f6e53",
+    "ec23eaea23e451dd124f6d6b278802982c1227d7ed4a72f004ca5ce680fc4649",
+    "f009aa1e96c98304741f1a38a23a777c4ac11acd9e82b3ab5ced032539d70c7e",
+    "f37534045a335eb152c751ee277d9560138362a94377aefbb1f907ea39116e87"
+  ],
+  "downtrend_proxy": {
+    "metodo": "min_max_descritivo_jan2024_out2026",
+    "universo": [
+      "1100122",
+      "1502400",
+      "1504208",
+      "1506807",
+      "1702109",
+      "2103000",
+      "2105302",
+      "2207702",
+      "2208007",
+      "2303709",
+      "2312908",
+      "2408003",
+      "2504009",
+      "2604106",
+      "2611101",
+      "2700300",
+      "2913606",
+      "2918407",
+      "2933307",
+      "3170206"
+    ],
+    "periodo": [
+      "2024-01",
+      "2026-10"
+    ],
+    "populacao": "Censo2022_total",
+    "precos": "nominais; indicador legado separado do IPT deflacionado",
+    "pesos": {
+      "volume_pf": 0.6,
+      "pagadores_pf": 0.4
+    },
+    "amplitude_ajuste_inad": 0.15,
+    "limites": {
+      "VolPix_per_capita": {
+        "min": 2167.422368815019,
+        "max": 8593.917788512617
+      },
+      "Pagadores_per_capita": {
+        "min": 0.5352154367010157,
+        "max": 0.8194581467708887
+      }
+    },
+    "aprovacao": "NAO_HOMOLOGADO"
+  },
+  "parameter_set_id": "fd0107d5cf145ddf37780579738d07807cd5e184a7dd1215ed880e9a3fdbf081"
+}

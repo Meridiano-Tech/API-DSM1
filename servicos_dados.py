@@ -2,7 +2,7 @@ import time
 import requests
 import urllib3
 from typing import Dict, List, Optional, Any
-from motor_score import MotorScore, BENCHMARK_MUNICIPIOS
+from motor_score import MotorScore
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -180,122 +180,59 @@ def classificar_faixa_renda(renda: float) -> str:
 
 
 def obter_municipios_completos(motor: Optional[MotorScore] = None) -> List[Dict[str, Any]]:
-
-    if motor is None:
-        motor = MotorScore()
-
-    municipios_processados = []
-
-    for nome, cfg in BENCHMARK_MUNICIPIOS.items():
-        score_res = motor.calcular_score(
-            localidade=nome,
-            regiao=cfg['reg'],
-            populacao=cfg['pop'],
-            renda_per_capita=cfg['renda_per_capita_est']
-        )
-
-        registro = {
-            'localidade': nome,
-            'codigo_ibge': cfg['code'],
-            'uf': cfg['uf'],
-            'regiao': cfg['reg'],
-            'populacao': cfg['pop'],
-            'porte': classificar_porte_populacao(cfg['pop']),
-            'renda_per_capita': cfg['renda_per_capita_est'],
-            'faixa_renda': classificar_faixa_renda(cfg['renda_per_capita_est']),
-            'score_final': score_res['score_final'],
-            'faixa_score': score_res['faixa_score'],
-            'classe_risco': score_res['classe_risco'],
-            'volume_pix_total': score_res['indicadores_base']['volume_pix_total'],
-            'pix_per_capita': score_res['indicadores_base']['pix_per_capita'],
-            'inadimplencia_estimada': score_res['indicadores_base']['inadimplencia_estimada'],
-            'comp_bets_percent': score_res['comp_bets_percent'],
-            'cluster_categoria': score_res['cluster_ia']['categoria'],
-            'perfil_risco': score_res['cluster_ia']['perfil_risco']
-        }
-        municipios_processados.append(registro)
-
-    return municipios_processados
+    motor = motor or MotorScore()
+    municipios = []
+    for resultado in motor.gerar_ranking_benchmark():
+        base = resultado['indicadores_base']
+        populacao = resultado['populacao']
+        municipios.append({
+            **resultado,
+            'codigo_ibge': resultado['municipio_ibge'],
+            'porte': classificar_porte_populacao(populacao) if populacao is not None else None,
+            'renda_per_capita': None,
+            'faixa_renda': None,
+            'classe_risco': None,
+            'inadimplencia_estimada': base['inadimplencia_estimada'],
+            'competencia_inadimplencia': base['competencia_inadimplencia'],
+        })
+    return municipios
 
 
 def filtrar_municipios_socioeconomicos(
-    filtros: Dict[str, Any],
-    motor: Optional[MotorScore] = None
+    filtros: Dict[str, Any], motor: Optional[MotorScore] = None
 ) -> Dict[str, Any]:
+    padroes = {'regiao': 'todas', 'porte': 'todos', 'faixa_renda': 'todas',
+               'classe_risco': 'todas', 'busca': ''}
+    aplicados = {campo: filtros.get(campo, padrao) for campo, padrao in padroes.items()}
+    if any(not isinstance(valor, str) for valor in aplicados.values()):
+        raise ValueError("Os filtros devem ser informados como texto.")
+    if aplicados['faixa_renda'].casefold() != 'todas' or aplicados['classe_risco'].casefold() != 'todas':
+        raise ValueError("A base territorial não contém renda per capita ou classe de risco.")
+    regiao = aplicados['regiao'].strip().casefold()
+    porte = aplicados['porte'].strip().casefold()
+    busca = aplicados['busca'].strip().casefold()
+    portes = {'pequeno': 'Pequeno Porte', 'medio': 'Médio Porte', 'grande': 'Grande Porte / Metrópole'}
+    if porte not in {'todos', *portes}:
+        raise ValueError("Porte demográfico inválido.")
+    filtrados = [
+        m for m in obter_municipios_completos(motor)
+        if (regiao == 'todas' or m['regiao'].casefold() == regiao)
+        and (porte == 'todos' or m['porte'] == portes[porte])
+        and busca in m['localidade'].casefold()
+    ]
 
-    municipios = obter_municipios_completos(motor)
-
-    regiao = filtros.get('regiao', 'todas')
-    porte = filtros.get('porte', 'todos')
-    faixa_renda = filtros.get('faixa_renda', 'todas')
-    classe_risco = filtros.get('classe_risco', 'todas')
-    busca = filtros.get('busca', '').strip().lower()
-
-    filtrados = []
-    for m in municipios:
-        if regiao and regiao.lower() != 'todas':
-            if m['regiao'].lower() != regiao.lower():
-                continue
-
-        if porte and porte.lower() != 'todos':
-            p_lower = porte.lower()
-            if p_lower == 'pequeno' and m['populacao'] >= 150000:
-                continue
-            elif p_lower == 'medio' and not (150000 <= m['populacao'] <= 350000):
-                continue
-            elif p_lower == 'grande' and m['populacao'] <= 350000:
-                continue
-
-        if faixa_renda and faixa_renda.lower() != 'todas':
-            r_lower = faixa_renda.lower()
-            if r_lower == 'baixa' and m['renda_per_capita'] >= 1000.0:
-                continue
-            elif r_lower == 'media' and not (1000.0 <= m['renda_per_capita'] <= 1500.0):
-                continue
-            elif r_lower == 'alta' and m['renda_per_capita'] <= 1500.0:
-                continue
-
-        if classe_risco and classe_risco.lower() != 'todas':
-            if m['classe_risco'].upper() != classe_risco.upper():
-                continue
-
-        if busca:
-            if busca not in m['localidade'].lower():
-                continue
-
-        filtrados.append(m)
-
-    filtrados.sort(key=lambda x: x['score_final'], reverse=True)
-
-    total = len(filtrados)
-    if total > 0:
-        media_score = round(sum(m['score_final'] for m in filtrados) / total, 1)
-        media_renda = round(sum(m['renda_per_capita'] for m in filtrados) / total, 2)
-        media_inadimplencia = round(sum(m['inadimplencia_estimada'] for m in filtrados) / total, 2)
-        vol_pix_total = round(sum(m['volume_pix_total'] for m in filtrados), 2)
-        populacao_total = sum(m['populacao'] for m in filtrados)
-    else:
-        media_score = 0.0
-        media_renda = 0.0
-        media_inadimplencia = 0.0
-        vol_pix_total = 0.0
-        populacao_total = 0
-
+    scores = [m['score_final'] for m in filtrados if m['score_final'] is not None]
+    estimativas = [m['inadimplencia_estimada'] for m in filtrados if m['inadimplencia_estimada'] is not None]
+    populacoes = [m['populacao'] for m in filtrados if m['populacao'] is not None]
     return {
-        'total': total,
+        'total': len(filtrados),
         'resumo': {
-            'media_score': media_score,
-            'media_renda_per_capita': media_renda,
-            'media_inadimplencia': media_inadimplencia,
-            'volume_pix_total': vol_pix_total,
-            'populacao_total': populacao_total
+            'media_score': round(sum(scores) / len(scores), 1) if scores else None,
+            'media_renda_per_capita': None,
+            'media_inadimplencia': round(sum(estimativas) / len(estimativas), 2) if estimativas else None,
+            'volume_pix_total': None,
+            'populacao_total': sum(populacoes) if populacoes else None,
         },
-        'filtros_aplicados': {
-            'regiao': regiao,
-            'porte': porte,
-            'faixa_renda': faixa_renda,
-            'classe_risco': classe_risco,
-            'busca': busca
-        },
-        'municipios': filtrados
+        'filtros_aplicados': aplicados,
+        'municipios': filtrados,
     }

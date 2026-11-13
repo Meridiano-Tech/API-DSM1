@@ -13,6 +13,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/dados.js" defer></script>
   <script src="js/composicao.js" defer></script>
   <script src="js/simulador.js" defer></script>
 </head>
@@ -43,7 +44,7 @@
       <div class="hero-texto-col">
         <h1 class="hero-titulo-compacto">Composição e <span>Análise de Indicadores</span></h1>
         <p class="hero-desc-compacto">
-          Avaliação integrada de crédito regional, peso dos pilares socioeconômicos e simulação preditiva em tempo real.
+          Compare a atividade Pix e a carteira de crédito por região e consulte o score territorial dos municípios.
         </p>
       </div>
     </div>
@@ -55,8 +56,8 @@
     <div class="graficos-grid-duplo">
       <div class="card-grafico card-grafico-alto" id="grafico-perfil">
         <div class="grafico-cabecalho">
-          <h2 class="card-grafico-titulo">Perfil Territorial por Componente</h2>
-          <span class="card-grafico-badge">Radar Multidimensional</span>
+          <h2 class="card-grafico-titulo">Ranking de Score Territorial</h2>
+          <span class="card-grafico-badge">20 municípios</span>
         </div>
         <div class="graficoarea"></div>
       </div>
@@ -70,124 +71,72 @@
       </div>
     </div>
 
-    <!-- Seção do Simulador Territorial de IA -->
     <section class="secao-simulador-box" id="secao-simulador" aria-labelledby="titulo-simulador">
       <div class="simulador-header-limpo">
-        <h2 id="titulo-simulador" class="simulador-titulo-limpo">Simulador Territorial de Score de Crédito</h2>
+        <h2 id="titulo-simulador" class="simulador-titulo-limpo">Consulta e Simulação Territorial</h2>
         <p class="simulador-desc-limpa">
-          Selecione um município monitorado ou informe os dados territoriais para calcular o score e a recomendação de IA em tempo real.
+          Consulte um município monitorado ou simule um mês com volume Pix PF e pagadores PF.
         </p>
       </div>
-
       <div class="simulador-grid">
         <form class="simulador-form" id="form-score">
           <div class="campo">
-            <label for="select-municipio">Municípios Monitorados</label>
-            <select id="select-municipio" class="input-select-moderno">
-              <option value="">-- Escolha um município ou preencha abaixo --</option>
+            <label for="select-municipio">Município ou cenário</label>
+            <select id="select-municipio" class="input-select-moderno" required disabled>
+              <option value="">Escolha um município</option>
             </select>
           </div>
-
-          <div class="campo">
-            <label for="campo-localidade">Nome do Município</label>
-            <input type="text" id="campo-localidade" name="localidade" required placeholder="Ex: Marabá - PA">
-          </div>
-
-          <div class="campos-linha">
+          <p id="simulador-status" role="status"></p>
+          <fieldset id="campos-cenario" hidden disabled>
+            <legend>Dados do cenário mensal</legend>
+            <div class="campo">
+              <label for="campo-localidade">Nome do cenário</label>
+              <input type="text" id="campo-localidade" name="localidade" required maxlength="120">
+            </div>
             <div class="campo">
               <label for="campo-regiao">Região</label>
-              <select id="campo-regiao" name="regiao" class="input-select-moderno" required>
+              <select id="campo-regiao" name="regiao" required>
                 <option value="Norte">Norte</option>
-                <option value="Nordeste" selected>Nordeste</option>
+                <option value="Nordeste">Nordeste</option>
+                <option value="Centro-Oeste">Centro-Oeste</option>
                 <option value="Sudeste">Sudeste</option>
                 <option value="Sul">Sul</option>
-                <option value="Centro-Oeste">Centro-Oeste</option>
               </select>
             </div>
-
             <div class="campo">
-              <label for="campo-populacao">População Estimada</label>
-              <input type="number" id="campo-populacao" name="populacao" min="1000" step="1000" value="200000" required>
+              <label for="campo-populacao">População total</label>
+              <input type="number" id="campo-populacao" name="populacao" min="1" step="1" required>
             </div>
-          </div>
-
-          <div class="campos-linha">
             <div class="campo">
-              <label for="campo-renda">Renda per capita (R$)</label>
-              <input type="number" id="campo-renda" name="renda_per_capita" min="200" step="50" value="1000" required>
+              <label for="campo-valor-pf">Volume Pix PF do mês (R$)</label>
+              <input type="number" id="campo-valor-pf" name="valor_pf" min="0" step="0.01" required>
             </div>
-
             <div class="campo">
-              <label for="campo-inadimplencia">Inadimplência Local (%)</label>
-              <input type="number" id="campo-inadimplencia" name="inadimplencia_local" min="0" max="30" step="0.1"
-                value="5.6" placeholder="Padrão BCB: 5.6">
+              <label for="campo-pagadores-pf">Pagadores PF distintos no mês</label>
+              <input type="number" id="campo-pagadores-pf" name="pagadores_pf" min="0" step="1" required>
             </div>
-          </div>
-
-          <button type="submit" class="botao botao-calcular" id="btn-calcular">
-            <span class="btn-texto">Calcular Score Territorial</span>
-            <span class="btn-loading" style="display:none;">Calculando...</span>
-          </button>
-          <div id="simulador-erro" style="display:none; color: #b91c1c; background: #fee2e2; border-left: 4px solid #b91c1c; padding: 0.75rem 1rem; border-radius: 8px; margin-top: 0.75rem; font-size: 0.88rem; font-weight: 500;" role="alert"></div>
+          </fieldset>
+          <button type="submit" class="botao botao-calcular" id="btn-calcular" disabled>Ver resultado</button>
+          <p id="simulador-erro" hidden role="alert"></p>
         </form>
-
-        <div class="simulador-resultado" id="painel-resultado" aria-live="polite">
-          <div class="resultado-placeholder" id="resultado-vazio">
-            <div class="placeholder-icone">📊</div>
-            <p>Selecione um município monitorado ou clique em <strong>Calcular Score Territorial</strong> para gerar a análise de oportunidade.</p>
-          </div>
-
-          <div class="resultado-conteudo" id="resultado-ativo" style="display:none;">
+        <div class="simulador-resultado" aria-live="polite">
+          <p class="resultado-placeholder" id="resultado-vazio">Escolha um município para consultar seu score.</p>
+          <div class="resultado-conteudo" id="resultado-ativo" hidden>
             <div class="score-cabecalho">
-              <div>
-                <span class="score-cidade" id="res-cidade">--</span>
-                <span class="score-regiao-badge" id="res-regiao">--</span>
-              </div>
-              <div class="score-badge-classe" id="res-classe">Classe --</div>
+              <span class="score-cidade" id="res-cidade"></span>
+              <span class="score-regiao-badge" id="res-regiao"></span>
             </div>
-
             <div class="score-display">
-              <div class="score-valor" id="res-score">--</div>
+              <div class="score-valor" id="res-score"></div>
               <div class="score-detalhe">
-                <span class="score-faixa" id="res-faixa">--</span>
-                <span class="score-escala">Escala de 0 a 1000</span>
+                <span class="score-faixa" id="res-faixa"></span>
+                <span class="score-escala">Escala de 300 a 1.000</span>
               </div>
             </div>
-
-            <div class="pilares-container">
-              <div class="pilar-item">
-                <div class="pilar-topo">
-                  <span>Pilar Microeconômico</span>
-                  <strong id="res-pilar-micro">--</strong>
-                </div>
-                <div class="barra-fundo">
-                  <div class="barra-preenchimento" id="barra-micro" style="width: 0%;"></div>
-                </div>
-              </div>
-
-              <div class="pilar-item">
-                <div class="pilar-topo">
-                  <span>Pilar Macroeconômico</span>
-                  <strong id="res-pilar-macro">--</strong>
-                </div>
-                <div class="barra-fundo">
-                  <div class="barra-preenchimento" id="barra-macro" style="width: 0%;"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-ia-resultado">
-              <div class="ia-titulo">
-                <span class="ia-tag">Inteligência Artificial</span>
-                <strong id="res-cluster-nome">--</strong>
-              </div>
-              <p class="ia-desc" id="res-ia-recomendacao">--</p>
-            </div>
-
-            <div class="alerta-bets" id="box-bets">
-              <span class="bets-rotulo">Comprometimento com Apostas (Bets):</span>
-              <strong id="res-bets">--</strong>
-            </div>
+            <p id="res-downtrend"></p>
+            <p id="res-cobertura"></p>
+            <p id="res-inadimplencia"></p>
+            <p>Indicador territorial exploratório, sem homologação para decisão individual de crédito.</p>
           </div>
         </div>
       </div>
@@ -197,11 +146,11 @@
     <details class="analises-card-moderno" id="analises">
       <summary class="analises-sumario">
         <span class="analises-sumario-titulo">Explorar Análises Complementares</span>
-        <span class="analises-badge">4 Gráficos Detalhados ▾</span>
+        <span class="analises-badge">6 gráficos ▾</span>
       </summary>
       <div class="analises-corpo">
         <p class="analises-intro">
-          Explore a distribuição dos indicadores de crédito, compare o desempenho regional e analise as métricas utilizadas na avaliação de oportunidades.
+          Acompanhe as séries do Banco Central e as estimativas municipais no período analisado.
         </p>
         <div class="grid-analises-graficos">
           <div class="card-grafico" id="grafico-colab-1">
@@ -218,13 +167,27 @@
           </div>
           <div class="card-grafico" id="grafico-colab-3">
             <div class="grafico-cabecalho">
-              <h3 class="card-grafico-titulo">Comprometimento de Renda com Apostas (Bets)</h3>
+              <h3 class="card-grafico-titulo">Quantidade de Transações Pix por Região</h3>
             </div>
             <div class="graficoarea"></div>
           </div>
           <div class="card-grafico" id="grafico-colab-4">
             <div class="grafico-cabecalho">
-              <h3 class="card-grafico-titulo">Distribuição dos Pilares Micro e Macroeconômico</h3>
+              <h3 class="card-grafico-titulo">Volume Financeiro Pix por Região</h3>
+            </div>
+            <div class="graficoarea"></div>
+          </div>
+          <div class="card-grafico" id="grafico-colab-5">
+            <div class="grafico-cabecalho">
+              <h3 class="card-grafico-titulo">Inadimplência Municipal Estimada</h3>
+              <span class="card-grafico-badge" id="competencia-inad-5"></span>
+            </div>
+            <div class="graficoarea"></div>
+          </div>
+          <div class="card-grafico" id="grafico-colab-6">
+            <div class="grafico-cabecalho">
+              <h3 class="card-grafico-titulo">Inadimplência Estadual Observada</h3>
+              <span class="card-grafico-badge" id="competencia-inad-6"></span>
             </div>
             <div class="graficoarea"></div>
           </div>
