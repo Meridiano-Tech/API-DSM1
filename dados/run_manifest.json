@@ -1,0 +1,757 @@
+{
+  "model_version": "credit42-municipal-20-3.1",
+  "code_sha256": "3261f7587a5570a42b9d75e6728d3ab0fd60c4eb69fffae4163412ce3461d1ce",
+  "config": {
+    "inicio": "2024-01",
+    "fim": "2026-10",
+    "trabalhadores": 3,
+    "pagina_pix": 10000,
+    "tentativas": 3,
+    "timeout_leitura": 60,
+    "diretorio": "credit42_execucoes",
+    "calibracao_inicio": "2024-03",
+    "calibracao_fim": "2024-12",
+    "parametros_homologados": false,
+    "amplitude_downtrend": 0.15
+  },
+  "dependencias": {
+    "python": "3.12.14",
+    "pandas": "2.2.3",
+    "numpy": "2.3.5",
+    "requests": "2.34.2"
+  },
+  "parameter_set_id": "fd0107d5cf145ddf37780579738d07807cd5e184a7dd1215ed880e9a3fdbf081",
+  "finished_at_utc": "2026-11-08T16:29:00.106998+00:00",
+  "http": [
+    {
+      "fonte": "BCB_SGS_14093",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.14093/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:31.972045+00:00",
+      "http_status": 200,
+      "source_hash": "2ea85c9514037ba34701451be74be93161ea30e7d4e489f0d3638af0670e9677",
+      "bytes": 1288,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/2ea85c9514037ba34701451be74be93161ea30e7d4e489f0d3638af0670e9677.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_14094",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.14094/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:31.973088+00:00",
+      "http_status": 200,
+      "source_hash": "79e02f1860d958ca627dee79f23330551996483a997ad2f4b8e15da1f98f2cd3",
+      "bytes": 1298,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/79e02f1860d958ca627dee79f23330551996483a997ad2f4b8e15da1f98f2cd3.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_14095",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.14095/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:31.974660+00:00",
+      "http_status": 200,
+      "source_hash": "7dc7d46e7f6daf4abd6eab3c9fcac9e5e17379ef29392ad10682129de14694ea",
+      "bytes": 1288,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/7dc7d46e7f6daf4abd6eab3c9fcac9e5e17379ef29392ad10682129de14694ea.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_14096",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.14096/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:37.671285+00:00",
+      "http_status": 200,
+      "source_hash": "09cb8ff99bfdae74e7896fcc1d5fb30430de90de7c6e2c32f8dad1cea4adc36e",
+      "bytes": 1321,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/09cb8ff99bfdae74e7896fcc1d5fb30430de90de7c6e2c32f8dad1cea4adc36e.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_14097",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.14097/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:37.689272+00:00",
+      "http_status": 200,
+      "source_hash": "7dedf294236dd6f00e9ae323c698c590d68eca33a357bd5097f9d96dc15b6757",
+      "bytes": 1321,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/7dedf294236dd6f00e9ae323c698c590d68eca33a357bd5097f9d96dc15b6757.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15926",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15926/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:45.842171+00:00",
+      "http_status": 200,
+      "source_hash": "1b4c4eb83ea025ee2ea1f66b06dea94193b0fdd55d507907cbc5fa792784bfec",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/1b4c4eb83ea025ee2ea1f66b06dea94193b0fdd55d507907cbc5fa792784bfec.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15929",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15929/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:51.512340+00:00",
+      "http_status": 200,
+      "source_hash": "34ed3eca3514e50823005615e7b41af3706837404ddc44a148806c25197eddc1",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/34ed3eca3514e50823005615e7b41af3706837404ddc44a148806c25197eddc1.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15930",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15930/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:52.118084+00:00",
+      "http_status": 200,
+      "source_hash": "0f52328b371504dbef10913be746231db12ce6bccde8fc3383742d659607a927",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/0f52328b371504dbef10913be746231db12ce6bccde8fc3383742d659607a927.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15934",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15934/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:53.144741+00:00",
+      "http_status": 200,
+      "source_hash": "f8c7a2199a89ca0ec50986a6722dcdff5eef0c8376c6a1f5cd00a65db9d8e658",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/f8c7a2199a89ca0ec50986a6722dcdff5eef0c8376c6a1f5cd00a65db9d8e658.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15937",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15937/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:54.705825+00:00",
+      "http_status": 200,
+      "source_hash": "82a5281fc0fa964aecef3cbd8a7a815c0d7cc8506fd76bfa7f4cc85d31b73fe8",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/82a5281fc0fa964aecef3cbd8a7a815c0d7cc8506fd76bfa7f4cc85d31b73fe8.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15938",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15938/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:55.506348+00:00",
+      "http_status": 200,
+      "source_hash": "9497799225d8d1296e85fb8b6e576462620b5b762b88670574f7de50cbb6028a",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/9497799225d8d1296e85fb8b6e576462620b5b762b88670574f7de50cbb6028a.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15939",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15939/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:56.117770+00:00",
+      "http_status": 200,
+      "source_hash": "a0311808c4a0232e3a998c4804d926870c04353ca358611f28b529d75f327657",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/a0311808c4a0232e3a998c4804d926870c04353ca358611f28b529d75f327657.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15941",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15941/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:56.927409+00:00",
+      "http_status": 200,
+      "source_hash": "786dcb8f09f8fb545383cad0bdb4a545fbe6d141eff329eefaa5bfeaf950fff6",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/786dcb8f09f8fb545383cad0bdb4a545fbe6d141eff329eefaa5bfeaf950fff6.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15942",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15942/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:57.590290+00:00",
+      "http_status": 200,
+      "source_hash": "cd073eca348d3e21519617bd728149b549acf24c39c76baa39572ff36769137b",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/cd073eca348d3e21519617bd728149b549acf24c39c76baa39572ff36769137b.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15944",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15944/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:58.252940+00:00",
+      "http_status": 200,
+      "source_hash": "628d7b66aac3fb0b1fb0e6a40967df4d89a38f607652f1bbdc65ee4505f3ab14",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/628d7b66aac3fb0b1fb0e6a40967df4d89a38f607652f1bbdc65ee4505f3ab14.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15946",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15946/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:58.909882+00:00",
+      "http_status": 200,
+      "source_hash": "fc7767497804d5e1eb18bab34a678ce89677532015da5f4ca797126b5bdb985d",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/fc7767497804d5e1eb18bab34a678ce89677532015da5f4ca797126b5bdb985d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15951",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15951/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:59.512586+00:00",
+      "http_status": 200,
+      "source_hash": "3d3b139542dfdd2319dbbf283e6bd1cb569702ee3412484a4ab980314a7197de",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/3d3b139542dfdd2319dbbf283e6bd1cb569702ee3412484a4ab980314a7197de.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15952",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15952/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:37.695404+00:00",
+      "http_status": 200,
+      "source_hash": "9bf69b753dea4c186fe213e12b584a73e38a54909d4e7f6d06dc29263995970d",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/9bf69b753dea4c186fe213e12b584a73e38a54909d4e7f6d06dc29263995970d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15953",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15953/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:38.088282+00:00",
+      "http_status": 200,
+      "source_hash": "47c806033e2121e3e41132dcbce3084073750d3bcadfa3f014d551720e01daa6",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/47c806033e2121e3e41132dcbce3084073750d3bcadfa3f014d551720e01daa6.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15954",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15954/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:38.129573+00:00",
+      "http_status": 200,
+      "source_hash": "131f0b39c2850f04b6ef4f771894a1f7e9d239dab57436ecf103a415b35bc35a",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/131f0b39c2850f04b6ef4f771894a1f7e9d239dab57436ecf103a415b35bc35a.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15955",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15955/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:38.475056+00:00",
+      "http_status": 200,
+      "source_hash": "360567e1509fde0db3c0683707ddb0b84264df560243e6095543d95ca35f87cd",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/360567e1509fde0db3c0683707ddb0b84264df560243e6095543d95ca35f87cd.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_15956",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.15956/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:38.518426+00:00",
+      "http_status": 200,
+      "source_hash": "8e3feb8e3a092336e0d53ab6cd2ec58b9a0205c0cc2bbc6853070c1ad50f2f95",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/8e3feb8e3a092336e0d53ab6cd2ec58b9a0205c0cc2bbc6853070c1ad50f2f95.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_20539",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20539/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:38.891530+00:00",
+      "http_status": 200,
+      "source_hash": "3798ce1633d5dbde975e05575d0f8d1d7810eeae1390b896defef08ee778db9f",
+      "bytes": 1321,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/3798ce1633d5dbde975e05575d0f8d1d7810eeae1390b896defef08ee778db9f.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_21082",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21082/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:39.262965+00:00",
+      "http_status": 200,
+      "source_hash": "9e38dca4fdd0b2c65b9aafb013e319591655715eec4825e283b8589d7f09ae4d",
+      "bytes": 1222,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/9e38dca4fdd0b2c65b9aafb013e319591655715eec4825e283b8589d7f09ae4d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_SGS_433",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2024&dataFinal=31/10/2026",
+      "collected_at_utc": "2026-11-08T16:28:39.529458+00:00",
+      "http_status": 200,
+      "source_hash": "e5c8bd8701c1b69e3dc5f38f627ac02ad9d8904451b4abed5d3e5db30a2f6e53",
+      "bytes": 1225,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/e5c8bd8701c1b69e3dc5f38f627ac02ad9d8904451b4abed5d3e5db30a2f6e53.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "IBGE_METADATA_9514",
+      "url": "https://apisidra.ibge.gov.br/desctabapi.aspx?c=9514",
+      "collected_at_utc": "2026-11-08T16:28:25.040447+00:00",
+      "http_status": 200,
+      "source_hash": "5c5aa3223ac926da826950eac8ebdb0fc0e02a275da2f494eee8a56455ab3341",
+      "bytes": 96422,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/5c5aa3223ac926da826950eac8ebdb0fc0e02a275da2f494eee8a56455ab3341.txt",
+      "status": "OK"
+    },
+    {
+      "fonte": "IBGE_SIDRA_9514",
+      "url": "https://apisidra.ibge.gov.br/values/t/9514/n6/1504208,2105302,2207702,1502400,2312908,2700300,2918407,2408003,2611101,1100122,1506807,2103000,2208007,1702109,2303709,2913606,2504009,2604106,2933307,3170206/v/93/p/2022/c2/6794/c287/100362/c286/113635",
+      "collected_at_utc": "2026-11-08T16:28:30.517577+00:00",
+      "http_status": 200,
+      "source_hash": "6e45c7f9355b1dd7d9298ad16ca6a3033667f6f6d3972d34e49189ce597b2be7",
+      "bytes": 8257,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/6e45c7f9355b1dd7d9298ad16ca6a3033667f6f6d3972d34e49189ce597b2be7.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "IBGE_SIDRA_9514",
+      "url": "https://apisidra.ibge.gov.br/values/t/9514/n6/1504208,2105302,2207702,1502400,2312908,2700300,2918407,2408003,2611101,1100122,1506807,2103000,2208007,1702109,2303709,2913606,2504009,2604106,2933307,3170206/v/93/p/2022/c2/6794/c287/6575,6576,6577,6578,6579,6580,6581,6582,6656,6657,6658,6659,6583,6584,6585,6586,6587,6588,6589,6590,6591,6592,6593,6594,6595,6596,6597,6598,6599,6600,6601,6602,6603,6604,6605,6606,6607,6608,6609,6610,6611,6612,6613,6614,6615,6616,6617,6618,6619,6620,6621,6622,6623,6624,6625,6626,6627,6628,6629,6630,6631,6632,6633,6634,6635,6636,6637,6638,6639,6640,6641,6642,6643,6644,6645,6646,6647,6648,6649,6650,6651,6652,6653/c286/113635",
+      "collected_at_utc": "2026-11-08T16:28:31.229734+00:00",
+      "http_status": 200,
+      "source_hash": "e5538461052ff2fede3d2e1712e5481ddeff8b2e85007e31659737c6ff383869",
+      "bytes": 635963,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/e5538461052ff2fede3d2e1712e5481ddeff8b2e85007e31659737c6ff383869.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX_METADATA",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/$metadata",
+      "collected_at_utc": "2026-11-08T16:28:02.329663+00:00",
+      "http_status": 200,
+      "source_hash": "26e038bdfd75b68d239342118de7ec68595f24885aab463add4d699380985c3a",
+      "bytes": 8836,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/26e038bdfd75b68d239342118de7ec68595f24885aab463add4d699380985c3a.txt",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202401'&$filter=AnoMes eq 202401&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:09.423042+00:00",
+      "http_status": 200,
+      "source_hash": "6305194617ca984df30c171bed6e781993a32ed85fc055563bd0b3efa3277083",
+      "bytes": 2481527,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/6305194617ca984df30c171bed6e781993a32ed85fc055563bd0b3efa3277083.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202402'&$filter=AnoMes eq 202402&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:09.424294+00:00",
+      "http_status": 200,
+      "source_hash": "0e0d171aa9c0e463ddce24fdc0e1e5bf9885a0820f8275e5841ca72ee4b44299",
+      "bytes": 2481376,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/0e0d171aa9c0e463ddce24fdc0e1e5bf9885a0820f8275e5841ca72ee4b44299.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202403'&$filter=AnoMes eq 202403&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:09.425336+00:00",
+      "http_status": 200,
+      "source_hash": "e01d7b5e2a872046f3c73fc24239d07b125de61ed0edc0f0948a7ff8c4bb8da4",
+      "bytes": 2483423,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/e01d7b5e2a872046f3c73fc24239d07b125de61ed0edc0f0948a7ff8c4bb8da4.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202404'&$filter=AnoMes eq 202404&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:16.332625+00:00",
+      "http_status": 200,
+      "source_hash": "4f88cfc88b42e8632f474e915b176abb7c023b7366f7286603ca1e8875f85718",
+      "bytes": 2484575,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/4f88cfc88b42e8632f474e915b176abb7c023b7366f7286603ca1e8875f85718.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202405'&$filter=AnoMes eq 202405&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:16.931434+00:00",
+      "http_status": 200,
+      "source_hash": "535d60f50afdb8a77056f138110e1a05a079a4b4cef1852ced392ab134a16678",
+      "bytes": 2485701,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/535d60f50afdb8a77056f138110e1a05a079a4b4cef1852ced392ab134a16678.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202406'&$filter=AnoMes eq 202406&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:17.071107+00:00",
+      "http_status": 200,
+      "source_hash": "26ff396dda893a537314a1c18d904f5a014cb6eb8435889b830785cb55e7036d",
+      "bytes": 2485984,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/26ff396dda893a537314a1c18d904f5a014cb6eb8435889b830785cb55e7036d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202407'&$filter=AnoMes eq 202407&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:17.073836+00:00",
+      "http_status": 200,
+      "source_hash": "014ba948bf7104d9f9043e909cf4ecad41162c27e5fe9c46166ad9b0e78f8298",
+      "bytes": 2487507,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/014ba948bf7104d9f9043e909cf4ecad41162c27e5fe9c46166ad9b0e78f8298.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202408'&$filter=AnoMes eq 202408&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:18.526559+00:00",
+      "http_status": 200,
+      "source_hash": "94bfc3a98cf9ea0948086763cdb44a431b791e43a1aac94b2efabe684d84de3b",
+      "bytes": 2488096,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/94bfc3a98cf9ea0948086763cdb44a431b791e43a1aac94b2efabe684d84de3b.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202409'&$filter=AnoMes eq 202409&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:18.678749+00:00",
+      "http_status": 200,
+      "source_hash": "3d45c0b2ec405b82fd8aae6f44438be37a8a6d8dbfed9d8f9d2c4f70a8b5767d",
+      "bytes": 2488187,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/3d45c0b2ec405b82fd8aae6f44438be37a8a6d8dbfed9d8f9d2c4f70a8b5767d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202410'&$filter=AnoMes eq 202410&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:18.692238+00:00",
+      "http_status": 200,
+      "source_hash": "0c443919200097d13a44b9e83ecc0294ed6979d1ab84dd2d9c80ec477359f36d",
+      "bytes": 2489606,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/0c443919200097d13a44b9e83ecc0294ed6979d1ab84dd2d9c80ec477359f36d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202411'&$filter=AnoMes eq 202411&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:19.199004+00:00",
+      "http_status": 200,
+      "source_hash": "3d3c459da2a79be239bf41d3626cbb9a8789cbdb8f793dcc34f942280157e8f6",
+      "bytes": 2489234,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/3d3c459da2a79be239bf41d3626cbb9a8789cbdb8f793dcc34f942280157e8f6.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202412'&$filter=AnoMes eq 202412&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:19.340531+00:00",
+      "http_status": 200,
+      "source_hash": "c7491230133663fcadfd7f1ca901de2d78887a4743f62396e2f8dd33df651ef8",
+      "bytes": 2491666,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/c7491230133663fcadfd7f1ca901de2d78887a4743f62396e2f8dd33df651ef8.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202501'&$filter=AnoMes eq 202501&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:19.356805+00:00",
+      "http_status": 200,
+      "source_hash": "55ba9e845194e43d2684f3ee71472afe8f56b723e27b5b4ed6776bb6b3e96b85",
+      "bytes": 2489196,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/55ba9e845194e43d2684f3ee71472afe8f56b723e27b5b4ed6776bb6b3e96b85.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202502'&$filter=AnoMes eq 202502&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:19.826277+00:00",
+      "http_status": 200,
+      "source_hash": "7da000dd2cc9816534925173d249c31f249dc31750d9617f5f03cc2f3660d03b",
+      "bytes": 2489208,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/7da000dd2cc9816534925173d249c31f249dc31750d9617f5f03cc2f3660d03b.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202503'&$filter=AnoMes eq 202503&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:20.002465+00:00",
+      "http_status": 200,
+      "source_hash": "b8d9fc782fe8b88fd3b00e11d4c7c3ee33afa988a0b5d402c88bd86a110b052f",
+      "bytes": 2491397,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/b8d9fc782fe8b88fd3b00e11d4c7c3ee33afa988a0b5d402c88bd86a110b052f.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202504'&$filter=AnoMes eq 202504&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:20.018064+00:00",
+      "http_status": 200,
+      "source_hash": "675ffdb9a108c08181a510aec89a9a47cd609e58ff3aa23a0e2ca29fb6f9aa66",
+      "bytes": 2492854,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/675ffdb9a108c08181a510aec89a9a47cd609e58ff3aa23a0e2ca29fb6f9aa66.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202505'&$filter=AnoMes eq 202505&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:20.534881+00:00",
+      "http_status": 200,
+      "source_hash": "5d888cb4d9a8e745f39d2bdf671191d82f1ecaa2cc12a426267f7a4bd5986998",
+      "bytes": 2494206,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/5d888cb4d9a8e745f39d2bdf671191d82f1ecaa2cc12a426267f7a4bd5986998.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202506'&$filter=AnoMes eq 202506&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:20.711824+00:00",
+      "http_status": 200,
+      "source_hash": "505d7fb5037359ceb2fdcec54efba4c906001c3cc62053c796bb7b656b8e9128",
+      "bytes": 2493859,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/505d7fb5037359ceb2fdcec54efba4c906001c3cc62053c796bb7b656b8e9128.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202507'&$filter=AnoMes eq 202507&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:20.725431+00:00",
+      "http_status": 200,
+      "source_hash": "61bb89ae51559259227b86fe1d87da7223908ad3811f732344e697f019ca2769",
+      "bytes": 2495182,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/61bb89ae51559259227b86fe1d87da7223908ad3811f732344e697f019ca2769.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202508'&$filter=AnoMes eq 202508&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:21.173397+00:00",
+      "http_status": 200,
+      "source_hash": "7f83ae5522526f3ebceab1ee13d1f81f547ed8131a9e5f5aff39104dbe0a8acb",
+      "bytes": 2495400,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/7f83ae5522526f3ebceab1ee13d1f81f547ed8131a9e5f5aff39104dbe0a8acb.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202509'&$filter=AnoMes eq 202509&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:21.391487+00:00",
+      "http_status": 200,
+      "source_hash": "f009aa1e96c98304741f1a38a23a777c4ac11acd9e82b3ab5ced032539d70c7e",
+      "bytes": 2495594,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/f009aa1e96c98304741f1a38a23a777c4ac11acd9e82b3ab5ced032539d70c7e.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202510'&$filter=AnoMes eq 202510&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:21.403540+00:00",
+      "http_status": 200,
+      "source_hash": "cd60fb7f12c130a8cd622663ba30a0fbd8f9e35e921102811ee82184699978ea",
+      "bytes": 2496314,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/cd60fb7f12c130a8cd622663ba30a0fbd8f9e35e921102811ee82184699978ea.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202511'&$filter=AnoMes eq 202511&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:21.931433+00:00",
+      "http_status": 200,
+      "source_hash": "76dc1ce0416d2328378aef62d38a41a1d30c26fe1a54aed88a3b3fa88ec06a4d",
+      "bytes": 2496577,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/76dc1ce0416d2328378aef62d38a41a1d30c26fe1a54aed88a3b3fa88ec06a4d.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202512'&$filter=AnoMes eq 202512&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:22.118253+00:00",
+      "http_status": 200,
+      "source_hash": "ec23eaea23e451dd124f6d6b278802982c1227d7ed4a72f004ca5ce680fc4649",
+      "bytes": 2499293,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/ec23eaea23e451dd124f6d6b278802982c1227d7ed4a72f004ca5ce680fc4649.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202601'&$filter=AnoMes eq 202601&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:22.130988+00:00",
+      "http_status": 200,
+      "source_hash": "691095d07938500465f1cdf0403766252c193032092cb6f56ab302e08c40cc3c",
+      "bytes": 2496641,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/691095d07938500465f1cdf0403766252c193032092cb6f56ab302e08c40cc3c.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202602'&$filter=AnoMes eq 202602&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:22.728177+00:00",
+      "http_status": 200,
+      "source_hash": "9a1d50b38d5d2cbf3c829cbe6bba23b240479f78f68ca30e21ad710cacb8edfd",
+      "bytes": 2494955,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/9a1d50b38d5d2cbf3c829cbe6bba23b240479f78f68ca30e21ad710cacb8edfd.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202603'&$filter=AnoMes eq 202603&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:22.791064+00:00",
+      "http_status": 200,
+      "source_hash": "553a2c561e89d5c30f49ccb90c2d15c7a1043bd540c4253787ab6c91f2e15c30",
+      "bytes": 2498554,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/553a2c561e89d5c30f49ccb90c2d15c7a1043bd540c4253787ab6c91f2e15c30.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202604'&$filter=AnoMes eq 202604&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:22.808425+00:00",
+      "http_status": 200,
+      "source_hash": "5d629b1c0d7b1a12276227f74084d233be652a4d15f7edbfa3f96d8a498b6194",
+      "bytes": 2498695,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/5d629b1c0d7b1a12276227f74084d233be652a4d15f7edbfa3f96d8a498b6194.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202605'&$filter=AnoMes eq 202605&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:23.483993+00:00",
+      "http_status": 200,
+      "source_hash": "f37534045a335eb152c751ee277d9560138362a94377aefbb1f907ea39116e87",
+      "bytes": 2499750,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/f37534045a335eb152c751ee277d9560138362a94377aefbb1f907ea39116e87.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202606'&$filter=AnoMes eq 202606&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:23.539344+00:00",
+      "http_status": 200,
+      "source_hash": "ba9f416cf99a7454f08e259c443f4b061616ed25d91086e65ad8d04ec7dfbe1b",
+      "bytes": 2499819,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/ba9f416cf99a7454f08e259c443f4b061616ed25d91086e65ad8d04ec7dfbe1b.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202607'&$filter=AnoMes eq 202607&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:23.543138+00:00",
+      "http_status": 200,
+      "source_hash": "3cd6d9c803081171884db1b80ac9d05228bee333a58ff43246b2f51adf9d1bba",
+      "bytes": 2500920,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/3cd6d9c803081171884db1b80ac9d05228bee333a58ff43246b2f51adf9d1bba.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202608'&$filter=AnoMes eq 202608&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:24.056283+00:00",
+      "http_status": 200,
+      "source_hash": "67f15b0adbaf30680f6f8e3fb184e40b47a96018aefdf78ad014435fcbdf6ce8",
+      "bytes": 2500929,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/67f15b0adbaf30680f6f8e3fb184e40b47a96018aefdf78ad014435fcbdf6ce8.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202609'&$filter=AnoMes eq 202609&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:24.198418+00:00",
+      "http_status": 200,
+      "source_hash": "39a11462806888413926e9315c9c89d5a46e180ff60587ccfe8184258613893c",
+      "bytes": 2500905,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/39a11462806888413926e9315c9c89d5a46e180ff60587ccfe8184258613893c.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_PIX",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/TransacoesPixPorMunicipio(DataBase=@DataBase)?@DataBase='202610'&$filter=AnoMes eq 202610&$orderby=Municipio_Ibge&$top=10000&$format=json",
+      "collected_at_utc": "2026-11-08T16:28:24.203860+00:00",
+      "http_status": 200,
+      "source_hash": "c2fb50e2127d84778a2e07633ac015c11511b3ee29898d381a2951d471c7c4bf",
+      "bytes": 2501567,
+      "raw_path": "/workspace/scratch/6d898b73ec98/tmp/atualizacao20/execucao_notebook/credit42_execucoes/20261108T162802329411Z/raw/c2fb50e2127d84778a2e07633ac015c11511b3ee29898d381a2951d471c7c4bf.json",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15926,
+      "source_hash": "72bbb5dbb986c502252bdb6c45c33169b098f7f4c1024a225bcf20373fe8c130",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15929,
+      "source_hash": "0cb8965ab09dc9a2c046d2fb1e45f937e78634898a97e8b50f9c1d423b5304f4",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15930,
+      "source_hash": "9e3870035a53de0ea1ff3b8fe0c149db0939d9bc3329f15981e429a4f5096f35",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15934,
+      "source_hash": "36b4377704b64502ab22b31a68385edd693c99bdbf1fb097c18a4dead8ad3fa4",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15937,
+      "source_hash": "1d5885458044cfdad1e8a05e696632f7c906ebe6cc31f276d42877351c63e338",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15938,
+      "source_hash": "f93d40e52eaf939d1dc5d42248c09002f606b293a3af38e5f39030516b8b85cd",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15939,
+      "source_hash": "375b81501e0a0257fbfedc090a54c54b81d2b1811d044045f93e334edae3c79a",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15941,
+      "source_hash": "5bbf7bf4875691d89e44778396addf2dfc9a70e58d89427517f40f7a2ee57faa",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15942,
+      "source_hash": "acc701a10eff2705f5d9ea65387faa96dec311a3d46cb1004538b270868ef427",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15944,
+      "source_hash": "57b0962f3b06eaf23d0ac2ef9d7d9be64b075a937dc25d6e7bbfef187d596630",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15946,
+      "source_hash": "aad21304db85af07c6b44f4f25a13e2a1e4242d70f86ebc23b588b9d8cac666d",
+      "status": "OK"
+    },
+    {
+      "fonte": "BCB_WSSGS_METADATA",
+      "url": "https://www3.bcb.gov.br/wssgs/services/FachadaWSSGS",
+      "serie_sgs": 15951,
+      "source_hash": "fb6485391ca89906f5e5083e4786e710ef06da3aa8fbef73e20bd5d517daec19",
+      "status": "OK"
+    }
+  ],
+  "output_sha256": {
+    "quality_report.json": "c953f0f559fb53eba95cf32b991753a565b699eb03091f9b9f69107d4bf8d9a2",
+    "inadimplencia_municipal.csv": "139a01ffd1e0201fb3ff6e67b2977bcf24fe2a0b45fe28ecef9463f5c40f3ecc",
+    "perfil_radar.json": "c1d6a04c7f4c9d2acfd154a2d9dca1b931a3604482960adb81524ad4bd0e8eb0",
+    "dados_site.js": "a9b03cf331de757e6b7547fbd04c82859f90b17a788dba567d5bfe1321c3a185",
+    "municipal_metrics.csv": "ab15887fc324ce4e33d3d375745399c42137d92a3192fbe96ffe2d74fa17e000",
+    "metric_status.csv": "8bb25a9137df43dc818d226d05603e31c1c34f42e2d824c6a3d09bbcd7f2baca",
+    "scores_territoriais.csv": "43dadff34b73c0be42f1344cfa72285f40645b807b3e25c562385e0ead8c08ad",
+    "pix_regioes.csv": "ab502eb52a46b212445bee3122e5353841458a13071dd23e01e68079918bf256",
+    "dados_site.json": "879373bbcc64144a1cff4bad2d69bdf125a458451624af534b6d16a588f5e42f",
+    "parameters.json": "eaa8b27eaac040d26e8934ac92c9f813505f38b3afd790e5202958e365a913e0",
+    "contexto_credito_regional.csv": "26fe5253a9b2b721fde9aacde06fe32d1b4931a83d330c8f721c480b111de334",
+    "catalogo_municipios.csv": "5c25db336f86f641cbd3b9882d6c6ed1992471df7a25414e5b597434feaf4b0f"
+  },
+  "status_tecnico": "APROVADO",
+  "aprovacao_modelo": "NAO_HOMOLOGADO"
+}
