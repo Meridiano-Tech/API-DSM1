@@ -37,7 +37,8 @@ class TestesServicosDados(unittest.TestCase):
         self.assertIn('porte', primeiro)
         self.assertIn('faixa_renda', primeiro)
         self.assertIn('score_final', primeiro)
-        self.assertIn('classe_risco', primeiro)
+        self.assertIsNone(primeiro['classe_risco'])
+        self.assertIsNone(primeiro['renda_per_capita'])
 
     def test_filtrar_por_regiao(self):
         res_norte = filtrar_municipios_socioeconomicos({'regiao': 'Norte'})

@@ -3,75 +3,10 @@
 let dadosGlobais = null;
 let instanciaGraficoLinha = null;
 let instanciaGraficoRanking = null;
-let timerDebounceBusca = null;
-
-const METRICAS_POR_ANO = {
-  "2026": {
-    yoy: "6,24%",
-    yoySub: "↑ Maior crescimento: Região Norte",
-    pix: "R$ 26,1 Bi",
-    pixSub: "↑ Liquidez acumulada (2026)",
-    inadimplencia: "5,50%",
-    inadimplenciaSub: "Referência estável (BCB)",
-    polos: "20 Polos",
-    polosSub: "★ Score inclusivo ativo",
-    tagGrafico: "Evolução 2026"
-  },
-  "2025": {
-    yoy: "7,82%",
-    yoySub: "↑ Crescimento consolidado 2025",
-    pix: "R$ 21,4 Bi",
-    pixSub: "↑ Liquidez anual 2025",
-    inadimplencia: "5,80%",
-    inadimplenciaSub: "Média anual ponderada",
-    polos: "20 Polos",
-    polosSub: "★ Monitoramento consolidado",
-    tagGrafico: "Evolução 2025"
-  },
-  "2024": {
-    yoy: "8,45%",
-    yoySub: "↑ Aceleração inicial pós-pandemia",
-    pix: "R$ 16,8 Bi",
-    pixSub: "↑ Liquidez anual 2024",
-    inadimplencia: "6,10%",
-    inadimplenciaSub: "Fase de expansão de crédito",
-    polos: "20 Polos",
-    polosSub: "★ Implantação do score",
-    tagGrafico: "Evolução 2024"
-  },
-  "todos": {
-    yoy: "6,24%",
-    yoySub: "↑ Maior crescimento: Região Norte",
-    pix: "R$ 64,3 Bi",
-    pixSub: "↑ Liquidez total acumulada",
-    inadimplencia: "5,50%",
-    inadimplenciaSub: "Referência estável (BCB)",
-    polos: "20 Polos",
-    polosSub: "★ 20 Polos monitorados",
-    tagGrafico: "Histórico Completo (2024 - 2026)"
-  }
-};
-
-async function carregarDados() {
-  try {
-    let resposta = await fetch("./dados/dados_site.json");
-    if (!resposta.ok) {
-      resposta = await fetch("./dados_site.json");
-    }
-
-    if (!resposta.ok) {
-      throw new Error(`Erro HTTP ${resposta.status}`);
-    }
-
-    return await resposta.json();
-  } catch (erro) {
-    console.error("Não foi possível carregar dados_site.json:", erro);
-    return null;
-  }
-}
+let timerDebounceBusca;
 
 function formatarMoedaBilhoes(valor) {
-  const num = Number(valor);
+  const num = valor;
   if (!Number.isFinite(num)) return "--";
   const emBilhoes = num / 1e9;
   return `R$ ${emBilhoes.toLocaleString("pt-BR", {
@@ -80,12 +15,8 @@ function formatarMoedaBilhoes(valor) {
   })} Bi`;
 }
 
-function formatarMoeda(valor) {
-  return formatarMoedaBilhoes(valor);
-}
-
 function formatarPercentual(valor, comSinal = false) {
-  const num = Number(valor);
+  const num = valor;
   if (!Number.isFinite(num)) return "--";
   const sinal = comSinal && num > 0 ? "+" : "";
   return `${sinal}${num.toLocaleString("pt-BR", {
@@ -138,10 +69,6 @@ function mostrarMensagem(area, mensagem) {
   area.replaceChildren();
   const texto = document.createElement("p");
   texto.textContent = mensagem;
-  texto.style.color = "#64748b";
-  texto.style.textAlign = "center";
-  texto.style.padding = "40px 16px";
-  texto.style.fontSize = "0.9rem";
   area.appendChild(texto);
 }
 
@@ -165,7 +92,7 @@ function desenharLinha(area, linhas) {
       datasets: [
         {
           label: "Região Norte",
-          data: linhas.map(item => Number(item.Norte)),
+          data: linhas.map(item => item.Norte ?? null),
           borderColor: "#0a2540",
           backgroundColor: "rgba(10, 37, 64, 0.04)",
           borderWidth: 2.5,
@@ -176,7 +103,7 @@ function desenharLinha(area, linhas) {
         },
         {
           label: "Região Nordeste",
-          data: linhas.map(item => Number(item.Nordeste)),
+          data: linhas.map(item => item.Nordeste ?? null),
           borderColor: "#0284c7",
           backgroundColor: "rgba(2, 132, 199, 0.04)",
           borderWidth: 2.5,
@@ -236,7 +163,7 @@ function desenharLinha(area, linhas) {
 
 function desenharRanking(area, linhas) {
   if (!Array.isArray(linhas) || linhas.length === 0) {
-    mostrarMensagem(area, "Nenhum município atende aos filtros.");
+    mostrarMensagem(area, "Não há dados disponíveis para este gráfico.");
     return;
   }
 
@@ -245,9 +172,13 @@ function desenharRanking(area, linhas) {
     instanciaGraficoRanking = null;
   }
 
-  const ranking = [...linhas]
-    .slice(0, 5)
-    .sort((a, b) => Number(b.score_final) - Number(a.score_final));
+  const ranking = linhas.filter(item => Number.isFinite(item.score_final))
+    .sort((a, b) => b.score_final - a.score_final)
+    .slice(0, 5);
+  if (!ranking.length) {
+    mostrarMensagem(area, "Scores indisponíveis para este recorte.");
+    return;
+  }
 
   const canvas = criarCanvas(area);
 
@@ -261,7 +192,7 @@ function desenharRanking(area, linhas) {
           data: ranking.map(item => Number(item.score_final)),
           backgroundColor: ranking.map(item =>
             item.regiao === "Norte" ? "#0a2540" :
-              item.regiao === "Nordeste" ? "#0284c7" : "#64748b"
+            item.regiao === "Nordeste" ? "#0284c7" : "#64748b"
           ),
           hoverBackgroundColor: "#0284c7",
           borderRadius: 8,
@@ -315,141 +246,104 @@ function filtrarLinhasPorAno(linhas, ano) {
 }
 
 function aplicarFiltroAno(ano) {
-  const metricas = METRICAS_POR_ANO[ano] || METRICAS_POR_ANO["2026"];
+  const credito = dadosGlobais.principais.grafico_p1_serie_temporal_credito;
+  const linhas = filtrarLinhasPorAno(credito, ano);
+  const meses = new Set(linhas.map(item => item.mes));
+  const pix = dadosGlobais.pix_brasil.filter(item => meses.has(item.competencia));
+  const pixTotal = pix.length === meses.size && pix.length && pix.every(item => Number.isFinite(item.vol_pix_total))
+    ? pix.reduce((total, item) => total + item.vol_pix_total, 0) : null;
+  const inad = dadosGlobais.apoio.grafico_a1_evolucao_inadimplencia
+    .filter(item => meses.has(item.mes) && Number.isFinite(item.valor_inad)).at(-1);
+  const porMes = new Map(credito.map(item => [item.mes, item]));
+  const crescimento = [...linhas].reverse().flatMap(item => {
+    const anterior = porMes.get(`${Number(item.mes.slice(0, 4)) - 1}${item.mes.slice(4)}`);
+    return ["Norte", "Nordeste"].filter(regiao =>
+      Number.isFinite(item[regiao]) && anterior?.[regiao] > 0
+    ).map(regiao => ({
+      regiao, mes: item.mes, valor: 100 * (item[regiao] / anterior[regiao] - 1),
+    }));
+  });
+  const ultimo = crescimento[0]?.mes;
+  const maior = crescimento.filter(item => item.mes === ultimo)
+    .sort((a, b) => b.valor - a.valor)[0];
 
-  preencherCard("card-1", metricas.yoy, metricas.yoySub);
-  preencherCard("card-2", metricas.pix, metricas.pixSub);
-  preencherCard("card-3", metricas.inadimplencia, metricas.inadimplenciaSub);
-  preencherCard("card-4", metricas.polos, metricas.polosSub);
+  preencherCard("card-1", formatarPercentual(maior?.valor, true),
+    maior ? `${maior.regiao} · ${maior.mes}` : "Sem comparação anual no recorte");
+  preencherCard("card-2", formatarMoedaBilhoes(pixTotal), "Total nacional no período selecionado");
+  preencherCard("card-3", formatarPercentual(inad?.valor_inad),
+    inad ? `Brasil · ${inad.mes}` : "Taxa nacional indisponível no recorte");
 
-  const tagLinha = document.getElementById("tag-grafico-linha");
-  if (tagLinha && metricas.tagGrafico) {
-    tagLinha.textContent = metricas.tagGrafico;
-  }
 
-  const areaLinha = document.querySelector("#grafico-1 .graficoarea");
-  if (areaLinha && dadosGlobais?.principais?.grafico_p1_serie_temporal_credito) {
-    const dadosFiltrados = filtrarLinhasPorAno(
-      dadosGlobais.principais.grafico_p1_serie_temporal_credito,
-      ano
-    );
-    desenharLinha(areaLinha, dadosFiltrados);
-  }
+  document.getElementById("tag-grafico-linha").textContent = ano === "todos" ? "Histórico completo" : ano;
+  desenharLinha(document.querySelector("#grafico-1 .graficoarea"), linhas);
 }
 
-function obterEstadoFiltrosSocioeconomicos() {
-  const regiao = document.getElementById("filtro-regiao-macro")?.value || "todas";
-  const porte = document.getElementById("filtro-porte")?.value || "todos";
-  const renda = document.getElementById("filtro-renda")?.value || "todas";
-  const busca = document.getElementById("filtro-busca-muni")?.value || "";
-
-  return { regiao, porte, faixa_renda: renda, busca };
+function municipiosFiltrados() {
+  const regiao = document.getElementById("filtro-regiao-macro").value;
+  const porte = document.getElementById("filtro-porte").value;
+  const busca = document.getElementById("filtro-busca-muni").value.trim().toLocaleLowerCase("pt-BR");
+  const catalogo = new Map(dadosGlobais.catalogo_municipios.map(m => [m.municipio_ibge, m]));
+  const taxas = new Map(dadosGlobais.ranking_inadimplencia_municipal.map(m => [m.municipio_ibge, m]));
+  return dadosGlobais.principais.grafico_p2_ranking_score_municipal
+    .map(item => {
+      const populacao = catalogo.get(item.municipio_ibge)?.pop_total;
+      const porteMunicipal = populacao == null ? null :
+        populacao < 150000 ? "pequeno" : populacao <= 350000 ? "medio" : "grande";
+      const taxa = taxas.get(item.municipio_ibge);
+      return {
+        ...item, populacao, porte: porteMunicipal,
+        inadimplencia_estimada: taxa?.taxa_inadimplencia,
+        competencia_inadimplencia: taxa?.competencia_inadimplencia,
+      };
+    })
+    .filter(item =>
+      (regiao === "todas" || item.regiao === regiao) &&
+      (porte === "todos" || item.porte === porte) &&
+      item.localidade.toLocaleLowerCase("pt-BR").includes(busca)
+    );
 }
 
-async function aplicarFiltrosSocioeconomicosAssincrono() {
-  const filtros = obterEstadoFiltrosSocioeconomicos();
-  const badgeTotal = document.getElementById("badge-total-filtrado");
-  const areaRanking = document.querySelector("#grafico-2 .graficoarea");
-
-  if (badgeTotal) {
-    badgeTotal.textContent = "Filtrando...";
-  }
-
-  try {
-    const resposta = await fetch("/api/dados-filtrados", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(filtros)
-    });
-
-    if (!resposta.ok) {
-      throw new Error(`Falha HTTP ${resposta.status}`);
-    }
-
-    const resultado = await resposta.json();
-    const total = resultado.total ?? 0;
-    const municipios = resultado.municipios || [];
-    const resumo = resultado.resumo || {};
-
-    if (badgeTotal) {
-      badgeTotal.textContent = `${total} Polo${total === 1 ? "" : "s"} Filtrado${total === 1 ? "" : "s"}`;
-    }
-
-    preencherCard(
-      "card-4",
-      `${total} Polos`,
-      filtros.regiao !== "todas" ? `★ Região ${filtros.regiao}` : "★ Amostra territorial ativa"
-    );
-
-    if (total > 0 && resumo.media_inadimplencia) {
-      preencherCard(
-        "card-3",
-        `${resumo.media_inadimplencia.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 2 })}%`,
-        `Média do grupo filtrado`
-      );
-    }
-
-    if (areaRanking) {
-      desenharRanking(areaRanking, municipios);
-    }
-
-  } catch (erro) {
-    console.error("Erro ao aplicar filtros socioeconômicos via AJAX:", erro);
-    if (badgeTotal) {
-      badgeTotal.textContent = "Erro na filtragem";
-    }
-  }
+function aplicarFiltrosMunicipais() {
+  const municipios = municipiosFiltrados();
+  document.getElementById("badge-total-filtrado").textContent = `${municipios.length} ${municipios.length === 1 ? "município" : "municípios"}`;
+  preencherCard("card-4", String(municipios.length), "Municípios no filtro atual");
+  desenharRanking(document.querySelector("#grafico-2 .graficoarea"), municipios);
 }
 
 function exportarRelatorioCsv() {
-  const filtros = obterEstadoFiltrosSocioeconomicos();
-  const params = new URLSearchParams({
-    regiao: filtros.regiao,
-    porte: filtros.porte,
-    faixa_renda: filtros.faixa_renda,
-    busca: filtros.busca
-  });
-
-  const urlExportacao = `/api/exportar-dados?${params.toString()}`;
-
+  const linhas = [
+    ["Município", "Código IBGE", "UF", "Região", "Porte Populacional", "População (Hab.)",
+      "Score Inclusivo", "Meses válidos", "Cobertura (%)", "Inadimplência Estimada (%)",
+      "Competência da estimativa"],
+    ...municipiosFiltrados().map(item => [
+      item.localidade, item.municipio_ibge, item.uf, item.regiao,
+      { pequeno: "Pequeno Porte", medio: "Médio Porte", grande: "Grande Porte / Metrópole" }[item.porte],
+      item.populacao, item.score_final, item.meses_validos,
+      item.cobertura_pct, item.inadimplencia_estimada, item.competencia_inadimplencia,
+    ]),
+  ];
+  const csv = linhas.map(linha => linha.map(valor => {
+    const texto = typeof valor === "number" ? String(valor).replace(".", ",") : String(valor ?? "");
+    return '"' + texto.replaceAll('"', '""') + '"';
+  }).join(";")).join("\r\n");
+  const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
   const link = document.createElement("a");
-  link.href = urlExportacao;
-  link.setAttribute("download", "");
+  link.href = url;
+  link.download = "relatorio_credit42_municipios.csv";
   document.body.appendChild(link);
   link.click();
-  document.body.removeChild(link);
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 async function iniciar() {
-  dadosGlobais = await carregarDados();
-
-  if (!dadosGlobais) {
+  try {
+    dadosGlobais = await carregarDadosCredit42();
+  } catch {
     document.querySelectorAll(".graficoarea").forEach(area => {
       mostrarMensagem(area, "Não foi possível carregar os dados.");
     });
     return;
-  }
-
-  // Sincroniza dados dinâmicos do ano atual se existirem no JSON
-  if (dadosGlobais.cards) {
-    const c = dadosGlobais.cards;
-    if (c.yoy_norte !== undefined) {
-      METRICAS_POR_ANO["2026"].yoy = formatarPercentual(Math.max(c.yoy_norte || 0, c.yoy_nordeste || 0), true);
-      METRICAS_POR_ANO["2026"].yoySub =
-        c.yoy_norte === c.yoy_nordeste
-          ? "↑ Crescimento anual consolidado"
-          : c.yoy_norte > c.yoy_nordeste
-            ? "↑ Maior crescimento: Região Norte"
-            : "↑ Maior crescimento: Região Nordeste";
-    }
-    if (c.vol_pix_geral !== undefined) {
-      METRICAS_POR_ANO["2026"].pix = formatarMoedaBilhoes(c.vol_pix_geral);
-    }
-    if (c.inadimplencia_media !== undefined) {
-      METRICAS_POR_ANO["2026"].inadimplencia = formatarPercentual(c.inadimplencia_media);
-    }
-    const totalMunicipios = dadosGlobais.principais?.grafico_p2_ranking_score_municipal?.length || 20;
-    METRICAS_POR_ANO["2026"].polos = `${totalMunicipios} Polos`;
   }
 
   const filtroAno = document.getElementById("filtro-ano") || document.querySelector(".filtro-select");
@@ -458,53 +352,16 @@ async function iniciar() {
   // Aplica ano inicial nos 4 cards e no gráfico de evolução
   aplicarFiltroAno(anoInicial);
 
-  // Gráfico de ranking municipal inicial
-  const areaRanking = document.querySelector("#grafico-2 .graficoarea");
-  if (areaRanking && dadosGlobais.principais?.grafico_p2_ranking_score_municipal) {
-    desenharRanking(
-      areaRanking,
-      dadosGlobais.principais.grafico_p2_ranking_score_municipal
-    );
+  aplicarFiltrosMunicipais();
+  filtroAno?.addEventListener("change", evento => aplicarFiltroAno(evento.target.value));
+  for (const id of ["filtro-regiao-macro", "filtro-porte"]) {
+    document.getElementById(id).addEventListener("change", aplicarFiltrosMunicipais);
   }
-
-  // Event listener para mudança no select de ano
-  if (filtroAno) {
-    filtroAno.addEventListener("change", (e) => {
-      aplicarFiltroAno(e.target.value);
-    });
-  }
-
-  // -------------------------------------------------------------
-  // Listeners dos Filtros Socioeconômicos e Exportação (AJAX)
-  // -------------------------------------------------------------
-  const filtroRegiao = document.getElementById("filtro-regiao-macro");
-  const filtroPorte = document.getElementById("filtro-porte");
-  const filtroRenda = document.getElementById("filtro-renda");
-  const filtroBusca = document.getElementById("filtro-busca-muni");
-  const btnExportar = document.getElementById("btn-exportar-csv");
-
-  [filtroRegiao, filtroPorte, filtroRenda].forEach(elemento => {
-    if (elemento) {
-      elemento.addEventListener("change", () => {
-        aplicarFiltrosSocioeconomicosAssincrono();
-      });
-    }
+  document.getElementById("filtro-busca-muni").addEventListener("input", () => {
+    clearTimeout(timerDebounceBusca);
+    timerDebounceBusca = setTimeout(aplicarFiltrosMunicipais, 300);
   });
-
-  if (filtroBusca) {
-    filtroBusca.addEventListener("input", () => {
-      clearTimeout(timerDebounceBusca);
-      timerDebounceBusca = setTimeout(() => {
-        aplicarFiltrosSocioeconomicosAssincrono();
-      }, 300);
-    });
-  }
-
-  if (btnExportar) {
-    btnExportar.addEventListener("click", () => {
-      exportarRelatorioCsv();
-    });
-  }
+  document.getElementById("btn-exportar-csv").addEventListener("click", exportarRelatorioCsv);
 }
 
 document.addEventListener("DOMContentLoaded", iniciar);

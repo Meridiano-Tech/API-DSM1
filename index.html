@@ -13,6 +13,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/dados.js" defer></script>
   <script src="js/visao-geral.js" defer></script>
   <script src="js/extrato.js" defer></script>
 </head>
@@ -111,11 +112,8 @@
 
         <div class="filtro-item">
           <label for="filtro-renda" class="filtro-rotulo-sm">Renda per Capita:</label>
-          <select id="filtro-renda" class="filtro-select-sm">
-            <option value="todas" selected>Todas as Faixas</option>
-            <option value="baixa">Baixa Renda (&lt; R$ 1.000)</option>
-            <option value="media">Renda Média (R$ 1.000 a 1.500)</option>
-            <option value="alta">Renda Alta (&gt; R$ 1.500)</option>
+          <select id="filtro-renda" class="filtro-select-sm" disabled>
+            <option value="todas">Renda indisponível na base</option>
           </select>
         </div>
 
@@ -144,7 +142,7 @@
         </article>
 
         <article class="card-resumo" id="card-3">
-          <span class="card-rotulo">Taxa Média de Inadimplência</span>
+          <span class="card-rotulo">Inadimplência Nacional de Referência</span>
           <div class="card-valor cardvalor">--</div>
           <span class="card-subtexto carddetalhe" style="color: #64748b;">Referência estável (BCB)</span>
         </article>
@@ -182,8 +180,7 @@
             <span class="grafico-tag">RELATÓRIOS ECONÔMICOS</span>
             <h3 class="grafico-titulo" id="titulo-extrato" style="margin-top: 8px;">Extrato e Comportamento Financeiro
             </h3>
-            <p class="extrato-subtitulo">Histórico cronológico de marcos econômicos, liquidez via Pix e evolução da
-              carteira de crédito regional.</p>
+            <p class="extrato-subtitulo">Séries mensais de Pix e carteira de crédito. A inadimplência regional aparece na competência disponível no ranking do Colab.</p>
           </div>
           <div class="extrato-controles">
             <div class="filtro-regiao-box">
@@ -211,6 +208,7 @@
                 <option value="Nordeste">Nordeste</option>
                 <option value="Sudeste">Sudeste</option>
                 <option value="Sul">Sul</option>
+                <option value="Centro-Oeste">Centro-Oeste</option>
               </select>
             </div>
             <div class="alternador-visualizacao" role="tablist" aria-label="Visualização do extrato">

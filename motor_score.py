@@ -1,235 +1,280 @@
-import numpy as np
-import pandas as pd
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-import requests
-import urllib3
+"""Score territorial Credit42 v3.1, com dados de uma execução do Colab."""
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import csv
+import json
+import math
+import re
+from collections import defaultdict
+from pathlib import Path
+from statistics import fmean
 
-BENCHMARK_MUNICIPIOS = {
-    'Marabá - PA': {'code': 1504208, 'uf': 15, 'reg': 'Norte', 'pop': 283542, 'renda_per_capita_est': 1100},
-    'Imperatriz - MA': {'code': 2105302, 'uf': 21, 'reg': 'Nordeste', 'pop': 273110, 'renda_per_capita_est': 1050},
-    'Parnaíba - PI': {'code': 2207702, 'uf': 22, 'reg': 'Nordeste', 'pop': 162159, 'renda_per_capita_est': 980},
-    'Castanhal - PA': {'code': 1502400, 'uf': 15, 'reg': 'Norte', 'pop': 203251, 'renda_per_capita_est': 1000},
-    'Sobral - CE': {'code': 2312908, 'uf': 23, 'reg': 'Nordeste', 'pop': 210711, 'renda_per_capita_est': 990},
-    'Arapiraca - AL': {'code': 2700300, 'uf': 27, 'reg': 'Nordeste', 'pop': 234696, 'renda_per_capita_est': 950},
-    'Juazeiro - BA': {'code': 2918407, 'uf': 29, 'reg': 'Nordeste', 'pop': 235816, 'renda_per_capita_est': 960},
-    'Mossoró - RN': {'code': 2408003, 'uf': 24, 'reg': 'Nordeste', 'pop': 264577, 'renda_per_capita_est': 1020},
-    'Petrolina - PE': {'code': 2611101, 'uf': 26, 'reg': 'Nordeste', 'pop': 386786, 'renda_per_capita_est': 1080},
-    'Ji-Paraná - RO': {'code': 1100122, 'uf': 11, 'reg': 'Norte', 'pop': 124333, 'renda_per_capita_est': 1150},
-    'Santarém - PA': {'code': 1506807, 'uf': 15, 'reg': 'Norte', 'pop': 331937, 'renda_per_capita_est': 950},
-    'Caxias - MA': {'code': 2103000, 'uf': 21, 'reg': 'Nordeste', 'pop': 156973, 'renda_per_capita_est': 880},
-    'Picos - PI': {'code': 2208007, 'uf': 22, 'reg': 'Nordeste', 'pop': 83090, 'renda_per_capita_est': 910},
-    'Araguaína - TO': {'code': 1702109, 'uf': 17, 'reg': 'Norte', 'pop': 171301, 'renda_per_capita_est': 1050},
-    'Caucaia - CE': {'code': 2303709, 'uf': 23, 'reg': 'Nordeste', 'pop': 355542, 'renda_per_capita_est': 940},
-    'Ilhéus - BA': {'code': 2913606, 'uf': 29, 'reg': 'Nordeste', 'pop': 178703, 'renda_per_capita_est': 970},
-    'Campina Grande - PB': {'code': 2504009, 'uf': 25, 'reg': 'Nordeste', 'pop': 419360, 'renda_per_capita_est': 1120},
-    'Caruaru - PE': {'code': 2604106, 'uf': 26, 'reg': 'Nordeste', 'pop': 378052, 'renda_per_capita_est': 1100},
-    'Vitória da Conquista - BA': {'code': 2933307, 'uf': 29, 'reg': 'Nordeste', 'pop': 370868, 'renda_per_capita_est': 1060},
-    'Uberlândia - MG': {'code': 3170206, 'uf': 31, 'reg': 'Sudeste', 'pop': 713232, 'renda_per_capita_est': 2100}
-}
+DIRETORIO_DADOS = Path(__file__).resolve().parent / "dados"
+MODELO = "credit42-municipal-20-3.1"
+MESES = tuple(f"{ano}-{mes:02d}" for ano in range(2024, 2027)
+              for mes in range(1, (10 if ano == 2026 else 12) + 1))
+REGIOES = ("Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul")
+PESO_VOLUME = 0.60
+PESO_PAGADORES = 0.40
+AMP_INADIMPLENCIA = 0.15
+APROVACAO = "NAO_HOMOLOGADO"
 
 
-_CACHE_INADIMPLENCIA_BCB = None
+class DadosInconsistentes(ValueError):
+    """Os artefatos do Colab não formam uma base compatível."""
 
 
-def obter_inadimplencia_nacional_bcb(fallback=5.6):
-    global _CACHE_INADIMPLENCIA_BCB
-    if _CACHE_INADIMPLENCIA_BCB is not None:
-        return _CACHE_INADIMPLENCIA_BCB
+class MunicipioNaoEncontrado(LookupError):
+    """O município solicitado está fora do cadastro publicado."""
 
-    url = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21082/dados/ultimos/1?formato=json"
+
+def numero(valor, campo, *, inteiro=False, positivo=False):
+    if isinstance(valor, bool):
+        raise ValueError(f"{campo} deve ser um número válido.")
     try:
-        res = requests.get(url, timeout=2, verify=False)
-        if res.status_code == 200 and len(res.json()) > 0:
-            _CACHE_INADIMPLENCIA_BCB = float(res.json()[0]['valor'])
-            return _CACHE_INADIMPLENCIA_BCB
-    except Exception:
-        pass
+        valor = float(valor)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError(f"{campo} deve ser um número válido.") from exc
+    if not math.isfinite(valor) or valor < 0 or (positivo and valor == 0):
+        limite = "positivo" if positivo else "maior ou igual a zero"
+        raise ValueError(f"{campo} deve ser finito e {limite}.")
+    if inteiro and not valor.is_integer():
+        raise ValueError(f"{campo} deve ser um número inteiro.")
+    return int(valor) if inteiro else valor
 
-    _CACHE_INADIMPLENCIA_BCB = float(fallback)
-    return _CACHE_INADIMPLENCIA_BCB
+
+def intensidades(populacao, valor_pf, pagadores_pf):
+    return valor_pf / populacao, pagadores_pf / populacao
+
+
+def normalizar(valor, limites):
+    minimo, maximo = limites
+    return min(100.0, max(0.0, 100 * (valor - minimo) / (maximo - minimo)))
+
+
+def downtrend(volume_norm, pagadores_norm):
+    return PESO_VOLUME * volume_norm + PESO_PAGADORES * pagadores_norm
+
+
+def pontuacao(indice):
+    return round(300 + 7 * indice, 2)
 
 
 class MotorScore:
-    def __init__(self, taxa_inadimplencia_base=None):
-        self.taxa_base = taxa_inadimplencia_base or obter_inadimplencia_nacional_bcb()
-        self.scaler = StandardScaler()
-        self.model_kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
-        self._treinar_modelo_ia()
+    def __init__(self, diretorio_dados=DIRETORIO_DADOS):
+        self.diretorio = Path(diretorio_dados)
+        try:
+            self._carregar()
+        except (OSError, ValueError, KeyError, TypeError, csv.Error) as exc:
+            raise DadosInconsistentes("Exportação do Colab indisponível ou incompatível.") from exc
 
-    def _treinar_modelo_ia(self):
-        dados_treino = []
-        for nome, cfg in BENCHMARK_MUNICIPIOS.items():
-            pop = cfg['pop']
-            renda = cfg['renda_per_capita_est']
-            pop_ativa = pop * 0.65
-            vol_pf = pop_ativa * renda * 0.40
-            vol_pj = pop_ativa * renda * 0.60
-            vol_total = vol_pf + vol_pj
-            pix_pc = vol_total / pop
-            fragilidade = vol_pf / (vol_total + 1)
-            
-            fator_reg = 1.35 if cfg['reg'] == 'Nordeste' else (1.20 if cfg['reg'] == 'Norte' else 1.0)
-            inad_est = self.taxa_base * fator_reg * (1 + (pop / 1_000_000) * 0.4)
-            dados_treino.append([pop, renda, pix_pc, fragilidade, inad_est])
-            
-        X = np.array(dados_treino)
-        X_scaled = self.scaler.fit_transform(X)
-        self.model_kmeans.fit(X_scaled)
-        
-        centros = self.model_kmeans.cluster_centers_
-        scores_centros = centros[:, 1] + centros[:, 2] - centros[:, 4]
-        self.ordem_clusters = np.argsort(scores_centros)
+    def _ler_json(self, nome):
+        with (self.diretorio / nome).open(encoding="utf-8") as arquivo:
+            return json.load(arquivo)
 
-    def _interpretar_cluster(self, cluster_raw):
-        posicao = list(self.ordem_clusters).index(cluster_raw)
-        if posicao == 2:
-            return {
-                "id": int(cluster_raw),
-                "categoria": "Polo Consolidado de Alto Giro",
-                "perfil_risco": "Baixo Risco",
-                "recomendacao": "Concessão favorável com taxas competitivas e alta capacidade de pagamento."
-            }
-        elif posicao == 1:
-            return {
-                "id": int(cluster_raw),
-                "categoria": "Território de Oportunidade Inclusiva",
-                "perfil_risco": "Moderado / Alto Potencial Reprimido",
-                "recomendacao": "Público-alvo ideal para crédito inclusivo e produtivo orientado."
-            }
-        else:
-            return {
-                "id": int(cluster_raw),
-                "categoria": "Zona de Vulnerabilidade e Risco",
-                "perfil_risco": "Atenção / Risco Elevado",
-                "recomendacao": "Exige garantias estruturadas e monitoramento de comprometimento de renda."
-            }
+    def _carregar(self):
+        painel = self._ler_json("dados_site.json")
+        parametros = self._ler_json("parameters.json")
+        proxy = parametros["downtrend_proxy"]
+        periodo = [MESES[0], MESES[-1]]
+        self.parameter_set_id = parametros["parameter_set_id"]
+        if (
+            painel["model_version"] != MODELO
+            or parametros["model_version"] != MODELO
+            or painel["schema_version"] != "3.0"
+            or painel["parameter_set_id"] != self.parameter_set_id
+            or painel["periodo"] != periodo
+            or proxy["periodo"] != periodo
+            or proxy["populacao"] != "Censo2022_total"
+            or proxy["pesos"] != {"volume_pf": PESO_VOLUME, "pagadores_pf": PESO_PAGADORES}
+            or proxy["amplitude_ajuste_inad"] != AMP_INADIMPLENCIA
+            or painel["uso_decisorio_credito"] is not False
+        ):
+            raise DadosInconsistentes("Versão, recorte ou parâmetros incompatíveis.")
 
-    def _minmax(self, valor, minimo, maximo):
-        if maximo == minimo:
-            return 50.0
-        norm = 100.0 * (valor - minimo) / (maximo - minimo)
-        return float(np.clip(norm, 0.0, 100.0))
+        catalogo = painel["catalogo_municipios"]
+        self.municipios = {item["municipio_ibge"]: item for item in catalogo}
+        if len(catalogo) != 20 or len(self.municipios) != 20 or set(self.municipios) != set(proxy["universo"]):
+            raise DadosInconsistentes("O catálogo não corresponde ao universo de normalização.")
 
-    def calcular_score(self, localidade="Município Simulado", regiao="Nordeste", 
-                       populacao=200000, renda_per_capita=1000.0, 
-                       vol_pix_total=None, valor_pf=None, valor_pj=None, 
-                       inadimplencia_local=None):
-        pop = max(1000, int(populacao))
-        renda = max(200.0, float(renda_per_capita))
-        reg = regiao.strip().capitalize() if isinstance(regiao, str) else "Nordeste"
-        
-        pop_ativa = pop * 0.65
-        
-        if vol_pix_total is None or vol_pix_total <= 0:
-            v_pf = pop_ativa * renda * 0.40
-            v_pj = pop_ativa * renda * 0.60
-            v_total = v_pf + v_pj
-        else:
-            v_total = float(vol_pix_total)
-            v_pf = float(valor_pf) if valor_pf is not None else v_total * 0.40
-            v_pj = float(valor_pj) if valor_pj is not None else v_total * 0.60
+        grupos = self._ler_observacoes()
+        referencia = [dados for observacoes in grupos.values() for dados in observacoes.values()]
+        limites = []
+        for coluna, nome in enumerate(("VolPix_per_capita", "Pagadores_per_capita")):
+            valores = [dados[coluna] for dados in referencia]
+            if not valores or min(valores) == max(valores):
+                limites.append(None)
+                continue
+            minimo, maximo = min(valores), max(valores)
+            publicado = proxy["limites"][nome]
+            if not (math.isclose(minimo, publicado["min"]) and math.isclose(maximo, publicado["max"])):
+                raise DadosInconsistentes("Os limites não correspondem às observações mensais.")
+            limites.append((minimo, maximo))
+        self.limites = tuple(limites)
 
-        pagadores_unicos = int(pop_ativa * 0.45)
-        pix_per_capita = v_total / pop
-        fragilidade_renda = v_pf / (v_total + 1.0)
-        
-        if inadimplencia_local is not None and inadimplencia_local > 0:
-            inad_muni = float(inadimplencia_local)
-        else:
-            fator_reg = 1.35 if reg == 'Nordeste' else (1.20 if reg == 'Norte' else 1.0)
-            fator_pop = 1.0 + (pop / 1_000_000.0) * 0.4
-            inad_muni = self.taxa_base * fator_reg * fator_pop
+        taxas = {
+            item["mes"]: numero(item["valor_inad"], "taxa nacional")
+            for item in painel["apoio"]["grafico_a1_evolucao_inadimplencia"]
+            if item["mes"] in MESES and item["valor_inad"] is not None
+        }
+        if any(taxa > 100 for taxa in taxas.values()):
+            raise DadosInconsistentes("Taxa nacional fora do intervalo percentual.")
+        self.resultados = {
+            codigo: self._resumir(municipio, grupos[codigo], taxas)
+            for codigo, municipio in self.municipios.items()
+        }
+        self._validar_publicacao(painel)
 
-        m1 = self._minmax(pix_per_capita, 350.0, 1400.0)
-        m2 = self._minmax(v_total, 3.5e7, 7.5e8)
-        m4 = float(np.clip(inad_muni * 2.2, 0.0, 30.0))
-        
-        bonus_cadunico = 15.0 if pop >= 150000 else (8.0 if pop >= 90000 else 0.0)
-        bonus_idhm = 12.0 if reg in ['Norte', 'Nordeste'] else 4.0
+    def _ler_observacoes(self):
+        chaves = set()
+        grupos = defaultdict(dict)
+        with (self.diretorio / "municipal_metrics.csv").open(encoding="utf-8", newline="") as arquivo:
+            for linha in csv.DictReader(arquivo):
+                codigo, mes = linha["municipio_ibge"], linha["competencia"]
+                chave = (codigo, mes)
+                if (codigo not in self.municipios or mes not in MESES or chave in chaves
+                        or linha["parameter_set_id"] != self.parameter_set_id
+                        or linha["observado"] not in {"True", "False"}):
+                    raise DadosInconsistentes("Linha municipal duplicada ou incompatível.")
+                chaves.add(chave)
+                pop_catalogo = self.municipios[codigo]["pop_total"]
+                if not pop_catalogo:
+                    if linha["pop_total"] and float(linha["pop_total"]) != pop_catalogo:
+                        raise DadosInconsistentes("População da observação diverge do catálogo.")
+                    continue
+                populacao = numero(linha["pop_total"], "população", inteiro=True, positivo=True)
+                if populacao != pop_catalogo:
+                    raise DadosInconsistentes("População da observação diverge do catálogo.")
+                if linha["observado"] == "True":
+                    grupos[codigo][mes] = intensidades(
+                        populacao,
+                        numero(linha["valor_pf"], "valor Pix PF"),
+                        numero(linha["pagadores_pf"], "pagadores PF", inteiro=True),
+                    )
+        if len(chaves) != len(self.municipios) * len(MESES):
+            raise DadosInconsistentes("A grade municipal não cobre todo o recorte.")
+        return grupos
 
-        norm_pagadores = self._minmax(pagadores_unicos, 20000, 320000)
-        norm_pop = self._minmax(pop, 80000, 720000)
-        downtrend_proxy = (0.50 * m2) + (0.30 * norm_pagadores) + (0.20 * norm_pop)
-        norm_fragilidade = self._minmax(fragilidade_renda, 0.35, 0.70)
+    def _resumir(self, municipio, observacoes, taxas):
+        series = {}
+        if all(limite is not None for limite in self.limites):
+            for mes, (volume, pagadores) in observacoes.items():
+                volume_norm = normalizar(volume, self.limites[0])
+                pagadores_norm = normalizar(pagadores, self.limites[1])
+                series[mes] = (volume_norm, pagadores_norm, downtrend(volume_norm, pagadores_norm))
 
-        p_micro = float(np.clip(
-            (0.35 * m1) + (0.45 * m2) - (0.20 * m4) + bonus_cadunico + 25.0,
-            10.0, 100.0
-        ))
-        p_macro = float(np.clip(
-            (0.50 * downtrend_proxy) - (0.25 * norm_fragilidade) + bonus_idhm + 30.0,
-            10.0, 100.0
-        ))
-
-        alpha = 0.50 if reg in ['Norte', 'Nordeste'] else 0.70
-        score_base = 10.0 * (alpha * p_micro + (1.0 - alpha) * p_macro)
-
-        vetor_features = np.array([[pop, renda, pix_per_capita, fragilidade_renda, inad_muni]])
-        vetor_scaled = self.scaler.transform(vetor_features)
-        cluster_pred = int(self.model_kmeans.predict(vetor_scaled)[0])
-        info_cluster = self._interpretar_cluster(cluster_pred)
-
-        pos_cluster = list(self.ordem_clusters).index(cluster_pred)
-        fator_ia = 1.04 if pos_cluster == 2 else (1.00 if pos_cluster == 1 else 0.95)
-        score_final = int(np.clip(round(score_base * fator_ia), 100, 1000))
-
-        comp_bets = float(np.clip(round((100.0 - m1) * 0.15, 2), 2.1, 15.0))
-
-        if score_final >= 750:
-            faixa = "Excelente Oportunidade"
-            classe_risco = "A"
-        elif score_final >= 600:
-            faixa = "Boa Oportunidade (Crédito Inclusivo)"
-            classe_risco = "B"
-        elif score_final >= 450:
-            faixa = "Oportunidade Moderada"
-            classe_risco = "C"
-        else:
-            faixa = "Risco Elevado"
-            classe_risco = "D"
+        componentes = {
+            "volume_pf_normalizado": fmean(v[0] for v in series.values()) if series else None,
+            "pagadores_pf_normalizados": fmean(v[1] for v in series.values()) if series else None,
+        }
+        indice = fmean(v[2] for v in series.values()) if series else None
+        score = pontuacao(indice) if indice is not None else None
+        competencia_inad = max(series.keys() & taxas.keys(), default=None)
+        taxa_base = taxa_estimada = None
+        if competencia_inad is not None:
+            taxa_base = taxas[competencia_inad]
+            indice_inad = fmean(v[2] for mes, v in series.items() if mes <= competencia_inad)
+            fator = 1 + AMP_INADIMPLENCIA - 2 * AMP_INADIMPLENCIA * indice_inad / 100
+            taxa_estimada = round(min(100.0, max(0.0, taxa_base * fator)), 4)
 
         return {
-            "localidade": localidade,
-            "regiao": reg,
-            "populacao": pop,
-            "renda_per_capita": renda,
-            "score_final": score_final,
-            "faixa_score": faixa,
-            "classe_risco": classe_risco,
-            "pilar_micro": round(p_micro, 1),
-            "pilar_macro": round(p_macro, 1),
-            "alpha_ponderador": alpha,
-            "comp_bets_percent": comp_bets,
-            "cluster_ia": info_cluster,
+            "municipio_ibge": municipio["municipio_ibge"],
+            "localidade": municipio["localidade"],
+            "regiao": municipio["regiao"],
+            "uf": municipio["uf"],
+            "populacao": municipio["pop_total"],
+            "modo": "territorial",
+            "score_final": score,
+            "Score_Inclusivo": score,
+            "DowntrendProxy": indice,
+            "status_score": "CALCULADO" if series else "SEM_DADO",
+            "Aprovacao": APROVACAO,
+            "competencia_calculada": max(series, default=None),
+            "meses_validos": len(series),
+            "meses_esperados": len(MESES),
+            "cobertura_pct": 100 * len(series) / len(MESES),
+            "componentes": componentes,
             "indicadores_base": {
-                "volume_pix_total": round(v_total, 2),
-                "pix_per_capita": round(pix_per_capita, 2),
-                "inadimplencia_estimada": round(inad_muni, 2),
-                "taxa_base_bcb": round(self.taxa_base, 2),
-                "fragilidade_renda_percent": round(fragilidade_renda * 100, 1),
-                "bonus_cadunico": bonus_cadunico,
-                "bonus_idhm": bonus_idhm
-            }
+                "inadimplencia_estimada": taxa_estimada,
+                "taxa_base_bcb": taxa_base,
+                "competencia_inadimplencia": competencia_inad,
+                "status_inadimplencia": "ESTIMADO" if taxa_estimada is not None else "SEM_DADO",
+            },
+            "model_version": MODELO,
+            "parameter_set_id": self.parameter_set_id,
         }
 
+    def _validar_publicacao(self, painel):
+        ranking = painel["principais"]["grafico_p2_ranking_score_municipal"]
+        estimativas = painel["ranking_inadimplencia_municipal"]
+        publicados = {item["municipio_ibge"]: item for item in ranking}
+        taxas_publicadas = {item["municipio_ibge"]: item for item in estimativas}
+        if (
+            len(ranking) != len(self.resultados) or len(estimativas) != len(self.resultados)
+            or publicados.keys() != self.resultados.keys()
+            or taxas_publicadas.keys() != self.resultados.keys()
+        ):
+            raise DadosInconsistentes("Os rankings publicados divergem do cadastro.")
+        for codigo, resultado in self.resultados.items():
+            linha = publicados[codigo]
+            taxa = taxas_publicadas[codigo]
+            base = resultado["indicadores_base"]
+            if (
+                resultado["score_final"] != linha["score_final"]
+                or resultado["meses_validos"] != linha["meses_validos"]
+                or resultado["competencia_calculada"] != linha["competencia_calculada"]
+                or base["inadimplencia_estimada"] != taxa["taxa_inadimplencia"]
+                or base["competencia_inadimplencia"] != taxa["competencia_inadimplencia"]
+            ):
+                raise DadosInconsistentes("O cálculo do motor diverge do resultado publicado.")
+
     def gerar_ranking_benchmark(self):
-        resultados = []
-        for nome, cfg in BENCHMARK_MUNICIPIOS.items():
-            res = self.calcular_score(
-                localidade=nome,
-                regiao=cfg['reg'],
-                populacao=cfg['pop'],
-                renda_per_capita=cfg['renda_per_capita_est']
-            )
-            resultados.append(res)
-        resultados.sort(key=lambda x: x['score_final'], reverse=True)
-        return resultados
+        return sorted(
+            self.resultados.values(),
+            key=lambda item: (item["score_final"] is None, -(item["score_final"] or 0), item["localidade"]),
+        )
 
+    def calcular_score(self, *, municipio_ibge=None, localidade=None):
+        if municipio_ibge is not None:
+            codigo = str(municipio_ibge)
+            if not re.fullmatch(r"[0-9]{7}", codigo):
+                raise ValueError("Informe um código IBGE de sete dígitos.")
+            if codigo in self.resultados:
+                return self.resultados[codigo]
+        elif isinstance(localidade, str) and localidade.strip():
+            for item in self.resultados.values():
+                if item["localidade"].casefold() == localidade.strip().casefold():
+                    return item
+        else:
+            raise ValueError("Informe municipio_ibge ou localidade.")
+        raise MunicipioNaoEncontrado("Município fora do cadastro. Use o modo cenário para uma simulação.")
 
-if __name__ == '__main__':
-    motor = MotorScore()
-    resultado = motor.calcular_score(localidade="Marabá - PA", regiao="Norte", populacao=283542, renda_per_capita=1100.0)
-    print(f"Score: {resultado['score_final']} | Faixa: {resultado['faixa_score']} | Cluster: {resultado['cluster_ia']['categoria']}")
+    def simular(self, *, localidade, regiao, populacao, valor_pf, pagadores_pf):
+        if not isinstance(localidade, str) or not localidade.strip():
+            raise ValueError("Informe a localidade do cenário.")
+        if regiao not in REGIOES:
+            raise ValueError("Informe uma região brasileira válida.")
+        populacao = numero(populacao, "população", inteiro=True, positivo=True)
+        valor_pf = numero(valor_pf, "valor Pix PF")
+        pagadores_pf = numero(pagadores_pf, "pagadores Pix PF", inteiro=True)
+        if any(limite is None for limite in self.limites):
+            raise DadosInconsistentes("Normalização indisponível para o cenário.")
+        volume, pagadores = intensidades(populacao, valor_pf, pagadores_pf)
+        volume_norm = normalizar(volume, self.limites[0])
+        pagadores_norm = normalizar(pagadores, self.limites[1])
+        indice = downtrend(volume_norm, pagadores_norm)
+        return {
+            "localidade": localidade.strip(),
+            "regiao": regiao,
+            "populacao": populacao,
+            "modo": "cenario_mensal",
+            "score_final": pontuacao(indice),
+            "Score_Inclusivo": pontuacao(indice),
+            "DowntrendProxy": indice,
+            "Aprovacao": APROVACAO,
+            "componentes": {
+                "volume_pf_normalizado": volume_norm,
+                "pagadores_pf_normalizados": pagadores_norm,
+            },
+            "model_version": MODELO,
+            "parameter_set_id": self.parameter_set_id,
+        }

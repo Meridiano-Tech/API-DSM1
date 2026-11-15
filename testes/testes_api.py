@@ -28,39 +28,33 @@ class TestesAPI(unittest.TestCase):
         self.assertEqual(len(dados), 20)
         self.assertIn('score_final', dados[0])
 
-    def test_calcular_score_sucesso(self):
-        payload = {
-            "localidade": "Juazeiro do Norte - CE",
-            "regiao": "Nordeste",
-            "populacao": 270000,
-            "renda_per_capita": 1050.0,
-            "inadimplencia_local": 5.8
-        }
-        resposta = self.cliente.post(
-            '/api/calcular-score',
-            data=json.dumps(payload),
-            content_type='application/json'
-        )
+    def test_consulta_municipal_coincide_com_ranking(self):
+        ranking = self.cliente.get('/api/ranking').get_json()
+        esperado = next(item for item in ranking if item["municipio_ibge"] == "1504208")
+        resposta = self.cliente.post('/api/calcular-score', json={"municipio_ibge": "1504208"})
         self.assertEqual(resposta.status_code, 200)
-        dados = json.loads(resposta.data)
-        self.assertEqual(dados['localidade'], 'Juazeiro do Norte - CE')
-        self.assertIn('score_final', dados)
-        self.assertIn('cluster_ia', dados)
-        self.assertIn('comp_bets_percent', dados)
+        self.assertEqual(resposta.get_json(), esperado)
 
-    def test_calcular_score_dados_invalidos(self):
+    def test_simulacao_exige_pix_pf_e_pagadores(self):
         payload = {
-            "populacao": "invalido",
-            "renda_per_capita": "texto"
+            "modo": "cenario_mensal",
+            "localidade": "Cenário de teste",
+            "regiao": "Norte",
+            "populacao": 1000,
+            "valor_pf": 10_000_000,
         }
-        resposta = self.cliente.post(
-            '/api/calcular-score',
-            data=json.dumps(payload),
-            content_type='application/json'
-        )
-        self.assertEqual(resposta.status_code, 400)
-        dados = json.loads(resposta.data)
-        self.assertIn('erro', dados)
+        self.assertEqual(self.cliente.post('/api/calcular-score', json=payload).status_code, 400)
+        payload["pagadores_pf"] = 0
+        resposta = self.cliente.post('/api/calcular-score', json=payload)
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.get_json()["score_final"], 720)
+
+    def test_corpo_invalido_e_municipio_fora_do_cadastro(self):
+        for payload in ([], ["Marabá"], {}, {"municipio_ibge": True}, {"modo": "outro"}):
+            with self.subTest(payload=payload):
+                self.assertEqual(self.cliente.post('/api/calcular-score', json=payload).status_code, 400)
+        resposta = self.cliente.post('/api/calcular-score', json={"municipio_ibge": "9999999"})
+        self.assertEqual(resposta.status_code, 404)
 
     def test_cabecalhos_cors_e_preflight(self):
         resposta_get = self.cliente.get('/api/status')
@@ -78,21 +72,12 @@ class TestesAPI(unittest.TestCase):
         with self.cliente.get('/index.html') as resp:
             self.assertEqual(resp.status_code, 200)
 
-    def test_validacao_limites_negativos(self):
-        testes = [
-            {"populacao": -500},
-            {"renda_per_capita": 0},
-            {"inadimplencia_local": 105.0},
-            {"vol_pix_total": -10.0}
-        ]
-        for payload in testes:
-            resp = self.cliente.post(
-                '/api/calcular-score',
-                data=json.dumps(payload),
-                content_type='application/json'
-            )
-            self.assertEqual(resp.status_code, 400)
-            self.assertIn('erro', json.loads(resp.data))
+    def test_painel_e_ranking_usam_mesmos_parametros(self):
+        with self.cliente.get('/dados/dados_site.json') as resposta:
+            self.assertEqual(resposta.status_code, 200)
+            painel = resposta.get_json()
+        ranking = self.cliente.get('/api/ranking').get_json()
+        self.assertTrue(all(item["parameter_set_id"] == painel["parameter_set_id"] for item in ranking))
 
     def test_rota_dados_filtrados_get(self):
         resp = self.cliente.get('/api/dados-filtrados?regiao=Norte&porte=todos')
