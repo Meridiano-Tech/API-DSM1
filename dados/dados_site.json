@@ -1,7 +1,7 @@
 {
   "schema_version": "3.0",
   "model_version": "credit42-municipal-20-3.1",
-  "generated_at_utc": "2026-11-08T16:28:59.958562+00:00",
+  "generated_at_utc": "2026-11-13T19:49:50.518128+00:00",
   "periodo": [
     "2024-01",
     "2026-10"
@@ -9042,6 +9042,1368 @@
       "unidade": "percentual_taxa",
       "regiao": "TO",
       "uf": "TO"
+    }
+  ],
+  "serie_inadimplencia_regional": [
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-01",
+      "valor": 2.71,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-01",
+      "valor": 4.14,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-01",
+      "valor": 3.6,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-01",
+      "valor": 3.09,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-01",
+      "valor": 2.49,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-02",
+      "valor": 2.73,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-02",
+      "valor": 4.13,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-02",
+      "valor": 3.58,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-02",
+      "valor": 3.07,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-02",
+      "valor": 2.52,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-03",
+      "valor": 2.76,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-03",
+      "valor": 4.12,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-03",
+      "valor": 3.57,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-03",
+      "valor": 2.97,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-03",
+      "valor": 2.53,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-04",
+      "valor": 2.79,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-04",
+      "valor": 4.17,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-04",
+      "valor": 3.57,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-04",
+      "valor": 2.99,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-04",
+      "valor": 2.51,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-05",
+      "valor": 2.88,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-05",
+      "valor": 4.28,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-05",
+      "valor": 3.7,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-05",
+      "valor": 3.01,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-05",
+      "valor": 2.59,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-06",
+      "valor": 2.81,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-06",
+      "valor": 4.13,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-06",
+      "valor": 3.62,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-06",
+      "valor": 2.89,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-06",
+      "valor": 2.51,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-07",
+      "valor": 3.06,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-07",
+      "valor": 4.09,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-07",
+      "valor": 3.66,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-07",
+      "valor": 2.86,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-07",
+      "valor": 2.56,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-08",
+      "valor": 3.27,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-08",
+      "valor": 4.04,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-08",
+      "valor": 3.65,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-08",
+      "valor": 2.87,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-08",
+      "valor": 2.57,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-09",
+      "valor": 3.27,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-09",
+      "valor": 4.02,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-09",
+      "valor": 3.67,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-09",
+      "valor": 2.87,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-09",
+      "valor": 2.53,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-10",
+      "valor": 3.2,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-10",
+      "valor": 3.97,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-10",
+      "valor": 3.69,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-10",
+      "valor": 2.83,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-10",
+      "valor": 2.48,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-11",
+      "valor": 3.22,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-11",
+      "valor": 3.94,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-11",
+      "valor": 3.67,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-11",
+      "valor": 2.8,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-11",
+      "valor": 2.43,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2024-12",
+      "valor": 3.25,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2024-12",
+      "valor": 3.75,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2024-12",
+      "valor": 3.61,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2024-12",
+      "valor": 2.72,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2024-12",
+      "valor": 2.34,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-01",
+      "valor": 3.6,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-01",
+      "valor": 4.04,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-01",
+      "valor": 3.99,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-01",
+      "valor": 2.99,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-01",
+      "valor": 2.54,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-02",
+      "valor": 3.7,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-02",
+      "valor": 4.16,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-02",
+      "valor": 4.15,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-02",
+      "valor": 3.08,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-02",
+      "valor": 2.68,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-03",
+      "valor": 3.68,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-03",
+      "valor": 4.13,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-03",
+      "valor": 4.18,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-03",
+      "valor": 3.05,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-03",
+      "valor": 2.75,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-04",
+      "valor": 3.93,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-04",
+      "valor": 4.36,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-04",
+      "valor": 4.48,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-04",
+      "valor": 3.28,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-04",
+      "valor": 3.01,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-05",
+      "valor": 4.05,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-05",
+      "valor": 4.46,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-05",
+      "valor": 4.62,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-05",
+      "valor": 3.31,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-05",
+      "valor": 3.12,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-06",
+      "valor": 4.11,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-06",
+      "valor": 4.54,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-06",
+      "valor": 4.69,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-06",
+      "valor": 3.3,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-06",
+      "valor": 3.15,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-07",
+      "valor": 4.6,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-07",
+      "valor": 4.69,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-07",
+      "valor": 4.99,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-07",
+      "valor": 3.44,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-07",
+      "valor": 3.33,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-08",
+      "valor": 5.01,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-08",
+      "valor": 4.84,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-08",
+      "valor": 5.26,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-08",
+      "valor": 3.52,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-08",
+      "valor": 3.54,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-09",
+      "valor": 4.96,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-09",
+      "valor": 4.8,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-09",
+      "valor": 5.27,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-09",
+      "valor": 3.44,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-09",
+      "valor": 3.54,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-10",
+      "valor": 5.15,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-10",
+      "valor": 5.05,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-10",
+      "valor": 5.53,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-10",
+      "valor": 3.57,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-10",
+      "valor": 3.71,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-11",
+      "valor": 5.3,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-11",
+      "valor": 5.08,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-11",
+      "valor": 5.58,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-11",
+      "valor": 3.58,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-11",
+      "valor": 3.77,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2025-12",
+      "valor": 5.17,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2025-12",
+      "valor": 5.01,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2025-12",
+      "valor": 5.54,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2025-12",
+      "valor": 3.49,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2025-12",
+      "valor": 3.71,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-01",
+      "valor": 5.67,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-01",
+      "valor": 5.35,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-01",
+      "valor": 5.99,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-01",
+      "valor": 3.77,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-01",
+      "valor": 3.99,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-02",
+      "valor": 5.84,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-02",
+      "valor": 5.67,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-02",
+      "valor": 6.25,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-02",
+      "valor": 3.97,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-02",
+      "valor": 4.21,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-03",
+      "valor": 5.56,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-03",
+      "valor": 5.52,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-03",
+      "valor": 6.21,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-03",
+      "valor": 3.86,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-03",
+      "valor": 4.18,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-04",
+      "valor": 5.68,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-04",
+      "valor": 5.78,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-04",
+      "valor": 6.58,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-04",
+      "valor": 4.1,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-04",
+      "valor": 4.37,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-05",
+      "valor": 5.8,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-05",
+      "valor": 5.94,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-05",
+      "valor": 6.69,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-05",
+      "valor": 4.16,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-05",
+      "valor": 4.44,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-06",
+      "valor": 5.55,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-06",
+      "valor": 5.67,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-06",
+      "valor": 6.42,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-06",
+      "valor": 4.0,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-06",
+      "valor": 4.27,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-07",
+      "valor": 6.13,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-07",
+      "valor": 5.81,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-07",
+      "valor": 6.71,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-07",
+      "valor": 4.15,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-07",
+      "valor": 4.46,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-08",
+      "valor": 6.51,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-08",
+      "valor": 6.03,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-08",
+      "valor": 7.02,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-08",
+      "valor": 4.28,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-08",
+      "valor": 4.64,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-09",
+      "valor": 6.32,
+      "serie_sgs": 15954,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-09",
+      "valor": 6.02,
+      "serie_sgs": 15953,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-09",
+      "valor": 6.93,
+      "serie_sgs": 15952,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-09",
+      "valor": 4.31,
+      "serie_sgs": 15955,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-09",
+      "valor": 4.62,
+      "serie_sgs": 15956,
+      "data_status": "CALCULADO",
+      "reason_code": "OK"
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-10",
+      "valor": null,
+      "serie_sgs": 15954,
+      "data_status": "SEM_DADO",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "regiao": "Nordeste",
+      "competencia": "2026-10",
+      "valor": null,
+      "serie_sgs": 15953,
+      "data_status": "SEM_DADO",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "regiao": "Norte",
+      "competencia": "2026-10",
+      "valor": null,
+      "serie_sgs": 15952,
+      "data_status": "SEM_DADO",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "regiao": "Sudeste",
+      "competencia": "2026-10",
+      "valor": null,
+      "serie_sgs": 15955,
+      "data_status": "SEM_DADO",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "regiao": "Sul",
+      "competencia": "2026-10",
+      "valor": null,
+      "serie_sgs": 15956,
+      "data_status": "SEM_DADO",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
     }
   ],
   "ranking_inadimplencia_regional": [

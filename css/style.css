@@ -2147,3 +2147,9 @@ button.botao {
     padding: 24px 16px 0;
   }
 }
+.extrato-cobertura-detalhe {
+  display: block;
+  max-width: 25rem;
+  margin-top: 0.35rem;
+  color: #475569;
+}

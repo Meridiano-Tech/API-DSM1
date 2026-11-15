@@ -38,7 +38,7 @@ A série usa janeiro/2024 a outubro/2026 e os 20 municípios definidos no Colab.
 | `POST /api/calcular-score` | `{"municipio_ibge":"1504208"}` | Resultado do município de código 1504208. O campo `localidade` também é aceito para consulta pelo nome do cadastro. |
 | `POST /api/calcular-score` | `modo: "cenario_mensal"`, `localidade`, `regiao`, `populacao`, `valor_pf` e `pagadores_pf`. | Score hipotético de um mês com os limites da base publicada. |
 
-O navegador lê os gráficos e o ranking publicado de `dados/dados_site.json`. O pacote estático do GitHub Pages permite consultar os municípios publicados. A opção de simular um mês fica disponível quando o Flask responde com o mesmo conjunto de parâmetros.
+O navegador lê os gráficos e o ranking publicado de `dados/dados_site.json`. O Extrato usa `serie_inadimplencia_regional` por competência e região. O ranking regional mantém a última competência comum às cinco regiões. Quando o SGS não retorna uma competência, a série conserva `null`. O pacote estático do GitHub Pages permite consultar os municípios publicados. A opção de simular um mês fica disponível quando o Flask responde com o mesmo conjunto de parâmetros.
 
 ## Publicação no GitHub Pages
 

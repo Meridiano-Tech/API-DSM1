@@ -15,27 +15,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const dados = await carregarDadosCredit42();
     const carteira = new Map(dados.principais.grafico_p1_serie_temporal_credito.map(item => [item.mes, item]));
-    const taxas = new Map(dados.ranking_inadimplencia_regional
-      .map(item => [`${item.regiao}/${item.competencia}`, item.valor]));
-    dadosExtrato = dados.pix_regioes.filter(item => REGIOES_CREDIT42.includes(item.regiao))
-      .map(item => {
-        const mes = item.competencia;
-        const regiao = item.regiao;
+    const taxas = new Map(dados.serie_inadimplencia_regional
+      .map(item => [`${item.regiao}/${item.competencia}`, item]));
+    const pix = new Map(dados.pix_regioes
+      .map(item => [`${item.regiao}/${item.competencia}`, item.vol_pix_total]));
+    dadosExtrato = [...carteira.keys()].flatMap(mes => REGIOES_CREDIT42.map(regiao => {
+        const chave = `${regiao}/${mes}`;
         const saldo = carteira.get(mes)?.[regiao];
-        const inadimplencia = taxas.get(`${regiao}/${mes}`);
-        const completos = Number.isFinite(saldo) && Number.isFinite(item.vol_pix_total) &&
-          Number.isFinite(inadimplencia);
+        const taxa = taxas.get(chave);
+        const pixReais = pix.get(chave);
+        const faltantes = [];
+        if (!Number.isFinite(saldo)) faltantes.push('Carteira sem dado na exportação do SGS');
+        if (!Number.isFinite(pixReais)) faltantes.push('Pix sem dado na exportação');
+        if (!Number.isFinite(taxa?.valor)) {
+          faltantes.push(taxa?.reason_code === 'COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA'
+            ? 'Inadimplência sem valor na consulta ao SGS'
+            : 'Inadimplência indisponível na exportação');
+        }
         return {
           mes,
           mesFormatado: mes,
           regiao,
           carteiraMilhoes: saldo,
-          pixReais: item.vol_pix_total,
-          inadimplencia,
-          status: completos ? 'Observado' : 'Cobertura parcial',
-          classeStatus: 'status-azul',
+          pixReais,
+          inadimplencia: taxa?.valor,
+          faltantes,
         };
-      }).sort((a, b) => b.mes.localeCompare(a.mes) || a.regiao.localeCompare(b.regiao));
+      })).sort((a, b) => b.mes.localeCompare(a.mes) || a.regiao.localeCompare(b.regiao));
   } catch {
     listaTimeline.textContent = 'Não foi possível carregar o extrato regional.';
     return;
@@ -43,6 +49,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function formatarTaxa(valor) {
     return Number.isFinite(valor) ? `${numeroCredit42.format(valor)}%` : '—';
+  }
+
+  function formatarPixRegional(reais) {
+    return Number.isFinite(reais) ? formatarBilhoes(reais / BILHAO) : '—';
+  }
+
+  function cobertura(item) {
+    const status = item.faltantes.length === 0 ? 'Observado'
+      : item.faltantes.length === 3 ? 'Sem dados' : 'Cobertura parcial';
+    const detalhe = item.faltantes.length ? `<small class="extrato-cobertura-detalhe">${item.faltantes.join(' · ')}</small>` : '';
+    return `<span class="badge-status status-azul">${status}</span>${detalhe}`;
   }
 
   function alternarAba(abaEscolhida) {
@@ -85,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="timeline-conteudo">
           <div class="timeline-topo">
             <span class="timeline-regiao-tag">${item.regiao}</span>
-            <span class="badge-status ${item.classeStatus}">${item.status}</span>
+            <div>${cobertura(item)}</div>
           </div>
           <div class="timeline-metricas">
             <div class="metrica-bloco">
@@ -94,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Volume Pix</span>
-              <strong class="metrica-valor">${formatarMoedaCredit42(item.pixReais)}</strong>
+              <strong class="metrica-valor">${formatarPixRegional(item.pixReais)}</strong>
             </div>
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Inadimplência</span>
@@ -122,9 +139,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td><strong>${item.mesFormatado}</strong></td>
         <td><span class="tabela-regiao-tag">${item.regiao}</span></td>
         <td>${formatarCarteira(item.carteiraMilhoes)}</td>
-        <td>${formatarMoedaCredit42(item.pixReais)}</td>
+        <td>${formatarPixRegional(item.pixReais)}</td>
         <td>${formatarTaxa(item.inadimplencia)}</td>
-        <td><span class="badge-status ${item.classeStatus}">${item.status}</span></td>
+        <td>${cobertura(item)}</td>
       `;
       corpoTabela.appendChild(tr);
     });
@@ -168,8 +185,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (periodoSel === '2024' || periodoSel === '2025' || periodoSel === '2026') {
       filtrados = filtrados.filter(d => d.mes.startsWith(periodoSel));
-    } else if (periodoSel === 'recente') {
-      filtrados = filtrados.filter(d => d.mes >= '2025-10');
+    } else if (periodoSel === 'recente' && dadosExtrato.length) {
+      const [ano, mes] = dadosExtrato[0].mes.split('-').map(Number);
+      const inicio = new Date(Date.UTC(ano, mes - 12, 1)).toISOString().slice(0, 7);
+      filtrados = filtrados.filter(d => d.mes >= inicio);
     } else if (periodoSel === 'personalizado') {
       const inicio = filtroDataInicio ? filtroDataInicio.value : '';
       const fim = filtroDataFim ? filtroDataFim.value : '';
