@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           mes,
           mesFormatado: mes,
           regiao,
-          carteiraBi: Number.isFinite(saldo) ? saldo / 1000 : null,
-          pixBi: Number.isFinite(item.vol_pix_total) ? item.vol_pix_total / 1e9 : null,
+          carteiraMilhoes: saldo,
+          pixReais: item.vol_pix_total,
           inadimplencia,
           status: completos ? 'Observado' : 'Cobertura parcial',
           classeStatus: 'status-azul',
@@ -41,9 +41,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  function formatar(valor, prefixo, sufixo) {
-    return Number.isFinite(valor)
-      ? `${prefixo}${valor.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}${sufixo}` : '—';
+  function formatarTaxa(valor) {
+    return Number.isFinite(valor) ? `${numeroCredit42.format(valor)}%` : '—';
   }
 
   function alternarAba(abaEscolhida) {
@@ -91,15 +90,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="timeline-metricas">
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Carteira de Crédito</span>
-              <strong class="metrica-valor">${formatar(item.carteiraBi, 'R$ ', ' Bi')}</strong>
+              <strong class="metrica-valor">${formatarCarteira(item.carteiraMilhoes)}</strong>
             </div>
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Volume Pix</span>
-              <strong class="metrica-valor">${formatar(item.pixBi, 'R$ ', ' Bi')}</strong>
+              <strong class="metrica-valor">${formatarMoedaCredit42(item.pixReais)}</strong>
             </div>
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Inadimplência</span>
-              <strong class="metrica-valor">${formatar(item.inadimplencia, '', '%')}</strong>
+              <strong class="metrica-valor">${formatarTaxa(item.inadimplencia)}</strong>
             </div>
           </div>
         </div>
@@ -122,9 +121,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       tr.innerHTML = `
         <td><strong>${item.mesFormatado}</strong></td>
         <td><span class="tabela-regiao-tag">${item.regiao}</span></td>
-        <td>${formatar(item.carteiraBi, 'R$ ', ' Bi')}</td>
-        <td>${formatar(item.pixBi, 'R$ ', ' Bi')}</td>
-        <td>${formatar(item.inadimplencia, '', '%')}</td>
+        <td>${formatarCarteira(item.carteiraMilhoes)}</td>
+        <td>${formatarMoedaCredit42(item.pixReais)}</td>
+        <td>${formatarTaxa(item.inadimplencia)}</td>
         <td><span class="badge-status ${item.classeStatus}">${item.status}</span></td>
       `;
       corpoTabela.appendChild(tr);
