@@ -187,6 +187,34 @@ def exportar_dados():
         headers={'Content-Disposition': f'attachment; filename="{nome}"', 'Cache-Control': 'no-store'},
     )
 
+@app.route('/api/contato', methods=['POST'])
+def salvar_contato():
+    dados = request.get_json(silent=True) or request.form.to_dict()
+    nome = (dados.get('nome') or '').strip()
+    email = (dados.get('email') or '').strip()
+    mensagem = (dados.get('mensagem') or '').strip()
+
+    if not nome or not email or not mensagem:
+        return jsonify({"erro": "Preencha nome, e-mail e mensagem."}), 400
+
+    conn = None
+    cursor = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        # Ajuste o nome da tabela e das colunas conforme o seu bancosite.sql
+        sql = "INSERT INTO contatos (nome, email, mensagem) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (nome, email, mensagem))
+        conn.commit()
+        return jsonify({"status": "sucesso", "mensagem": "Contato salvo com sucesso!"}), 201
+    except mysql.connector.Error as erro:
+        app.logger.error("Erro ao gravar contato no MySQL: %s", erro)
+        return jsonify({"erro": "Erro ao salvar no banco de dados."}), 500
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
