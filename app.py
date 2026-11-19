@@ -202,8 +202,7 @@ def salvar_contato():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        # Ajuste o nome da tabela e das colunas conforme o seu bancosite.sql
-        sql = "INSERT INTO contatos (nome, email, mensagem) VALUES (%s, %s, %s)"
+        sql = "INSERT INTO contatos (cont_nome, cont_email, cont_mensagem) VALUES (%s, %s, %s)"
         cursor.execute(sql, (nome, email, mensagem))
         conn.commit()
         return jsonify({"status": "sucesso", "mensagem": "Contato salvo com sucesso!"}), 201
