@@ -230,3 +230,23 @@ test('cenário rejeita resposta de outro modelo e limpa resultado anterior', asy
   await expect(page.locator('#resultado-ativo')).toBeHidden();
   await expect(page.locator('#campo-populacao')).toHaveValue('1001');
 });
+
+test('formulário com API preserva a mensagem em erro e confirma a gravação', async ({ page }) => {
+  await page.route('**/api/status', route => route.fulfill({ json: { contato_disponivel: true } }));
+  let gravado = false;
+  await page.route('**/api/contato', route => route.fulfill({
+    status: gravado ? 201 : 500,
+    json: gravado ? { status: 'sucesso' } : { erro: 'Contato indisponível' },
+  }));
+  await page.goto('/sobre.html');
+  await page.fill('#nome', 'Teste');
+  await page.fill('#email', 'teste@example.org');
+  await page.fill('#mensagem', 'Mensagem de teste');
+  await page.click('#form-contato button');
+  await expect(page.locator('#msg-sucesso')).toContainText('sem confirmação');
+  await expect(page.locator('#mensagem')).toHaveValue('Mensagem de teste');
+  gravado = true;
+  await page.click('#form-contato button');
+  await expect(page.locator('#msg-sucesso')).toContainText('Mensagem enviada');
+  await expect(page.locator('#mensagem')).toHaveValue('');
+});

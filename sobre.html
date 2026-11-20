@@ -74,7 +74,6 @@
           <div class="equipe-dev-lista">
             <div class="equipe-membro-nome">Jônatas Eugênio</div>
             <div class="equipe-membro-nome">Renan Maia</div>
-            <div class="equipe-membro-nome">Ithalo Henrique</div>
             <div class="equipe-membro-nome">Giovanna Noccerino</div>
           </div>
         </div>
@@ -87,6 +86,32 @@
 
       <p>Envie dúvidas, relatos de problemas e sugestões pelo repositório do projeto. É necessário ter uma conta GitHub para abrir uma solicitação. Informe a tela e a competência analisada.</p>
       <a class="btn-primario" href="https://github.com/Meridiano-Tech/API-DSM1/issues">Falar com a equipe no GitHub</a>
+      <template id="modelo-contato">
+      <form class="form-moderno-grid" id="form-contato" action="./api/contato" method="post">
+        <div class="campo-moderno">
+          <label for="nome">Nome Completo</label>
+          <input type="text" id="nome" name="nome" maxlength="100" placeholder="Seu nome" required>
+        </div>
+
+        <div class="campo-moderno">
+          <label for="email">E-mail Corporativo</label>
+          <input type="email" id="email" name="email" maxlength="150" placeholder="nome@empresa.com.br" required>
+        </div>
+
+        <div class="campo-moderno">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" maxlength="1200" placeholder="Descreva sua solicitação, dúvida ou sugestão de melhoria..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primario" style="justify-content: center; width: 100%; border: none; cursor: pointer; padding: 12px;">
+          Enviar Mensagem
+        </button>
+
+        <div role="status" id="msg-sucesso" class="alerta-sucesso">
+          ✓ Obrigado pelo contato!
+        </div>
+      </form>
+      </template>
     </section>
 
     <!-- Rodapé -->
@@ -96,6 +121,7 @@
     </footer>
   </main>
 
+  <script src="js/contato.js"></script>
 </body>
 
 </html>

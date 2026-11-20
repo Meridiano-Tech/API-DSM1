@@ -78,6 +78,7 @@ def adicionar_cabecalhos_cors(resposta):
 def status():
     return jsonify({
         "status": "online",
+        "contato_disponivel": True,
         "servico": "API Meridiano Tech - Score de Crédito Inclusivo"
     })
 
@@ -196,6 +197,32 @@ def exportar_dados():
         headers={'Content-Disposition': f'attachment; filename="{nome}"', 'Cache-Control': 'no-store'},
     )
 
+@app.route('/api/contato', methods=['POST'])
+def salvar_contato():
+    dados = request.get_json(silent=True) if request.is_json else request.form
+    if not isinstance(dados, dict) or not all(isinstance(dados.get(k), str) for k in ('nome', 'email', 'mensagem')):
+        return jsonify({"erro": "Preencha nome, e-mail e mensagem."}), 400
+    nome, email, mensagem = (dados[k].strip() for k in ('nome', 'email', 'mensagem'))
+    if not (0 < len(nome) <= 100 and 0 < len(email) <= 150 and 0 < len(mensagem) <= 1200):
+        return jsonify({"erro": "Verifique o preenchimento e o tamanho dos campos."}), 400
+
+    conn = None
+    cursor = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        sql = "INSERT INTO contatos (cont_nome, cont_email, cont_mensagem) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (nome, email, mensagem))
+        conn.commit()
+        return jsonify({"status": "sucesso", "mensagem": "Contato salvo com sucesso!"}), 201
+    except mysql.connector.Error as erro:
+        app.logger.error("Erro ao gravar contato no MySQL: %s", erro)
+        return jsonify({"erro": "Erro ao salvar no banco de dados."}), 500
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
