@@ -1,0 +1,11 @@
+{
+  "name": "credit42-qa",
+  "private": true,
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "chart.js": "4.4.7"
+  }
+}

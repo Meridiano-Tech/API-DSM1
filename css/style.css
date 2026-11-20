@@ -7,7 +7,7 @@
   --cor-moldura: #e2e8f0;
   --cor-primaria: #0a2540;
   --cor-primaria-suave: #1e3a5f;
-  --cor-destaque: #0284c7;
+  --cor-destaque: #0369a1;
   --cor-destaque-hover: #0369a1;
   --cor-rodape: #0a2540;
   --cor-logo: #0284c7;
@@ -15,7 +15,7 @@
   --cor-borda-foco: #38bdf8;
   --cor-campo: #ffffff;
   --cor-amarelo: #f59e0b;
-  --cor-verde: #10b981;
+  --cor-verde: #047857;
   --cor-vermelho: #ef4444;
   --cor-texto: #0f172a;
   --cor-texto-suave: #475569;
@@ -1419,7 +1419,7 @@ button.botao {
   background:
     radial-gradient(ellipse at 85% 20%, rgba(2, 132, 199, 0.18) 0%, transparent 55%),
     linear-gradient(180deg, #d0e8fc 0%, #e2f1fd 50%, #f1f8fe 80%, var(--cor-fundo) 100%);
-  padding: 56px 24px 64px;
+  padding: 28px 24px 32px;
   border-bottom: 1px solid #bae6fd;
 }
 
@@ -1430,6 +1430,34 @@ button.botao {
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
+}
+
+.hero-inicio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(12rem, 24vw, 21rem);
+  grid-template-areas: "texto marca";
+  align-items: center;
+  gap: clamp(1rem, 4vw, 4rem);
+}
+
+.hero-inicio .hero-texto-col { grid-area: texto; }
+.hero-inicio .hero-acoes { flex-wrap: wrap; }
+
+.hero-logo {
+  grid-area: marca;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 680px) {
+  .hero-inicio {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "marca" "texto";
+    gap: 0.5rem;
+  }
+  .hero-inicio .hero-logo { width: 5.5rem; }
+  .hero-inicio .hero-titulo { font-size: clamp(2rem, 8vw, 2.75rem); }
 }
 
 .hero-texto-col {
@@ -1884,13 +1912,57 @@ button.botao {
   }
 
   .nav-links {
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
   }
 
   .marca-sub,
   .marca-separador {
     display: none;
   }
+}
+
+/* Acessibilidade e estados da auditoria: preserva a paleta e a tipografia. */
+[hidden] { display: none !important; }
+[id] { scroll-margin-top: 140px; }
+.nav-link { padding: 10px 0; }
+.nav-link[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; font-weight: 700; }
+.marca:hover { color: var(--cor-primaria); }
+.estado-dados, .nota-cobertura, .nota-modelo { margin: 12px 0 20px; color: #475569; }
+.estado-dados button, .dados-grafico summary { cursor: pointer; color: #0369a1; font-weight: 600; }
+.nota-modelo { padding: 12px 16px; border-left: 4px solid #0369a1; background: #eef6fc; border-radius: 6px; }
+.nota-modelo a, .nota-cobertura a, .card-metodologia a, .rodape-novo a { color: #0369a1; text-decoration: underline; }
+.card-metodologia { padding: 24px; margin: 28px 0; background: #fff; border: 1px solid var(--cor-borda); border-radius: 20px; overflow-wrap: anywhere; }
+.card-metodologia p { margin: 14px 0; }
+#grafico-1, #grafico-2 { margin-bottom: 24px; }
+.dados-grafico { margin-top: 18px; }
+.dados-grafico table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+.dados-grafico th, .dados-grafico td { padding: 9px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+caption { text-align: left; padding: 12px 0; font-weight: 600; color: #0a2540; }
+.tabela-extrato th, .tabela-extrato td { white-space: normal; }
+.tabela-extrato th { position: sticky; top: 0; background: #f1f5f9; z-index: 1; }
+.tabela-container { max-height: 600px; overflow: auto; }
+.extrato-cobertura-detalhe { max-width: 220px; }
+button:disabled, select:disabled, input:disabled { opacity: .65; cursor: not-allowed; }
+.btn-primario:hover { color: #fff; }
+@media (max-width: 900px) {
+  .topo-container { flex-wrap: wrap; justify-content: center; gap: 4px 16px; padding: 8px 16px; }
+  .nav-links { display: flex; justify-content: center; }
+  .marca { font-size: 1.2rem; }
+  .marca-logo { width: 32px; height: 32px; }
+}
+@media (max-width: 480px) {
+  .topo-container { flex-direction: column; }
+  .nav-links { width: 100%; gap: 24px; }
+  .hero-acoes { flex-wrap: wrap; }
+  .hero-titulo { font-size: 2.15rem; }
+  .conteudo-principal, .sobre-container { padding-left: 16px; padding-right: 16px; }
+  .card-grafico { min-width: 0; padding: 16px; }
+  .graficos-grid-duplo, .grid-analises-graficos { grid-template-columns: minmax(0, 1fr); }
+  .grafico-cabecalho { flex-wrap: wrap; }
+  .tabela-extrato { min-width: 720px; }
+  .barra-filtros-socioeconomicos > * { min-width: 0; max-width: 100%; }
 }
 
 /* ==========================================================================
@@ -2153,3 +2225,11 @@ button.botao {
   margin-top: 0.35rem;
   color: #475569;
 }
+
+/* Controles largos não devem alargar a página em celulares de 360 px. */
+@media (max-width: 480px) {
+  .filtro-item, .filtro-regiao-box, .filtro-intervalo-box { flex-wrap: wrap; min-width: 0; max-width: 100%; }
+  .extrato-controles { min-width: 0; width: 100%; }
+  .filtro-item select, .filtro-regiao-box select { max-width: 100%; min-width: 0; }
+}
+.rodape-novo { display: flex; gap: 8px 20px; flex-wrap: wrap; justify-content: center; align-items: center; }

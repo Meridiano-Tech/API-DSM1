@@ -4,6 +4,7 @@ import csv
 import json
 import math
 import re
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
 from statistics import fmean
@@ -25,6 +26,12 @@ class DadosInconsistentes(ValueError):
 
 class MunicipioNaoEncontrado(LookupError):
     """O município solicitado está fora do cadastro publicado."""
+
+
+def normalizar_texto(texto: str) -> str:
+    sem_acentos = ''.join(c for c in unicodedata.normalize('NFD', texto)
+                         if unicodedata.category(c) != 'Mn')
+    return ' '.join(sem_acentos.casefold().split())
 
 
 def numero(valor, campo, *, inteiro=False, positivo=False):
@@ -218,8 +225,19 @@ class MotorScore:
             linha = publicados[codigo]
             taxa = taxas_publicadas[codigo]
             base = resultado["indicadores_base"]
+            indice = resultado["DowntrendProxy"]
+            publicado = linha["DowntrendProxy"]
+            if (indice is None) != (publicado is None) or (
+                indice is not None and not math.isclose(indice, publicado, abs_tol=1e-9)
+            ):
+                raise DadosInconsistentes("O Downtrend publicado diverge das observações.")
             if (
                 resultado["score_final"] != linha["score_final"]
+                or resultado["Score_Inclusivo"] != linha["Score_Inclusivo"]
+                or resultado["status_score"] != linha["status_score"]
+                or resultado["Aprovacao"] != linha["Aprovacao"]
+                or base["status_inadimplencia"] != taxa["status_inadimplencia"]
+                or not math.isclose(resultado["cobertura_pct"], linha["cobertura_pct"])
                 or resultado["meses_validos"] != linha["meses_validos"]
                 or resultado["competencia_calculada"] != linha["competencia_calculada"]
                 or base["inadimplencia_estimada"] != taxa["taxa_inadimplencia"]
@@ -241,8 +259,9 @@ class MotorScore:
             if codigo in self.resultados:
                 return self.resultados[codigo]
         elif isinstance(localidade, str) and localidade.strip():
+            nome = normalizar_texto(localidade)
             for item in self.resultados.values():
-                if item["localidade"].casefold() == localidade.strip().casefold():
+                if normalizar_texto(item["localidade"]) == nome:
                     return item
         else:
             raise ValueError("Informe municipio_ibge ou localidade.")

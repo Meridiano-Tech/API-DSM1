@@ -39,6 +39,18 @@ jobs:
       - name: Gerar site estático
         run: python scripts/build_pages.py
 
+      - name: Configurar testes de interface
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Validar fluxos antes da publicação
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm test
+
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -54,6 +66,7 @@ jobs:
     timeout-minutes: 10
 
     permissions:
+      contents: read
       pages: write
       id-token: write
 
@@ -62,6 +75,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Baixar versão publicada para conferência
+        uses: actions/checkout@v6
+
       - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Conferir os dados após a publicação
+        env:
+          URL_PUBLICADA: ${{ steps.deployment.outputs.page_url }}
+        run: python scripts/verificar_publicacao.py "$URL_PUBLICADA"

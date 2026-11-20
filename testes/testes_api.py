@@ -2,6 +2,8 @@ import os
 import sys
 import unittest
 import json
+import csv
+import io
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -34,6 +36,11 @@ class TestesAPI(unittest.TestCase):
         resposta = self.cliente.post('/api/calcular-score', json={"municipio_ibge": "1504208"})
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.get_json(), esperado)
+
+    def test_consulta_direta_normaliza_localidade_como_o_filtro(self):
+        resposta = self.cliente.post('/api/calcular-score', json={'localidade': ' Araguaina   -   TO '})
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.get_json()['municipio_ibge'], '1702109')
 
     def test_simulacao_exige_pix_pf_e_pagadores(self):
         payload = {
@@ -113,6 +120,16 @@ class TestesAPI(unittest.TestCase):
         texto_csv = resp.data.decode('utf-8-sig')
         self.assertIn('Município;Código IBGE', texto_csv)
         self.assertIn('Nordeste', texto_csv)
+        linha = next(csv.DictReader(io.StringIO(texto_csv), delimiter=';'))
+        self.assertEqual(linha['Início da janela do score'], '2024-01')
+        self.assertEqual(linha['Fim da janela do score'], '2026-10')
+        self.assertEqual(linha['Uso decisório de crédito'], 'NAO_HOMOLOGADO')
+        self.assertTrue(linha['Parâmetros'])
+
+    def test_exportacao_vazia_nao_cria_csv_sem_resultado(self):
+        resposta = self.cliente.get('/api/exportar-dados?busca=inexistente')
+        self.assertEqual(resposta.status_code, 422)
+        self.assertIn('Nenhum município', resposta.get_json()['erro'])
 
     def test_rota_exportar_dados_post(self):
         payload = {'regiao': 'Norte'}

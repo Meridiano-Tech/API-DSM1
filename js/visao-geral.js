@@ -1,8 +1,6 @@
 "use strict";
 
 let dadosGlobais = null;
-let instanciaGraficoLinha = null;
-let instanciaGraficoRanking = null;
 let timerDebounceBusca;
 
 function formatarPercentual(valor, comSinal = false) {
@@ -46,14 +44,6 @@ function preencherCard(id, valor, detalhe) {
   }
 }
 
-function criarCanvas(area) {
-  if (!area) return null;
-  area.replaceChildren();
-  const canvas = document.createElement("canvas");
-  area.appendChild(canvas);
-  return canvas;
-}
-
 function mostrarMensagem(area, mensagem) {
   if (!area) return;
   area.replaceChildren();
@@ -68,14 +58,7 @@ function desenharLinha(area, linhas) {
     return;
   }
 
-  if (instanciaGraficoLinha) {
-    instanciaGraficoLinha.destroy();
-    instanciaGraficoLinha = null;
-  }
-
-  const canvas = criarCanvas(area);
-
-  instanciaGraficoLinha = new Chart(canvas, {
+  renderizarGraficoCredit42(area, {
     type: "line",
     data: {
       labels: linhas.map(item => formatarRotuloMes(item.mes)),
@@ -145,32 +128,16 @@ function desenharLinha(area, linhas) {
         }
       }
     }
-  });
+  }, formatarCarteira);
 }
 
 function desenharRanking(area, linhas) {
-  if (!Array.isArray(linhas) || linhas.length === 0) {
-    mostrarMensagem(area, "Não há dados disponíveis para este gráfico.");
-    return;
-  }
-
-  if (instanciaGraficoRanking) {
-    instanciaGraficoRanking.destroy();
-    instanciaGraficoRanking = null;
-  }
-
   const ranking = linhas.filter(item => Number.isFinite(item.score_final))
     .sort((a, b) => b.score_final - a.score_final)
     .slice(0, 5);
-  if (!ranking.length) {
-    mostrarMensagem(area, "Scores indisponíveis para este recorte.");
-    return;
-  }
-
-  const canvas = criarCanvas(area);
-
-  instanciaGraficoRanking = new Chart(canvas, {
+  renderizarGraficoCredit42(area, {
     type: "bar",
+    plugins: [rotulosBarrasCredit42],
     data: {
       labels: ranking.map(item => item.localidade.split(" - ")[0]),
       datasets: [
@@ -192,6 +159,7 @@ function desenharRanking(area, linhas) {
       indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
+      layout: { padding: { right: 48 } },
       plugins: {
         legend: {
           display: false
@@ -223,7 +191,7 @@ function desenharRanking(area, linhas) {
         }
       }
     }
-  });
+  }, valor => `${numeroCredit42.format(valor)} pontos`);
 }
 
 function filtrarLinhasPorAno(linhas, ano) {
@@ -255,7 +223,7 @@ function aplicarFiltroAno(ano) {
     .sort((a, b) => b.valor - a.valor)[0];
 
   preencherCard("card-1", formatarPercentual(maior?.valor, true),
-    maior ? `${maior.regiao} · ${maior.mes}` : "Sem comparação anual no recorte");
+    maior ? `Maior variação entre Norte e Nordeste · ${maior.regiao} · ${maior.mes}` : "Base de 2023 indisponível para comparação");
   preencherCard("card-2", formatarMoedaCredit42(pixTotal), "Total nacional no período selecionado");
   preencherCard("card-3", formatarPercentual(inad?.valor_inad),
     inad ? `Brasil · ${inad.mes}` : "Taxa nacional indisponível no recorte");
@@ -268,7 +236,7 @@ function aplicarFiltroAno(ano) {
 function municipiosFiltrados() {
   const regiao = document.getElementById("filtro-regiao-macro").value;
   const porte = document.getElementById("filtro-porte").value;
-  const busca = document.getElementById("filtro-busca-muni").value.trim().toLocaleLowerCase("pt-BR");
+  const busca = normalizarTextoCredit42(document.getElementById("filtro-busca-muni").value);
   const catalogo = new Map(dadosGlobais.catalogo_municipios.map(m => [m.municipio_ibge, m]));
   const taxas = new Map(dadosGlobais.ranking_inadimplencia_municipal.map(m => [m.municipio_ibge, m]));
   return dadosGlobais.principais.grafico_p2_ranking_score_municipal
@@ -286,7 +254,7 @@ function municipiosFiltrados() {
     .filter(item =>
       (regiao === "todas" || item.regiao === regiao) &&
       (porte === "todos" || item.porte === porte) &&
-      item.localidade.toLocaleLowerCase("pt-BR").includes(busca)
+      normalizarTextoCredit42(item.localidade).includes(busca)
     );
 }
 
@@ -294,19 +262,29 @@ function aplicarFiltrosMunicipais() {
   const municipios = municipiosFiltrados();
   document.getElementById("badge-total-filtrado").textContent = `${municipios.length} ${municipios.length === 1 ? "município" : "municípios"}`;
   preencherCard("card-4", String(municipios.length), "Municípios no filtro atual");
+  const exportar = document.getElementById("btn-exportar-csv");
+  exportar.disabled = municipios.length === 0;
+  exportar.title = municipios.length ? "Exporta todo o ranking filtrado, com janela e metodologia" : "Nenhum município encontrado para exportar";
   desenharRanking(document.querySelector("#grafico-2 .graficoarea"), municipios);
 }
 
 function exportarRelatorioCsv() {
+  const municipios = municipiosFiltrados();
+  if (!municipios.length) return;
+  const metadata = dadosGlobais.score_metadata;
   const linhas = [
     ["Município", "Código IBGE", "UF", "Região", "Porte Populacional", "População (Hab.)",
       "Score Inclusivo", "Meses válidos", "Cobertura (%)", "Inadimplência Estimada (%)",
-      "Competência da estimativa"],
-    ...municipiosFiltrados().map(item => [
+      "Competência da estimativa", "Início da janela do score", "Fim da janela do score",
+      "Competência calculada do score", "Modelo", "Parâmetros", "Tipo do score", "Uso decisório de crédito"],
+    ...municipios.map(item => [
       item.localidade, item.municipio_ibge, item.uf, item.regiao,
       { pequeno: "Pequeno Porte", medio: "Médio Porte", grande: "Grande Porte / Metrópole" }[item.porte],
       item.populacao, item.score_final, item.meses_validos,
       item.cobertura_pct, item.inadimplencia_estimada, item.competencia_inadimplencia,
+      ...metadata.periodo_agregacao, item.competencia_calculada,
+      dadosGlobais.model_version, dadosGlobais.parameter_set_id,
+      "Índice territorial de atividade Pix · exploratório", item.Aprovacao,
     ]),
   ];
   const csv = linhas.map(linha => linha.map(valor => {
@@ -324,14 +302,20 @@ function exportarRelatorioCsv() {
 }
 
 async function iniciar() {
+  const controles = [...document.querySelectorAll("#filtro-ano, #barra-filtros input, #barra-filtros select, #btn-exportar-csv")];
+  controles.forEach(c => { c.disabled = true; });
   try {
     dadosGlobais = await carregarDadosCredit42();
   } catch {
+    estadoDadosCredit42("falha");
+    document.getElementById("badge-total-filtrado").textContent = "Base indisponível";
     document.querySelectorAll(".graficoarea").forEach(area => {
       mostrarMensagem(area, "Não foi possível carregar os dados.");
     });
     return;
   }
+  mostrarCoberturaCredit42(dadosGlobais);
+  controles.forEach(c => { c.disabled = false; });
 
   const filtroAno = document.getElementById("filtro-ano") || document.querySelector(".filtro-select");
   const anoInicial = filtroAno ? filtroAno.value : "2026";

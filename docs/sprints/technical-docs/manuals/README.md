@@ -11,12 +11,12 @@
 1. [Visão Geral — Painel Estratégico](#1-visao-geral)
 2. [Extrato e Comportamento Financeiro](#2-extrato)
 3. [Composição e Análise de Indicadores](#3-composicao)
-4. [Simulador Territorial com IA](#4-simulador)
+4. [Consulta municipal e cenário mensal](#4-simulador)
 5. [Matriz Estratégica de Tomada de Decisão](#5-matriz)
 
 ---
 
-> **Escopo deste manual:** as métricas e os gráficos descritos estão baseados no notebook `Credit42_20_Municipios_Downtrend_Score.ipynb`. A organização em abas segue a proposta de interface do projeto. Filtros interativos, linha do tempo de eventos e simulador com IA dependem da implementação do site e não são comprovados pela execução do Colab.
+> **Escopo deste manual:** dados exportados do Colab e interface web integrada. O GitHub Pages disponibiliza consulta dos resultados publicados. Cenários mensais exigem uma API compatível em execução; o cálculo atual não utiliza IA.
 
 <a id="1-visao-geral"></a>
 
@@ -30,7 +30,7 @@ O recorte compreende **janeiro de 2024 a outubro de 2026**. Cada indicador infor
 
 | Indicador | O que representa | Como interpretar |
 |---|---|---|
-| Crescimento anual da carteira | Variação percentual do saldo regional, com cartões para Norte e Nordeste. | Compare a mesma região com a competência equivalente do ano anterior; saldo não equivale a novas concessões. |
+| Variação em 12 meses da carteira | Maior variação disponível entre Norte e Nordeste, com região e competência identificadas. | Compara a mesma região com o mesmo mês do ano anterior; em 2024 a base de 2023 não está disponível. |
 | Volume total de Pix | Valor nominal acumulado de Pix PF e PJ no Brasil, dentro do recorte. | O total nacional inclui registros sem localização informada; não se restringe aos 20 municípios. |
 | Inadimplência nacional de referência | Última taxa nacional disponível da série BCB/SGS 21082 dentro da janela. | É uma taxa agregada nacional; não corresponde à média simples das estimativas dos 20 municípios. |
 
@@ -77,6 +77,10 @@ A leitura cronológica permite comparar carteira de crédito, valores Pix, quant
 - **Origem:** carteira e taxas agregadas vêm de séries do BCB; Pix vem do serviço Olinda; população vem do Censo 2022 via SIDRA/IBGE.
 
 Uma eventual linha do tempo do site deve usar as competências e os estados de disponibilidade exportados. Filtros como **Todo o Histórico** e **Região** dependem do front-end. Narrativas de eventos econômicos, como abertura de contas ou mudanças de comportamento, exigem evidências adicionais: elas não são produzidas automaticamente pelas séries consultadas.
+
+No site, o Extrato inicia nos últimos 12 meses da base. É possível alternar entre linha do tempo e tabela usando as setas do teclado nas abas. A faixa mostra a última competência do Pix nacional e a última competência com carteira ou taxa disponível em todas as cinco regiões, por indicador. Cada linha do Extrato preserva a cobertura da própria região. “Motivo da ausência” explica os campos vazios. Os valores monetários usam Mi, Bi ou Tri conforme a magnitude.
+
+O seletor anual controla os indicadores de referência e a carteira Norte/Nordeste. Região, porte e busca controlam somente o ranking municipal, seu contador e seu CSV. O score continua consolidado em jan/2024–out/2026. A exportação informa a janela do modelo, a competência calculada de cada município, o modelo e o identificador dos parâmetros. Sem municípios no filtro, o download fica desabilitado. “Ver dados em tabela” oferece os mesmos valores dos gráficos, inclusive quando a biblioteca visual não carrega.
 
 ---
 
@@ -125,18 +129,18 @@ Um gráfico de composição da nota, caso implementado no site, deve representar
 
 <a id="4-simulador"></a>
 
-## 4. Simulador Territorial com IA
+## 4. Consulta municipal e cenário mensal
 
-**Situação: recurso de interface previsto no manual inicial; integração não verificada no Colab documentado.** O notebook não implementa um serviço de IA que receba novas cidades, calcule scores e gere recomendações automáticas de negócio.
+Em **Análises → Consultar score municipal**, selecione um dos 20 municípios e clique em **Ver resultado**. A consulta lê a mesma exportação utilizada nos gráficos e informa score, Downtrend, cobertura e competência da estimativa de inadimplência.
 
-Para uma futura implementação, o fluxo proposto é:
+No GitHub Pages, a simulação mensal fica indisponível. Quando a aplicação Flask responde com os mesmos municípios, modelo e parâmetros, a opção **Simular um cenário mensal** é habilitada:
 
-1. **Selecionar um município:** utilizar o cadastro e o código IBGE associados à execução.
-2. **Consultar os dados e a cobertura:** apresentar fontes, competências e indicadores disponíveis.
-3. **Distinguir cenários de observações:** qualquer entrada manual deve ser identificada como hipótese de simulação.
-4. **Exibir resultado e explicação:** informar qual fórmula foi usada, seus parâmetros e limitações.
+1. Informe nome, região, população total, volume Pix PF mensal e pagadores PF distintos do mês.
+2. População, volume e pagadores alteram a nota; nome e região identificam o cenário.
+3. O resultado representa uma hipótese de um mês com os limites publicados, não a inclusão de um novo município no ranking consolidado.
+4. Em falha ou timeout, revise as entradas e tente novamente. A consulta dos municípios publicados continua disponível.
 
-A inclusão de novos municípios altera o universo de normalização e exige revisão metodológica. Renda per capita e inadimplência local digitadas pelo usuário não integram a equação atual do score municipal. Um texto gerado por IA não substitui a validação das fontes ou dos cálculos.
+A inclusão definitiva de novos municípios exige revisão metodológica. Renda per capita e inadimplência local digitadas não integram a equação atual. Nenhuma recomendação por IA ou decisão de crédito individual é gerada.
 
 ---
 
