@@ -29,7 +29,7 @@ class TestesServicosDados(unittest.TestCase):
 
     def test_obter_municipios_completos(self):
         municipios = obter_municipios_completos()
-        self.assertEqual(len(municipios), 20)
+        self.assertEqual(len(municipios), 70)
         primeiro = municipios[0]
         self.assertIn('localidade', primeiro)
         self.assertIn('codigo_ibge', primeiro)
