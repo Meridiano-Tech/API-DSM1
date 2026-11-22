@@ -2233,3 +2233,104 @@ button:disabled, select:disabled, input:disabled { opacity: .65; cursor: not-all
   .filtro-item select, .filtro-regiao-box select { max-width: 100%; min-width: 0; }
 }
 .rodape-novo { display: flex; gap: 8px 20px; flex-wrap: wrap; justify-content: center; align-items: center; }
+/* Correções responsivas Credit42 */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+img,
+svg,
+canvas,
+video,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+.bannerconteudo,
+.topo-container,
+.conteudo-principal,
+.sobre-container,
+.rodape-novo,
+.card-grafico,
+.graficos-grid,
+.graficos-grid-duplo,
+.grid-analises-graficos {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.bannerconteudo > *,
+.topo-container > *,
+.graficos-grid > *,
+.graficos-grid-duplo > *,
+.grid-analises-graficos > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.nav-links {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+
+.card-grafico,
+.graficoarea,
+.dados-grafico {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.dados-grafico table {
+  width: 100%;
+  max-width: 100%;
+}
+
+.tabela-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+  .conteudo-principal,
+  .sobre-container,
+  .bannerconteudo {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .tabela-extrato {
+    min-width: 720px;
+  }
+
+  .tabela-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .nav-links {
+    gap: 12px 16px;
+  }
+
+  .hero-titulo {
+    font-size: clamp(1.8rem, 8vw, 2.15rem);
+  }
+}
