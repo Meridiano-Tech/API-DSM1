@@ -17,7 +17,7 @@ permissions:
 jobs:
   validate:
     name: Validar aplicação
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
@@ -43,6 +43,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: "22"
+          cache: npm
 
       - name: Validar sintaxe JavaScript
         shell: bash
@@ -50,3 +51,12 @@ jobs:
           for arquivo in js/*.js; do
             node --check "$arquivo"
           done
+
+      - name: Instalar testes de interface
+        run: npm ci
+
+      - name: Instalar navegador de teste
+        run: npx playwright install --with-deps chromium
+
+      - name: Validar fluxos desktop e responsivos
+        run: npm test

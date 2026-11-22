@@ -1,0 +1,850 @@
+{
+  "status_tecnico": "APROVADO",
+  "checks": [
+    {
+      "id": "cadastro",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Cadastro regional completo"
+    },
+    {
+      "id": "ids_unicos",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Chave IBGE sem duplicações"
+    },
+    {
+      "id": "codigos_do_cadastro",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Cada município corresponde ao código IBGE definido no cadastro"
+    },
+    {
+      "id": "distribuicao_regional",
+      "passou": true,
+      "critico": true,
+      "detalhe": "{'Norte': 20, 'Nordeste': 20, 'Centro-Oeste': 10, 'Sudeste': 10, 'Sul': 10}"
+    },
+    {
+      "id": "janela_34",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Jan/2024–Out/2026"
+    },
+    {
+      "id": "pix_34_consultas_completas",
+      "passou": true,
+      "critico": false,
+      "detalhe": "{'OK': 34}"
+    },
+    {
+      "id": "grade_municipal",
+      "passou": true,
+      "critico": true,
+      "detalhe": "2380"
+    },
+    {
+      "id": "grade_sem_duplicidade",
+      "passou": true,
+      "critico": true,
+      "detalhe": "município × mês"
+    },
+    {
+      "id": "pix_municipal_observados",
+      "passou": true,
+      "critico": false,
+      "detalhe": "2380"
+    },
+    {
+      "id": "schema_pix_numeros",
+      "passou": true,
+      "critico": false,
+      "detalhe": "0"
+    },
+    {
+      "id": "linhagem_pix",
+      "passou": true,
+      "critico": true,
+      "detalhe": "hash obrigatório para observações"
+    },
+    {
+      "id": "pop18",
+      "passou": true,
+      "critico": false,
+      "detalhe": "70"
+    },
+    {
+      "id": "pop18_nao_supera_total",
+      "passou": true,
+      "critico": true,
+      "detalhe": "83 idades sem sobreposição"
+    },
+    {
+      "id": "fontes_populacao",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SIDRA 9514 / 2022"
+    },
+    {
+      "id": "reconciliacao_valor_pf",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Regiões + não informado = Brasil"
+    },
+    {
+      "id": "reconciliacao_valor_pj",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Regiões + não informado = Brasil"
+    },
+    {
+      "id": "reconciliacao_quantidade_pf",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Regiões + não informado = Brasil"
+    },
+    {
+      "id": "reconciliacao_quantidade_pj",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Regiões + não informado = Brasil"
+    },
+    {
+      "id": "ipt_limites",
+      "passou": true,
+      "critico": true,
+      "detalhe": "2240"
+    },
+    {
+      "id": "formula_dbase",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Pesos 60/40"
+    },
+    {
+      "id": "formula_ipt",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Base 300 e amplitude 700"
+    },
+    {
+      "id": "sem_imputar_janelas",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Três meses observados necessários"
+    },
+    {
+      "id": "sem_deflator_sem_valor_real",
+      "passou": true,
+      "critico": true,
+      "detalhe": "0"
+    },
+    {
+      "id": "score_mes_unico",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Cada município informa sua competência real."
+    },
+    {
+      "id": "score_linhas",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Inclusive municípios não calculáveis"
+    },
+    {
+      "id": "score_nao_homologado",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Nenhuma homologação presumida"
+    },
+    {
+      "id": "sii_sem_valor_inventado",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Fontes individuais ausentes"
+    },
+    {
+      "id": "parametros_empiricos",
+      "passou": true,
+      "critico": false,
+      "detalhe": "700"
+    },
+    {
+      "id": "credito_regional_NORTE",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SGS 14093"
+    },
+    {
+      "id": "credito_regional_NORDESTE",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SGS 14094"
+    },
+    {
+      "id": "credito_regional_CENTROOESTE",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SGS 14095"
+    },
+    {
+      "id": "credito_regional_SUDESTE",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SGS 14096"
+    },
+    {
+      "id": "credito_regional_SUL",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SGS 14097"
+    },
+    {
+      "id": "score_calculados",
+      "passou": true,
+      "critico": true,
+      "detalhe": "70"
+    },
+    {
+      "id": "score_municipal_limites",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Base 300, máximo 1000"
+    },
+    {
+      "id": "score_municipal_formula",
+      "passou": true,
+      "critico": true,
+      "detalhe": "300+7×Downtrend médio observado"
+    },
+    {
+      "id": "inad_estimativas",
+      "passou": true,
+      "critico": false,
+      "detalhe": "70"
+    },
+    {
+      "id": "inad_limites",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Percentual estimado disponível"
+    },
+    {
+      "id": "inad_marcada_estimada",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Não é taxa municipal observada"
+    },
+    {
+      "id": "inad_formula",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Base BCB real × fator Downtrend"
+    },
+    {
+      "id": "inad_fonte_real",
+      "passou": true,
+      "critico": false,
+      "detalhe": "SGS 21082 observado na competência informada"
+    },
+    {
+      "id": "proxy_legado_60_40",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Sem imputação"
+    },
+    {
+      "id": "municipios_preservados_base",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Mesmo universo configurado em cada etapa"
+    },
+    {
+      "id": "municipios_preservados_metricas",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Mesmo universo configurado em cada etapa"
+    },
+    {
+      "id": "municipios_preservados_scores",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Mesmo universo configurado em cada etapa"
+    },
+    {
+      "id": "fallback_transparente",
+      "passou": true,
+      "critico": true,
+      "detalhe": "0"
+    },
+    {
+      "id": "contrato_score",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Contrato único de exportação"
+    },
+    {
+      "id": "contrato_pf_pj",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Contrato único de exportação"
+    },
+    {
+      "id": "contrato_credito_34",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Contrato único de exportação"
+    },
+    {
+      "id": "contrato_inad_municipal_estimada",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Contrato único de exportação"
+    },
+    {
+      "id": "json_estrito",
+      "passou": true,
+      "critico": true,
+      "detalhe": "Contrato único de exportação"
+    }
+  ],
+  "checks_passaram": 51,
+  "checks_total": 51,
+  "meses_sgs_sem_publicacao": [
+    {
+      "indicador": "carteira_regional",
+      "regiao": "Norte",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "carteira_regional",
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "carteira_regional",
+      "regiao": "Sudeste",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "carteira_regional",
+      "regiao": "Nordeste",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "carteira_regional",
+      "regiao": "Sul",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_regional",
+      "regiao": "Norte",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_regional",
+      "regiao": "Sudeste",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_regional",
+      "regiao": "Nordeste",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_regional",
+      "regiao": "Centro-Oeste",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_regional",
+      "regiao": "Sul",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "carteira_nacional",
+      "regiao": "Brasil",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_nacional",
+      "regiao": "Brasil",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "AC",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "AL",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "AM",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "AP",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "BA",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "CE",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "ES",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "GO",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "MA",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "MG",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "MS",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "MT",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "PA",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "PB",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "PE",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "PI",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "PR",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "RJ",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "RN",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "RO",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "RR",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "RS",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "SC",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "SP",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    },
+    {
+      "indicador": "inadimplencia_estadual",
+      "regiao": "TO",
+      "competencia": "2026-10",
+      "reason_code": "COMPETENCIA_SEM_PUBLICACAO_NESTA_CONSULTA"
+    }
+  ],
+  "municipios_fora_faixa_pop": [
+    {
+      "municipio_ibge": "1506807",
+      "localidade": "Santarém - PA",
+      "pop_total": 331942.0
+    },
+    {
+      "municipio_ibge": "1502400",
+      "localidade": "Castanhal - PA",
+      "pop_total": 192256.0
+    },
+    {
+      "municipio_ibge": "1100122",
+      "localidade": "Ji-Paraná - RO",
+      "pop_total": 124333.0
+    },
+    {
+      "municipio_ibge": "1702109",
+      "localidade": "Araguaína - TO",
+      "pop_total": 171301.0
+    },
+    {
+      "municipio_ibge": "1303403",
+      "localidade": "Parintins - AM",
+      "pop_total": 96372.0
+    },
+    {
+      "municipio_ibge": "1301902",
+      "localidade": "Itacoatiara - AM",
+      "pop_total": 103598.0
+    },
+    {
+      "municipio_ibge": "1302504",
+      "localidade": "Manacapuru - AM",
+      "pop_total": 101883.0
+    },
+    {
+      "municipio_ibge": "1501709",
+      "localidade": "Bragança - PA",
+      "pop_total": 123082.0
+    },
+    {
+      "municipio_ibge": "1500107",
+      "localidade": "Abaetetuba - PA",
+      "pop_total": 158188.0
+    },
+    {
+      "municipio_ibge": "1500602",
+      "localidade": "Altamira - PA",
+      "pop_total": 126279.0
+    },
+    {
+      "municipio_ibge": "1503606",
+      "localidade": "Itaituba - PA",
+      "pop_total": 123314.0
+    },
+    {
+      "municipio_ibge": "1100049",
+      "localidade": "Cacoal - RO",
+      "pop_total": 86887.0
+    },
+    {
+      "municipio_ibge": "1100304",
+      "localidade": "Vilhena - RO",
+      "pop_total": 95832.0
+    },
+    {
+      "municipio_ibge": "1100023",
+      "localidade": "Ariquemes - RO",
+      "pop_total": 96833.0
+    },
+    {
+      "municipio_ibge": "1200203",
+      "localidade": "Cruzeiro do Sul - AC",
+      "pop_total": 91888.0
+    },
+    {
+      "municipio_ibge": "1709500",
+      "localidade": "Gurupi - TO",
+      "pop_total": 85125.0
+    },
+    {
+      "municipio_ibge": "1600279",
+      "localidade": "Laranjal do Jari - AP",
+      "pop_total": 35114.0
+    },
+    {
+      "municipio_ibge": "1600600",
+      "localidade": "Santana - AP",
+      "pop_total": 107618.0
+    },
+    {
+      "municipio_ibge": "1400472",
+      "localidade": "Rorainópolis - RR",
+      "pop_total": 32647.0
+    },
+    {
+      "municipio_ibge": "2207702",
+      "localidade": "Parnaíba - PI",
+      "pop_total": 162159.0
+    },
+    {
+      "municipio_ibge": "2611101",
+      "localidade": "Petrolina - PE",
+      "pop_total": 386791.0
+    },
+    {
+      "municipio_ibge": "2103000",
+      "localidade": "Caxias - MA",
+      "pop_total": 156973.0
+    },
+    {
+      "municipio_ibge": "2208007",
+      "localidade": "Picos - PI",
+      "pop_total": 83090.0
+    },
+    {
+      "municipio_ibge": "2303709",
+      "localidade": "Caucaia - CE",
+      "pop_total": 355679.0
+    },
+    {
+      "municipio_ibge": "2913606",
+      "localidade": "Ilhéus - BA",
+      "pop_total": 178649.0
+    },
+    {
+      "municipio_ibge": "2504009",
+      "localidade": "Campina Grande - PB",
+      "pop_total": 419379.0
+    },
+    {
+      "municipio_ibge": "2604106",
+      "localidade": "Caruaru - PE",
+      "pop_total": 378048.0
+    },
+    {
+      "municipio_ibge": "2933307",
+      "localidade": "Vitória da Conquista - BA",
+      "pop_total": 370879.0
+    },
+    {
+      "municipio_ibge": "2903201",
+      "localidade": "Barreiras - BA",
+      "pop_total": 159734.0
+    },
+    {
+      "municipio_ibge": "2606002",
+      "localidade": "Garanhuns - PE",
+      "pop_total": 142506.0
+    },
+    {
+      "municipio_ibge": "2304202",
+      "localidade": "Crato - CE",
+      "pop_total": 131050.0
+    },
+    {
+      "municipio_ibge": "2305506",
+      "localidade": "Iguatu - CE",
+      "pop_total": 98064.0
+    },
+    {
+      "municipio_ibge": "2510808",
+      "localidade": "Patos - PB",
+      "pop_total": 103165.0
+    },
+    {
+      "municipio_ibge": "2101400",
+      "localidade": "Balsas - MA",
+      "pop_total": 101767.0
+    },
+    {
+      "municipio_ibge": "5208004",
+      "localidade": "Formosa - GO",
+      "pop_total": 115901.0
+    },
+    {
+      "municipio_ibge": "5008305",
+      "localidade": "Três Lagoas - MS",
+      "pop_total": 132152.0
+    },
+    {
+      "municipio_ibge": "5003207",
+      "localidade": "Corumbá - MS",
+      "pop_total": 96268.0
+    },
+    {
+      "municipio_ibge": "5102504",
+      "localidade": "Cáceres - MT",
+      "pop_total": 89681.0
+    },
+    {
+      "municipio_ibge": "5107958",
+      "localidade": "Tangará da Serra - MT",
+      "pop_total": 106434.0
+    },
+    {
+      "municipio_ibge": "3170206",
+      "localidade": "Uberlândia - MG",
+      "pop_total": 713224.0
+    },
+    {
+      "municipio_ibge": "3143302",
+      "localidade": "Montes Claros - MG",
+      "pop_total": 414240.0
+    },
+    {
+      "municipio_ibge": "3168606",
+      "localidade": "Teófilo Otoni - MG",
+      "pop_total": 137418.0
+    },
+    {
+      "municipio_ibge": "3154606",
+      "localidade": "Ribeirão das Neves - MG",
+      "pop_total": 329794.0
+    },
+    {
+      "municipio_ibge": "3204906",
+      "localidade": "São Mateus - ES",
+      "pop_total": 123752.0
+    },
+    {
+      "municipio_ibge": "3203205",
+      "localidade": "Linhares - ES",
+      "pop_total": 166786.0
+    },
+    {
+      "municipio_ibge": "3522406",
+      "localidade": "Itapeva - SP",
+      "pop_total": 89728.0
+    },
+    {
+      "municipio_ibge": "3542602",
+      "localidade": "Registro - SP",
+      "pop_total": 59947.0
+    },
+    {
+      "municipio_ibge": "3300456",
+      "localidade": "Belford Roxo - RJ",
+      "pop_total": 483087.0
+    },
+    {
+      "municipio_ibge": "4300604",
+      "localidade": "Alvorada - RS",
+      "pop_total": 187315.0
+    },
+    {
+      "municipio_ibge": "4314407",
+      "localidade": "Pelotas - RS",
+      "pop_total": 325685.0
+    },
+    {
+      "municipio_ibge": "4322400",
+      "localidade": "Uruguaiana - RS",
+      "pop_total": 117210.0
+    },
+    {
+      "municipio_ibge": "4301602",
+      "localidade": "Bagé - RS",
+      "pop_total": 117938.0
+    },
+    {
+      "municipio_ibge": "4109401",
+      "localidade": "Guarapuava - PR",
+      "pop_total": 182093.0
+    },
+    {
+      "municipio_ibge": "4107652",
+      "localidade": "Fazenda Rio Grande - PR",
+      "pop_total": 148873.0
+    },
+    {
+      "municipio_ibge": "4209300",
+      "localidade": "Lages - SC",
+      "pop_total": 164981.0
+    },
+    {
+      "municipio_ibge": "4203006",
+      "localidade": "Caçador - SC",
+      "pop_total": 73720.0
+    }
+  ],
+  "registros_pix_sem_localizacao": 34,
+  "alertas": [
+    "56/70 municípios fora da faixa populacional exploratória de 200–300 mil habitantes.",
+    "SGS 15925/AC: 1 competências indisponíveis.",
+    "SGS 15926/AL: 1 competências indisponíveis.",
+    "SGS 15928/AM: 1 competências indisponíveis.",
+    "SGS 15927/AP: 1 competências indisponíveis.",
+    "SGS 15929/BA: 1 competências indisponíveis.",
+    "SGS 15930/CE: 1 competências indisponíveis.",
+    "SGS 15932/ES: 1 competências indisponíveis.",
+    "SGS 15933/GO: 1 competências indisponíveis.",
+    "SGS 15934/MA: 1 competências indisponíveis.",
+    "SGS 15937/MG: 1 competências indisponíveis.",
+    "SGS 15936/MS: 1 competências indisponíveis.",
+    "SGS 15935/MT: 1 competências indisponíveis.",
+    "SGS 15938/PA: 1 competências indisponíveis.",
+    "SGS 15939/PB: 1 competências indisponíveis.",
+    "SGS 15941/PE: 1 competências indisponíveis.",
+    "SGS 15942/PI: 1 competências indisponíveis.",
+    "SGS 15940/PR: 1 competências indisponíveis.",
+    "SGS 15943/RJ: 1 competências indisponíveis.",
+    "SGS 15944/RN: 1 competências indisponíveis.",
+    "SGS 15946/RO: 1 competências indisponíveis.",
+    "SGS 15947/RR: 1 competências indisponíveis.",
+    "SGS 15945/RS: 1 competências indisponíveis.",
+    "SGS 15948/SC: 1 competências indisponíveis.",
+    "SGS 15949/SP: 1 competências indisponíveis.",
+    "SGS 15951/TO: 1 competências indisponíveis."
+  ],
+  "aprovacao_modelo": "NAO_HOMOLOGADO",
+  "publicacao_score_de_risco_autorizada": false
+}

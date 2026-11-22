@@ -25,16 +25,16 @@
   <!-- Top Navbar -->
   <header class="topo-navbar">
     <div class="topo-container">
-      <div class="marca">
+      <a class="marca" href="index.html" aria-label="Credit42 — início">
         <img class="marca-logo" src="css/imagens/logo.png" alt="Logo Credit42">
         <span class="marca-nome">Credit42</span>
         <span class="marca-separador">·</span>
         <span class="marca-sub">Inteligência de Dados</span>
-      </div>
+      </a>
 
-      <nav class="nav-links">
-        <a href="index.html" class="nav-link ativo">Início</a>
-        <a href="composicao.html" class="nav-link">Composição</a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="index.html" class="nav-link ativo" aria-current="page">Início</a>
+        <a href="composicao.html" class="nav-link">Análises</a>
         <a href="sobre.html" class="nav-link">Sobre Nós</a>
       </nav>
     </div>
@@ -42,19 +42,19 @@
 
   <!-- Hero Banner -->
   <section class="hero-secao">
-    <div class="hero-container">
+    <div class="hero-container hero-inicio">
+      <img class="hero-logo" src="css/imagens/logo.png" alt="CREDIT42" width="2048" height="2048">
       <div class="hero-texto-col">
         <h1 class="hero-titulo">Mais dados,<br><span>Melhores decisões.</span></h1>
         <p class="hero-desc">
-          Uma visão clara e estratégica para acompanhar indicadores, planejar a concessão de crédito inclusivo e
-          impulsionar o desenvolvimento econômico regional.
+          Compare indicadores econômicos regionais e consulte o potencial territorial dos 20 municípios analisados.
         </p>
         <div class="hero-acoes">
           <a href="#dashboard" class="btn-primario">
             Ver Indicadores →
           </a>
-          <a href="sobre.html" class="link-secundario">
-            Conheça a Equipe ↗
+          <a href="composicao.html#secao-simulador" class="link-secundario">
+            Consultar município →
           </a>
         </div>
       </div>
@@ -65,26 +65,16 @@
   <main class="conteudo-principal" id="dashboard">
     <div class="secao-topo">
       <div>
-        <h2 class="secao-saudacao">Resumo do Período</h2>
-        <p class="secao-descricao-sm">Filtros dinâmicos integrados às bases oficiais do IBGE e Banco Central</p>
+        <h2 class="secao-saudacao">Indicadores por período</h2>
+        <p class="secao-descricao-sm">O ano altera os indicadores de referência e a carteira abaixo. Os filtros municipais estão no bloco de ranking.</p>
       </div>
         <div class="controles-dashboard-topo">
           <select class="filtro-select" id="filtro-ano" aria-label="Filtro de período">
-            <option value="2026" selected>Ano 2026 (Atual)</option>
+            <option value="2026" selected>2026 · jan a out</option>
             <option value="2025">Ano 2025</option>
             <option value="2024">Ano 2024</option>
             <option value="todos">Todos os Anos</option>
           </select>
-          <button id="btn-exportar-csv" class="btn-exportar-dashboard"
-            title="Exportar dados filtrados em CSV estruturado">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Exportar CSV
-          </button>
           <button id="btn-exportar-pdf" class="btn-exportar-dashboard"
             title="Gerar relatório PDF com os dados e gráficos do dashboard">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -98,7 +88,44 @@
         </div>
       </div>
 
-      <!-- Barra de Filtros Socioeconômicos e Regionais -->
+<div class="estado-dados" role="status"><span id="status-dados"></span> <button type="button" id="recarregar-dados" hidden>Tentar novamente</button></div><p id="cobertura-base" class="nota-cobertura"></p>
+      <!-- 4 Cards de Resumo (alimentados dinamicamente via js/visao-geral.js) -->
+      <div class="cards-grid">
+        <article class="card-resumo card-resumo-destaque" id="card-1">
+          <span class="card-rotulo">Variação em 12 meses · carteira</span>
+          <div class="card-valor cardvalor">--</div>
+          <span class="card-subtexto carddetalhe" style="color: #0369a1;">Norte e Nordeste · referência regional</span>
+        </article>
+
+        <article class="card-resumo" id="card-2">
+          <span class="card-rotulo">Volume Transacionado (Pix)</span>
+          <div class="card-valor cardvalor">--</div>
+          <span class="card-subtexto carddetalhe">↑ Liquidez monitorada</span>
+        </article>
+
+        <article class="card-resumo" id="card-3">
+          <span class="card-rotulo">Inadimplência Nacional de Referência</span>
+          <div class="card-valor cardvalor">--</div>
+          <span class="card-subtexto carddetalhe" style="color: #64748b;">Referência estável (BCB)</span>
+        </article>
+
+        <article class="card-resumo" id="card-4">
+          <span class="card-rotulo">Municípios no ranking filtrado</span>
+          <div class="card-valor cardvalor">--</div>
+          <span class="card-subtexto carddetalhe" style="color: #0369a1;">Municípios da amostra</span>
+        </article>
+      </div>
+
+      <section class="card-grafico" id="grafico-1">
+        <div class="grafico-cabecalho">
+          <h3 class="grafico-titulo">Carteira de crédito · Norte e Nordeste</h3>
+          <span class="grafico-tag" id="tag-grafico-linha">Evolução 2026</span>
+        </div>
+        <p class="nota-cobertura">Série regional observada · valores nominais · filtro de ano acima.</p>
+        <div class="canvas-container graficoarea"></div>
+      </section>
+
+      <section aria-labelledby="titulo-ranking"><h2 id="titulo-ranking">Ranking municipal</h2><p>Jan/2024–out/2026 · score consolidado dos 34 meses, independente do ano selecionado acima.</p><p class="nota-modelo">Score Inclusivo · índice territorial de atividade Pix, exploratório. Sem homologação para decisão individual de crédito. <a href="composicao.html#metodologia">Como interpretar</a></p>      <!-- Barra de Filtros Socioeconômicos e Regionais -->
       <div class="barra-filtros-socioeconomicos" id="barra-filtros">
         <div class="filtro-item">
           <label for="filtro-regiao-macro" class="filtro-rotulo-sm">Região:</label>
@@ -122,69 +149,28 @@
           </select>
         </div>
 
-        <div class="filtro-item">
-          <label for="filtro-renda" class="filtro-rotulo-sm">Renda per Capita:</label>
-          <select id="filtro-renda" class="filtro-select-sm" disabled>
-            <option value="todas">Renda indisponível na base</option>
-          </select>
-        </div>
-
         <div class="filtro-item filtro-busca-item">
           <label for="filtro-busca-muni" class="filtro-rotulo-sm">Buscar Município:</label>
           <input type="text" id="filtro-busca-muni" class="filtro-input-sm" placeholder="Ex: Marabá, Sobral, PA..." />
         </div>
 
         <div class="filtro-item-status">
-          <span class="badge-status-filtros" id="badge-total-filtrado">20 Polos Filtrados</span>
+          <span class="badge-status-filtros" id="badge-total-filtrado">Carregando…</span>
         </div>
+        <button id="btn-exportar-csv" type="button" class="btn-exportar-dashboard" disabled>Exportar ranking municipal</button>
       </div>
 
-      <!-- 4 Cards de Resumo (alimentados dinamicamente via js/visao-geral.js) -->
-      <div class="cards-grid">
-        <article class="card-resumo card-resumo-destaque" id="card-1">
-          <span class="card-rotulo">Evolução Mensal (YoY)</span>
-          <div class="card-valor cardvalor">--</div>
-          <span class="card-subtexto carddetalhe" style="color: #0284c7;">↑ Crescimento anual consolidado</span>
-        </article>
-
-        <article class="card-resumo" id="card-2">
-          <span class="card-rotulo">Volume Transacionado (Pix)</span>
-          <div class="card-valor cardvalor">--</div>
-          <span class="card-subtexto carddetalhe">↑ Liquidez monitorada</span>
-        </article>
-
-        <article class="card-resumo" id="card-3">
-          <span class="card-rotulo">Inadimplência Nacional de Referência</span>
-          <div class="card-valor cardvalor">--</div>
-          <span class="card-subtexto carddetalhe" style="color: #64748b;">Referência estável (BCB)</span>
-        </article>
-
-        <article class="card-resumo" id="card-4">
-          <span class="card-rotulo">Municípios Monitorados</span>
-          <div class="card-valor cardvalor">--</div>
-          <span class="card-subtexto carddetalhe" style="color: #0284c7;">★ Score inclusivo ativo</span>
-        </article>
-      </div>
 
       <!-- 2 Gráficos no Estilo do Mockup (alimentados dinamicamente via js/visao-geral.js) -->
-      <div class="graficos-grid">
-        <section class="card-grafico" id="grafico-1">
-          <div class="grafico-cabecalho">
-            <h3 class="grafico-titulo">Fluxo da Carteira de Crédito</h3>
-            <span class="grafico-tag" id="tag-grafico-linha">Evolução 2026</span>
-          </div>
-          <div class="canvas-container graficoarea"></div>
-        </section>
-
         <section class="card-grafico" id="grafico-2">
           <div class="grafico-cabecalho">
             <h3 class="grafico-titulo">Ranking de Score Inclusivo</h3>
-            <span class="grafico-tag">Top 5 no filtro</span>
+            <span class="grafico-tag">Top 5 no filtro · 300 a 1.000</span>
           </div>
           <div class="canvas-container graficoarea"></div>
         </section>
-      </div>
 
+      </section>
       <!-- Seção de Extrato e Relatórios Econômicos -->
       <section class="secao-extrato-card" id="secao-extrato" aria-labelledby="titulo-extrato">
         <div class="extrato-topo">
@@ -201,8 +187,8 @@
                 <option value="todos">Todo o Histórico (2024 - 2026)</option>
                 <option value="2024">Ano 2024</option>
                 <option value="2025">Ano 2025</option>
-                <option value="2026">Ano 2026 (Atual)</option>
-                <option value="recente">Últimos 12 meses</option>
+                <option value="2026">2026 · jan a out</option>
+                <option value="recente" selected>Últimos 12 meses</option>
                 <option value="personalizado">Personalizado (De / Até)</option>
               </select>
             </div>
@@ -225,20 +211,21 @@
             </div>
             <div class="alternador-visualizacao" role="tablist" aria-label="Visualização do extrato">
               <button type="button" class="btn-aba btn-aba-ativo" id="btn-ver-timeline" role="tab"
-                aria-selected="true">Linha do Tempo</button>
-              <button type="button" class="btn-aba" id="btn-ver-tabela" role="tab" aria-selected="false">Tabela de
+                aria-selected="true" aria-controls="painel-timeline" tabindex="0">Linha do Tempo</button>
+              <button type="button" class="btn-aba" id="btn-ver-tabela" role="tab" aria-selected="false" aria-controls="painel-tabela" tabindex="-1">Tabela de
                 Dados</button>
             </div>
           </div>
         </div>
 
-        <div class="extrato-painel" id="painel-timeline">
+        <div class="extrato-painel" id="painel-timeline" role="tabpanel" aria-labelledby="btn-ver-timeline" tabindex="0">
           <div class="timeline-container" id="timeline-lista"></div>
         </div>
 
-        <div class="extrato-painel" id="painel-tabela" style="display: none;">
-          <div class="tabela-container">
-            <table class="tabela-extrato">
+        <div class="extrato-painel" id="painel-tabela" role="tabpanel" aria-labelledby="btn-ver-tabela" tabindex="0" hidden>
+          <p class="nota-cobertura">Em telas pequenas, deslize a tabela horizontalmente para consultar todas as colunas.</p>
+          <div class="tabela-container" tabindex="0" role="region" aria-label="Extrato regional rolável">
+            <table class="tabela-extrato"><caption>Extrato regional · valores monetários em R$ bilhões</caption>
               <thead>
                 <tr>
                   <th>Competência</th>
@@ -246,7 +233,7 @@
                   <th>Carteira de Crédito</th>
                   <th>Volume Pix</th>
                   <th>Inadimplência</th>
-                  <th>Comportamento / Status</th>
+                  <th>Cobertura</th>
                 </tr>
               </thead>
               <tbody id="tabela-extrato-corpo"></tbody>
@@ -257,7 +244,7 @@
 
       <!-- Rodapé Minimalista -->
       <footer class="rodape-novo">
-        <p class="rodape-icone">© 2026 Credit42 · Meridiano Tech</p>
+        <p class="rodape-icone">© 2026 Credit42 · Meridiano Tech</p><a href="composicao.html#metodologia">Fontes e metodologia</a>
       </footer>
   </main>
 </body>

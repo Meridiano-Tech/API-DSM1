@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const taxa = resultado.indicadores_base;
     document.getElementById("res-cidade").textContent = resultado.localidade;
     document.getElementById("res-regiao").textContent = resultado.regiao;
-    document.getElementById("res-score").textContent = score == null ? "—" : fmt(score);
+    document.getElementById("res-score").textContent = score == null ? "—" : numeroCredit42.format(score);
     document.getElementById("res-faixa").textContent = cenario ? "Cenário de um mês" : "Score municipal";
     document.getElementById("res-downtrend").textContent = resultado.DowntrendProxy == null
       ? "Downtrend Proxy indisponível."
@@ -48,13 +48,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
+  function limparResultado() {
+    ativo.hidden = true;
+    vazio.hidden = false;
+    vazio.textContent = selecao.value === "cenario"
+      ? "Informe os dados do cenário e consulte o resultado."
+      : "Escolha um município para consultar seu score.";
+    erro.hidden = true;
+  }
+  campos.addEventListener("input", limparResultado);
   selecao.addEventListener("change", () => {
     campos.disabled = selecao.value !== "cenario";
     campos.hidden = campos.disabled;
+    document.getElementById("simulador-desc-cenario").hidden = campos.disabled;
     botao.disabled = !selecao.value;
-    erro.hidden = true;
-    ativo.hidden = true;
-    vazio.hidden = false;
+    limparResultado();
   });
 
   form.addEventListener("submit", async evento => {
@@ -62,31 +70,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     const codigo = selecao.value;
     if (!codigo) return;
 
-    erro.hidden = true;
+    limparResultado();
     botao.disabled = true;
     selecao.disabled = true;
     try {
-      if (!apiDisponivel) {
+      // Municípios sempre usam a mesma exportação exibida nos gráficos.
+      if (codigo !== "cenario") {
         exibir(resultadoPublicado(codigo));
         return;
       }
-      const payload = codigo === "cenario"
-        ? { modo: "cenario_mensal", ...Object.fromEntries(new FormData(form)) }
-        : { municipio_ibge: codigo };
-      const resposta = await fetch("./api/calcular-score", {
+      const payload = { modo: "cenario_mensal", ...Object.fromEntries(new FormData(form)) };
+      campos.disabled = true;
+      const resultado = await requisicaoCredit42("./api/calcular-score", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const resultado = await resposta.json();
-      if (!resposta.ok) throw new Error(resultado.erro || "Não foi possível calcular o score.");
+      if (resultado?.modo !== "cenario_mensal" || resultado.model_version !== dados.model_version
+          || resultado.parameter_set_id !== dados.parameter_set_id
+          || !Number.isFinite(resultado.score_final) || resultado.score_final < 300 || resultado.score_final > 1000
+          || !Number.isFinite(resultado.DowntrendProxy) || resultado.DowntrendProxy < 0 || resultado.DowntrendProxy > 100) {
+        throw new Error("Resposta de cenário incompatível com a base publicada.");
+      }
       exibir(resultado);
     } catch (falha) {
-      erro.textContent = falha.message;
+      erro.textContent = falha.name === "AbortError"
+        ? "O cálculo excedeu o tempo de espera. Tente novamente."
+        : "Não foi possível calcular o cenário. Verifique os campos e tente novamente. A consulta dos municípios publicados continua disponível.";
       erro.hidden = false;
     } finally {
       botao.disabled = false;
       selecao.disabled = false;
+      campos.disabled = codigo !== "cenario";
     }
   });
 
@@ -97,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       selecao.add(new Option(`${item.localidade} (${item.regiao})`, item.municipio_ibge));
     }
     selecao.disabled = false;
-    status.textContent = "Consulte os scores publicados para os 20 municípios.";
+    status.textContent = `Consulte os scores publicados para os ${ranking.length} municípios.`;
   } catch {
     erro.textContent = "Não foi possível carregar o cadastro de municípios.";
     erro.hidden = false;
@@ -105,12 +120,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const resposta = await fetch("./api/ranking");
-    if (resposta.ok) {
-      const apiRanking = await resposta.json();
-      apiDisponivel = Array.isArray(apiRanking) && apiRanking.length === ranking.length &&
-        apiRanking.every(item => item.parameter_set_id === dados.parameter_set_id);
-    }
+    const apiRanking = await requisicaoCredit42("./api/ranking");
+    const codigos = new Set(ranking.map(item => item.municipio_ibge));
+    apiDisponivel = Array.isArray(apiRanking) && apiRanking.length === codigos.size &&
+      new Set(apiRanking.map(item => item.municipio_ibge)).size === codigos.size &&
+      apiRanking.every(item => codigos.has(item.municipio_ibge) &&
+        item.parameter_set_id === dados.parameter_set_id && item.model_version === dados.model_version);
   } catch {
     apiDisponivel = false;
   }
@@ -118,6 +133,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     selecao.add(new Option("Simular um cenário mensal", "cenario"));
     status.textContent = "Selecione um município ou escolha a opção de simulação.";
   } else {
-    status.textContent = "Consulte a base publicada. A simulação requer a aplicação Flask.";
+    status.textContent = "Consulte os 70 municípios publicados. Simulação mensal indisponível nesta versão.";
   }
 });

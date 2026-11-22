@@ -12,7 +12,6 @@ from servicos_dados import (
     classificar_faixa_renda,
     obter_municipios_completos,
     filtrar_municipios_socioeconomicos,
-    FALLBACK_INADIMPLENCIA
 )
 
 
@@ -30,7 +29,7 @@ class TestesServicosDados(unittest.TestCase):
 
     def test_obter_municipios_completos(self):
         municipios = obter_municipios_completos()
-        self.assertEqual(len(municipios), 20)
+        self.assertEqual(len(municipios), 70)
         primeiro = municipios[0]
         self.assertIn('localidade', primeiro)
         self.assertIn('codigo_ibge', primeiro)
@@ -62,10 +61,20 @@ class TestesServicosDados(unittest.TestCase):
         self.assertEqual(res_busca['total'], 1)
         self.assertIn('Marabá', res_busca['municipios'][0]['localidade'])
 
-    def test_fallback_inadimplencia_regional(self):
+    def test_busca_sem_acentos_espacos_e_caixa(self):
+        for busca, esperado in [(' Araguaina ', 'Araguaína'), ('MARABÁ', 'Marabá'),
+                                ('Ji-Parana', 'Ji-Paraná'), ('Campina   Grande', 'Campina Grande')]:
+            with self.subTest(busca=busca):
+                municipios = filtrar_municipios_socioeconomicos({'busca': busca})['municipios']
+                self.assertEqual(len(municipios), 1)
+                self.assertIn(esperado, municipios[0]['localidade'])
+        self.assertEqual(filtrar_municipios_socioeconomicos({'busca': 'inexistente'})['total'], 0)
+
+    def test_falha_na_coleta_nao_inventa_inadimplencia(self):
         with patch('servicos_dados.consultar_serie_bcb', return_value=[]):
             taxa_norte = obter_inadimplencia_regional_bcb('Norte')
-            self.assertEqual(taxa_norte, FALLBACK_INADIMPLENCIA['Norte'])
+            self.assertIsNone(taxa_norte)
+        self.assertIsNone(obter_inadimplencia_regional_bcb('Inválida'))
 
     @patch('requests.get')
     def test_consultar_serie_bcb_com_dados(self, mock_get):
@@ -79,6 +88,7 @@ class TestesServicosDados(unittest.TestCase):
         dados = consultar_serie_bcb(15952, ultimos=1)
         self.assertEqual(len(dados), 1)
         self.assertEqual(dados[0]['valor'], 5.85)
+        self.assertNotIn('verify', mock_get.call_args.kwargs)
 
 
 if __name__ == '__main__':
