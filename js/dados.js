@@ -10,9 +10,16 @@ function carregarDadosCredit42() {
       dados?.apoio?.grafico_a1_evolucao_inadimplencia, dados?.serie_inadimplencia_regional,
       dados?.pix_brasil, dados?.pix_regioes, dados?.catalogo_municipios,
       dados?.inadimplencia_estadual, dados?.ranking_inadimplencia_municipal];
+    const ranking = dados?.principais?.grafico_p2_ranking_score_municipal;
+    const catalogo = dados?.catalogo_municipios;
+    const codigosRanking = new Set(Array.isArray(ranking) ? ranking.map(item => item?.municipio_ibge) : []);
+    const codigosCatalogo = new Set(Array.isArray(catalogo) ? catalogo.map(item => item?.municipio_ibge) : []);
     if (!series.every(Array.isArray) || !Array.isArray(dados.score_metadata?.periodo_agregacao)
         || !dados.fontes?.credito_regional || !dados.fontes?.inadimplencia_regional
-        || !dados.model_version || !dados.parameter_set_id) {
+        || !dados.model_version || !dados.parameter_set_id
+        || catalogo.length !== 70 || ranking.length !== 70
+        || codigosCatalogo.size !== 70 || codigosRanking.size !== 70
+        || [...codigosCatalogo].some(codigo => !codigosRanking.has(codigo))) {
       throw new Error("Exportação do Colab incompleta.");
     }
     return dados;

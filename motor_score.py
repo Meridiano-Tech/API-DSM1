@@ -1,16 +1,17 @@
-"""Score territorial Credit42 v3.1, com dados de uma execução do Colab."""
+"""Score territorial Credit42 v3.2, com dados de uma execução do Colab."""
 
 import csv
 import json
 import math
 import re
 import unicodedata
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 from statistics import fmean
 
 DIRETORIO_DADOS = Path(__file__).resolve().parent / "dados"
-MODELO = "credit42-municipal-20-3.1"
+MODELO = "credit42-municipal-70-3.2"
+COTAS = {"Norte": 20, "Nordeste": 20, "Centro-Oeste": 10, "Sudeste": 10, "Sul": 10}
 MESES = tuple(f"{ano}-{mes:02d}" for ano in range(2024, 2027)
               for mes in range(1, (10 if ano == 2026 else 12) + 1))
 REGIOES = ("Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul")
@@ -18,6 +19,8 @@ PESO_VOLUME = 0.60
 PESO_PAGADORES = 0.40
 AMP_INADIMPLENCIA = 0.15
 APROVACAO = "NAO_HOMOLOGADO"
+SCORE_NEUTRO_FALLBACK = 650.0
+MOTIVO_FALLBACK = "FALLBACK_NEUTRO_650_SEM_INSUMOS_VALIDOS"
 
 
 class DadosInconsistentes(ValueError):
@@ -55,6 +58,10 @@ def intensidades(populacao, valor_pf, pagadores_pf):
 
 def normalizar(valor, limites):
     minimo, maximo = limites
+    # Uma amostra válida, porém constante, ainda deve produzir um índice
+    # neutro. Isto evita uma divisão por zero e preserva o município no painel.
+    if math.isclose(minimo, maximo):
+        return 50.0
     return min(100.0, max(0.0, 100 * (valor - minimo) / (maximo - minimo)))
 
 
@@ -100,7 +107,9 @@ class MotorScore:
 
         catalogo = painel["catalogo_municipios"]
         self.municipios = {item["municipio_ibge"]: item for item in catalogo}
-        if len(catalogo) != 20 or len(self.municipios) != 20 or set(self.municipios) != set(proxy["universo"]):
+        if (Counter(item["regiao"] for item in catalogo) != COTAS
+                or len(self.municipios) != len(catalogo)
+                or sorted(self.municipios) != sorted(proxy["universo"])):
             raise DadosInconsistentes("O catálogo não corresponde ao universo de normalização.")
 
         grupos = self._ler_observacoes()
@@ -108,7 +117,7 @@ class MotorScore:
         limites = []
         for coluna, nome in enumerate(("VolPix_per_capita", "Pagadores_per_capita")):
             valores = [dados[coluna] for dados in referencia]
-            if not valores or min(valores) == max(valores):
+            if not valores:
                 limites.append(None)
                 continue
             minimo, maximo = min(valores), max(valores)
@@ -144,9 +153,12 @@ class MotorScore:
                     raise DadosInconsistentes("Linha municipal duplicada ou incompatível.")
                 chaves.add(chave)
                 pop_catalogo = self.municipios[codigo]["pop_total"]
-                if not pop_catalogo:
-                    if linha["pop_total"] and float(linha["pop_total"]) != pop_catalogo:
-                        raise DadosInconsistentes("População da observação diverge do catálogo.")
+                if pop_catalogo is None:
+                    # Sem denominador IBGE não há observação municipal válida,
+                    # mas a linha da grade continua obrigatória e será tratada
+                    # pelo fallback territorial.
+                    if linha["observado"] == "True":
+                        raise DadosInconsistentes("Observação Pix sem população no catálogo.")
                     continue
                 populacao = numero(linha["pop_total"], "população", inteiro=True, positivo=True)
                 if populacao != pop_catalogo:
@@ -169,17 +181,37 @@ class MotorScore:
                 pagadores_norm = normalizar(pagadores, self.limites[1])
                 series[mes] = (volume_norm, pagadores_norm, downtrend(volume_norm, pagadores_norm))
 
-        componentes = {
-            "volume_pf_normalizado": fmean(v[0] for v in series.values()) if series else None,
-            "pagadores_pf_normalizados": fmean(v[1] for v in series.values()) if series else None,
-        }
-        indice = fmean(v[2] for v in series.values()) if series else None
-        score = pontuacao(indice) if indice is not None else None
-        competencia_inad = max(series.keys() & taxas.keys(), default=None)
+        possui_observacoes = bool(series)
+        if possui_observacoes:
+            componentes = {
+                "volume_pf_normalizado": fmean(v[0] for v in series.values()),
+                "pagadores_pf_normalizados": fmean(v[1] for v in series.values()),
+            }
+            indice = fmean(v[2] for v in series.values())
+            score = pontuacao(indice)
+            status_score = "CALCULADO"
+            reason_score = "PROXY_MUNICIPAL_NAO_HOMOLOGADO"
+            competencia_calculada = max(series)
+        else:
+            # O catálogo possui 70 municípios fixos. Quando uma fonte não
+            # entrega insumos suficientes para uma cidade, ela continua no
+            # ranking com score neutro, claramente identificado como estimado.
+            componentes = {
+                "volume_pf_normalizado": 50.0,
+                "pagadores_pf_normalizados": 50.0,
+            }
+            indice = 50.0
+            score = SCORE_NEUTRO_FALLBACK
+            status_score = "ESTIMADO"
+            reason_score = MOTIVO_FALLBACK
+            competencia_calculada = None
+
+        competencia_inad = max(taxas, default=None)
         taxa_base = taxa_estimada = None
         if competencia_inad is not None:
             taxa_base = taxas[competencia_inad]
-            indice_inad = fmean(v[2] for mes, v in series.items() if mes <= competencia_inad)
+            serie_para_inad = [v[2] for mes, v in series.items() if mes <= competencia_inad]
+            indice_inad = fmean(serie_para_inad) if serie_para_inad else 50.0
             fator = 1 + AMP_INADIMPLENCIA - 2 * AMP_INADIMPLENCIA * indice_inad / 100
             taxa_estimada = round(min(100.0, max(0.0, taxa_base * fator)), 4)
 
@@ -193,9 +225,10 @@ class MotorScore:
             "score_final": score,
             "Score_Inclusivo": score,
             "DowntrendProxy": indice,
-            "status_score": "CALCULADO" if series else "SEM_DADO",
+            "status_score": status_score,
+            "reason_score": reason_score,
             "Aprovacao": APROVACAO,
-            "competencia_calculada": max(series, default=None),
+            "competencia_calculada": competencia_calculada,
             "meses_validos": len(series),
             "meses_esperados": len(MESES),
             "cobertura_pct": 100 * len(series) / len(MESES),
@@ -235,6 +268,7 @@ class MotorScore:
                 resultado["score_final"] != linha["score_final"]
                 or resultado["Score_Inclusivo"] != linha["Score_Inclusivo"]
                 or resultado["status_score"] != linha["status_score"]
+                or resultado["reason_score"] != linha.get("reason_score")
                 or resultado["Aprovacao"] != linha["Aprovacao"]
                 or base["status_inadimplencia"] != taxa["status_inadimplencia"]
                 or not math.isclose(resultado["cobertura_pct"], linha["cobertura_pct"])

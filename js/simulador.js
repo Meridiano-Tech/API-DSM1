@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       selecao.add(new Option(`${item.localidade} (${item.regiao})`, item.municipio_ibge));
     }
     selecao.disabled = false;
-    status.textContent = "Consulte os scores publicados para os 20 municípios.";
+    status.textContent = `Consulte os scores publicados para os ${ranking.length} municípios.`;
   } catch {
     erro.textContent = "Não foi possível carregar o cadastro de municípios.";
     erro.hidden = false;
@@ -133,6 +133,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     selecao.add(new Option("Simular um cenário mensal", "cenario"));
     status.textContent = "Selecione um município ou escolha a opção de simulação.";
   } else {
-    status.textContent = "Consulte os 20 municípios publicados. Simulação mensal indisponível nesta versão.";
+    status.textContent = "Consulte os 70 municípios publicados. Simulação mensal indisponível nesta versão.";
   }
 });
