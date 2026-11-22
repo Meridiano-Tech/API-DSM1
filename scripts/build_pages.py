@@ -22,10 +22,15 @@ PAGINAS = (
 
 # Séries estaduais usadas pelo Colab para as UFs do cadastro municipal.
 SGS_ESTADUAL = {
-    "AL": 15926, "BA": 15929, "CE": 15930, "MA": 15934, "MG": 15937,
-    "PA": 15938, "PB": 15939, "PE": 15941, "PI": 15942, "RN": 15944,
-    "RO": 15946, "TO": 15951,
+    "AC": 15925, "AL": 15926, "AP": 15927, "AM": 15928,
+    "BA": 15929, "CE": 15930, "ES": 15932, "GO": 15933,
+    "MA": 15934, "MT": 15935, "MS": 15936, "MG": 15937,
+    "PA": 15938, "PB": 15939, "PR": 15940, "PE": 15941,
+    "PI": 15942, "RJ": 15943, "RN": 15944, "RS": 15945,
+    "RO": 15946, "RR": 15947, "SC": 15948, "SP": 15949,
+    "TO": 15951,
 }
+
 
 DADOS_PUBLICOS = ("dados_site.json", "perfil_radar.json")
 DADOS_COLAB = (*DADOS_PUBLICOS, "parameters.json", "municipal_metrics.csv")
