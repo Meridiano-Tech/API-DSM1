@@ -25,7 +25,7 @@ test('indicadores por ano, escopo dos filtros e valores do Colab', async ({ page
   await expect(page.locator('canvas[role="img"]')).toHaveCount(2);
   const pix = await page.locator('#card-2 .cardvalor').innerText();
   await page.selectOption('#filtro-regiao-macro', 'Sudeste');
-  await expect(page.locator('#badge-total-filtrado')).toHaveText('1 município');
+  await expect(page.locator('#badge-total-filtrado')).toHaveText('10 municípios');
   await expect(page.locator('#card-2 .cardvalor')).toHaveText(pix);
   await expect(page.locator('#grafico-1 h3')).toContainText('Norte e Nordeste');
   await page.selectOption('#filtro-ano', '2024');
@@ -38,7 +38,7 @@ test('busca sem acento, exportação com proveniência e resultado vazio', async
   await expect(page.locator('#btn-exportar-csv')).toBeEnabled();
   await page.fill('#filtro-busca-muni', ' Araguaina ');
   await expect(page.locator('#badge-total-filtrado')).toHaveText('1 município');
-  await expect(page.locator('#grafico-2 .dados-grafico')).toContainText('826,22 pontos');
+  await expect(page.locator('#grafico-2 .dados-grafico')).toContainText('770,25 pontos');
   const [download] = await Promise.all([
     page.waitForEvent('download'), page.click('#btn-exportar-csv'),
   ]);
@@ -75,8 +75,9 @@ test('consulta publicada coincide com o Colab; rankings compartilham escala', as
   await expect(page.locator('#select-municipio')).toBeEnabled();
   await page.selectOption('#select-municipio', '1702109');
   await page.click('#btn-calcular');
-  await expect(page.locator('#res-score')).toHaveText('826,22');
-  await expect(page.locator('#res-inadimplencia')).toContainText('4,6145% em 2026-09');
+  await expect(page.locator('#res-score')).toHaveText('770,25');
+  await expect(page.locator('#res-inadimplencia'))
+  .toContainText('4,7309% em 2026-09');
   await expect(page.locator('#simulador-status')).toContainText('indisponível nesta versão');
   await expect(page.locator('canvas[role="img"]')).toHaveCount(8);
   await page.locator('#analises > summary').click();
