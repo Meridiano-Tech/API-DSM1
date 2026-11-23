@@ -1,7 +1,7 @@
 # Fontes e Links — CREDIT42
 
-**Referência:** modelo municipal v3.1  
-**Verificação documental:** 10/11/2026
+**Referência:** modelo municipal `credit42-municipal-70-3.2`<br>
+**Conferência contra o código e manifesto:** 22/11/2026
 
 Este catálogo distingue as fontes consultadas pelo notebook das referências de pesquisa. A existência de uma página ou API não significa que seus indicadores estejam integrados ao score. Nenhum endereço deste arquivo autoriza atribuir dados pessoais a partir de observações territoriais.
 
@@ -44,9 +44,14 @@ O Pix exige filtro explícito `AnoMes` e validação de completude. Na populaç�
 | Carteira nacional | 20539. |
 | Inadimplência nacional — base da proxy municipal | 21082. |
 | IPCA — deflator do IPT auxiliar | 433. |
-| Inadimplência estadual das UFs selecionadas | AL: 15926; BA: 15929; CE: 15930; MA: 15934; MG: 15937; PA: 15938; PB: 15939; PE: 15941; PI: 15942; RN: 15944; RO: 15946; TO: 15951. |
+| Inadimplência estadual das UFs do cadastro | AC: 15925; AL: 15926; AP: 15927; AM: 15928; BA: 15929; CE: 15930; ES: 15932; GO: 15933; MA: 15934; MT: 15935; MS: 15936; MG: 15937; PA: 15938; PB: 15939; PR: 15940; PE: 15941; PI: 15942; RJ: 15943; RN: 15944; RS: 15945; RO: 15946; RR: 15947; SC: 15948; SP: 15949; TO: 15951. |
 
-O notebook confere nome e unidade das séries estaduais antes de usar seus históricos. A taxa municipal publicada é estimada pela fórmula documentada, e não obtida de uma dessas séries como observação municipal.
+O cadastro e a validação do build cobrem as 25 UFs representadas nos 70
+municípios. A execução pode ainda registrar ausência de observações válidas para
+uma série/competência; o código da série configurado não garante que a fonte
+tenha publicado todos os meses. A taxa municipal publicada é estimada pela
+fórmula documentada, e não obtida de uma dessas séries como observação
+municipal.
 
 ## 2. Referências complementares e legadas
 
@@ -77,4 +82,7 @@ A referência da ANPD é informativa. A documentação do projeto não pressupõ
 - A página SIDRA 9514 retornou bloqueio de acesso na conferência web, e suas páginas de metadados não puderam ser lidas por esse meio. A definição dos endpoints ativos foi conferida no código do notebook; isso não substitui a validação das respostas durante cada execução.
 - A conferência de páginas não equivale a testar todas as APIs, credenciais, séries e competências. O pipeline deve verificar esses requisitos ao coletar os dados.
 
-**Documentação relacionada:** [Tratamento dos dados](tratamento_dados.md) · [Manual do usuário](manual_usuario.md) · [Especificação técnica](ESPECIFICACAO_TECNICA_CREDIT42.md) · [README](README.md).
+**Documentação relacionada:** [Tratamento dos dados](tratamento_dados.md) ·
+[Manual do usuário](manual_do_usuario.md) ·
+[Especificação técnica](ESPECIFICACAO_TECNICA_CREDIT42.md) ·
+[README do projeto](../../../README.md).

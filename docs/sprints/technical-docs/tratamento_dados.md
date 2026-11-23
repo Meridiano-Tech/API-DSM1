@@ -1,11 +1,14 @@
 # Tratamento de Dados — CREDIT42
 
-**Referência:** modelo municipal `credit42-municipal-20-3.1`  
+**Referência:** modelo municipal `credit42-municipal-70-3.2`
 **Período analisado:** janeiro de 2024 a outubro de 2026  
-**Universo municipal:** 20 municípios originais  
-**Atualização documental:** 10/11/2026
+**Universo municipal:** 70 municípios nas cinco regiões
+**Atualização documental:** 22/11/2026
 
-> Este documento descreve o código entregue. As regras do antigo texto v2.1 que não são executadas estão identificadas como legadas. A normalização desta documentação não altera o notebook.
+> Fonte canônica para o tratamento vigente: modelo `credit42-municipal-70-3.2`
+> e exportação em `dados/`. As regras de propostas antigas que não são
+> executadas estão identificadas como legadas. A documentação não altera o
+> notebook nem o contrato JSON `schema_version` 3.0.
 
 ## 📑 Índice
 
@@ -85,9 +88,16 @@ DowntrendProxy = 0,60 × VolPix_norm + 0,40 × Pagadores_norm
 Score_Inclusivo = 300 + 7 × média dos DowntrendProxy mensais válidos
 ```
 
-Os extremos são calculados sobre os 20 municípios e os meses válidos de janeiro/2024 a outubro/2026. Se não houver intervalo min–max válido, o componente permanece ausente. Ambos os componentes devem existir para formar um Downtrend mensal; não se redistribuem os pesos por falta de um deles.
+Os extremos são calculados sobre os 70 municípios e os meses válidos de janeiro/2024 a outubro/2026. Se não houver intervalo min–max válido, o componente permanece ausente. Ambos os componentes devem existir para formar um Downtrend mensal; não se redistribuem os pesos por falta de um deles.
 
-O resumo municipal usa apenas os meses com Downtrend calculado. Pode haver score com cobertura parcial: `meses_validos` e `cobertura_pct` devem acompanhar o resultado. Sem nenhum mês válido, o score fica indisponível. As constantes 300 e 7 definem a escala 300–1.000; não representam probabilidades de pagamento.
+O resumo municipal usa apenas os meses com Downtrend calculado. Pode haver score
+com cobertura parcial: `meses_validos` e `cobertura_pct` devem acompanhar o
+resultado. Sem nenhum mês válido, o município permanece na saída com score
+neutro estimado 650, índice neutro 50, `status_score=ESTIMADO` e
+`reason_score=FALLBACK_NEUTRO_650_SEM_INSUMOS_VALIDOS`. O fallback é uma regra
+explícita de continuidade, não uma observação real nem uma validação do modelo.
+As constantes 300 e 7 definem a escala 300–1.000; não representam
+probabilidades de pagamento.
 
 ### 3.2 Inadimplência municipal estimada
 
@@ -113,7 +123,7 @@ Os bônus CadÚnico de 15 pontos e IDHM de 25 pontos, a composição Micro/Macro
 
 1. **Porte e população-base:** o uso per capita reduz o efeito de tamanho, mas mantém um denominador do Censo 2022 durante 2024–2026. O score legado usa população total; o IPT auxiliar usa população adulta. Trocar esses denominadores altera a metodologia.
 2. **Universo descritivo:** o min–max do score considera toda a janela, inclusive meses posteriores aos primeiros pontos da série. Serve à comparação retrospectiva; não equivale a uma simulação histórica disponível em tempo real em cada mês.
-3. **Seleção municipal:** a lista preservada tem 20 municípios; a validação anterior identificou 14 fora da faixa exploratória de 200–300 mil habitantes. O catálogo registra essa condição.
+3. **Seleção municipal:** a lista preservada tem 70 municípios; a execução com 70 municípios identificou 56 fora da faixa exploratória de 200–300 mil habitantes. O catálogo registra essa condição.
 4. **Granularidade:** taxas estaduais ou nacionais não são atrasos pessoais nem inadimplência municipal observada. A estimativa municipal deve manter seu rótulo.
 5. **Circularidade:** score e inadimplência estimada derivam do mesmo Downtrend. A estimativa não valida o score de forma independente.
 6. **Pagadores distintos:** a API não fornece chaves pessoais para desduplicação entre meses e territórios; as agregações publicadas de Pix usam valores e operações, sem anunciar a soma de pagadores como pessoas únicas.
@@ -145,7 +155,7 @@ Essas quatro classes descrevem a natureza dos dados; não constituem um único c
 
 ### T03 — Chaves, duplicidades e competência
 
-Cruzar tabelas por `municipio_ibge` e, quando aplicável, `competencia`. Rejeitar duplicidades incompatíveis com a unidade município-mês. Preservar a grade completa de 680 posições esperadas para que as ausências permaneçam visíveis. Nomes de municípios são rótulos; os códigos identificam os registros.
+Cruzar tabelas por `municipio_ibge` e, quando aplicável, `competencia`. Rejeitar duplicidades incompatíveis com a unidade município-mês. Preservar a grade completa de 2.380 posições esperadas para que as ausências permaneçam visíveis. Nomes de municípios são rótulos; os códigos identificam os registros.
 
 ### T04 — Extração Pix e completude
 
@@ -153,7 +163,7 @@ Filtrar explicitamente `AnoMes` em cada consulta, além de `DataBase`, e validar
 
 ### T05 — Agregações e unidades
 
-Somar valores e quantidades apenas com a cobertura exigida pela agregação. Não somar pagadores distintos entre regiões ou meses como pessoas únicas. Preservar Pix sem localização no total nacional, identificando a diferença nas reconciliações. Os gráficos regionais usam a coleta nacional, e não somente a amostra dos 20 municípios. Conversões para milhões ou bilhões afetam a apresentação e devem conservar a unidade de origem nos metadados.
+Somar valores e quantidades apenas com a cobertura exigida pela agregação. Não somar pagadores distintos entre regiões ou meses como pessoas únicas. Preservar Pix sem localização no total nacional, identificando a diferença nas reconciliações. Os gráficos regionais usam a coleta nacional, e não somente a amostra dos 70 municípios. Conversões para milhões ou bilhões afetam a apresentação e devem conservar a unidade de origem nos metadados.
 
 ### T06 — Metadados e contingência
 
@@ -181,5 +191,8 @@ Os gráficos devem distinguir estimativas de taxas observadas e informar compet�
 
 Um manifesto não pode conter hash de resposta que não foi recebida; nesse caso, registra-se a falha. Toda alteração de período, população-base, municípios, pesos ou normalização deve ser documentada e versionada. Os resultados são exploratórios e não homologados para decisão individual de crédito.
 
-**Documentação relacionada:** [Manual do usuário](manual_usuario.md) · [Fontes e links](links.md) · [Especificação técnica](ESPECIFICACAO_TECNICA_CREDIT42.md) · [README](README.md).
+**Documentação relacionada:** [Manual do usuário](manual_do_usuario.md) ·
+[Fontes e links](links.md) ·
+[Especificação técnica](ESPECIFICACAO_TECNICA_CREDIT42.md) ·
+[README do projeto](../../../README.md) · [Publicação](../../PUBLICACAO.md).
 
