@@ -9,28 +9,28 @@ function montarGrafico(id, tipo, labels, datasets, escalas = {}, eixo = "x", for
     area.textContent = "Dados indisponíveis no período.";
     return;
   }
-  const canvas = document.createElement("canvas");
   if (eixo === "y") {
     area.style.height = `${Math.max(285, labels.length * 24 + 55)}px`;
     area.style.maxHeight = "none";
   }
-  area.replaceChildren(canvas);
-  new Chart(canvas, {
+  renderizarGraficoCredit42(area, {
     type: tipo,
+    plugins: [rotulosBarrasCredit42],
     data: { labels, datasets },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       indexAxis: eixo,
+      layout: { padding: { right: eixo === "y" ? 50 : 0 } },
       scales: escalas,
       plugins: {
-        legend: { display: datasets.length > 1 || tipo === "doughnut", position: "bottom" },
+        legend: { display: datasets.length > 1 || tipo === "doughnut", position: "bottom", labels: { font: { size: 13 } } },
         ...(formatarTooltip && { tooltip: { callbacks: {
           label: item => `${item.dataset.label}: ${formatarTooltip(item.raw)}`,
         } } }),
       },
     },
-  });
+  }, formatarTooltip);
 }
 
 function linha(label, data, cor) {
@@ -84,11 +84,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     dados = await carregarDadosCredit42();
   } catch {
+    estadoDadosCredit42("falha");
     document.querySelectorAll(".graficoarea").forEach(area => {
       area.textContent = "Não foi possível carregar os dados.";
     });
     return;
   }
+  mostrarCoberturaCredit42(dados);
+  document.getElementById("versao-base").textContent = `Modelo ${dados.model_version} · parâmetros ${dados.parameter_set_id}. Exportação ${dados.generated_at_utc}. Esta data de processamento não representa uma nova coleta das fontes.`;
+  document.getElementById("fontes-series").textContent = `Séries SGS de carteira (R$ milhões na origem): ${Object.entries(dados.fontes.credito_regional).map(([r, s]) => `${r}: ${s}`).join("; ")}. Inadimplência regional (%): ${Object.entries(dados.fontes.inadimplencia_regional).map(([r, s]) => `${r}: ${s}`).join("; ")}. Referência nacional da estimativa municipal: SGS 21082.`;
 
   const credito = dados.principais.grafico_p1_serie_temporal_credito;
   const meses = credito.map(item => item.mes);
@@ -97,9 +101,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   ranking("grafico-perfil", dados.principais.grafico_p2_ranking_score_municipal,
     "score_final", "localidade", "Pontos", "#0052cc", 1000);
   montarGrafico("grafico-metricas", "doughnut", ["Volume Pix PF por habitante", "Pagadores PF por habitante"], [{
+    label: "Peso no Downtrend (%)",
     data: [60, 40],
     backgroundColor: ["#0a5c7a", "#cc5200"],
-  }]);
+  }], {}, "x", valor => `${numeroCredit42.format(valor)}%`);
 
   montarGrafico("grafico-colab-1", "line", meses, REGIOES_CREDIT42.map((regiao, i) =>
     linha(regiao, credito.map(item => Number.isFinite(item[regiao]) ? item[regiao] / (BILHAO / MILHAO) : null),
@@ -121,16 +126,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const competencias = [...new Set(estimativas.filter(item => Number.isFinite(item.taxa_inadimplencia))
     .map(item => item.competencia_inadimplencia))].sort();
   document.getElementById("competencia-inad-5").textContent = competencias.join(" a ");
-  ranking("grafico-colab-5", estimativas.map(item => ({
-    ...item, localidade: `${item.localidade} · ${item.competencia_inadimplencia ?? "—"}`,
-  })), "taxa_inadimplencia", "localidade", "Taxa estimada (%)", "#ba4949");
-
   const estados = dados.inadimplencia_estadual;
   const ufs = [...new Set(estados.map(item => item.uf))];
   const competencia = [...meses].reverse().find(mes =>
     ufs.length && ufs.every(uf => estados.some(item =>
       item.uf === uf && item.competencia === mes && Number.isFinite(item.valor))));
   document.getElementById("competencia-inad-6").textContent = competencia ?? "";
-  ranking("grafico-colab-6", estados.filter(item => item.competencia === competencia),
-    "valor", "uf", "Taxa observada (%)", "#286b78");
+  const estadosNoMes = estados.filter(item => item.competencia === competencia);
+  const maximo = Math.ceil(Math.max(0, ...estimativas.map(i => i.taxa_inadimplencia ?? 0), ...estadosNoMes.map(i => i.valor ?? 0))) + 1;
+  ranking("grafico-colab-5", estimativas.map(item => ({
+    ...item, localidade: competencias.length === 1 ? item.localidade : `${item.localidade} · ${item.competencia_inadimplencia ?? "—"}`,
+  })), "taxa_inadimplencia", "localidade", "Taxa estimada (%)", "#ba4949", maximo);
+  ranking("grafico-colab-6", estadosNoMes,
+    "valor", "uf", "Taxa observada (%)", "#286b78", maximo);
 });

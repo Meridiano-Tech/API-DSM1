@@ -1,47 +1,121 @@
-# Organização e publicação
+# Build e publicação
 
-## Estrutura do projeto
+Este documento descreve o caminho entre a execução do Colab e o site. A fonte
+dos dados publicados é a exportação validada em `dados/`; o build cria o site
+estático em `_site/`. A hospedagem do Pages não executa Flask.
 
-Os arquivos principais da aplicação permanecem na raiz porque o Flask utiliza esses caminhos atualmente.
+## Estrutura relevante
 
-- `app.py`: aplicação Flask e rotas da API.
-- `motor_score.py`: regras do motor de score.
-- `index.html`, `composicao.html` e `sobre.html`: páginas do frontend.
-- `css/`: estilos e imagens.
-- `js/`: scripts do navegador.
-- `dados/`: arquivos JSON utilizados pelo frontend.
-- `testes/`: testes automatizados.
-- `scripts/`: scripts auxiliares de automação.
-- `.github/workflows/`: configurações do GitHub Actions.
-- `docs/`: documentação do projeto e das sprints.
+| Caminho | Responsabilidade |
+|---|---|
+| `index.html`, `composicao.html`, `sobre.html` | Páginas do frontend. |
+| `css/`, `js/` | Estilos e comportamento do navegador. |
+| `dados/dados_site.json` | Dados e contrato consumidos pelo frontend. |
+| `dados/parameters.json`, `dados/perfil_radar.json`, `dados/run_manifest.json` | Parâmetros, produtos auxiliares e proveniência da execução. |
+| `motor_score.py` | Validação e reprodução dos resultados municipais. |
+| `scripts/build_pages.py` | Validação dos artefatos e criação de `_site/`. |
+| `scripts/verificar_publicacao.py` | Conferência pós-deploy dos dados e arquivos públicos. |
+| `.github/workflows/` | Automação de QA e publicação. |
+
+## Atualizar dados a partir do Colab
+
+1. Execute o notebook integrado até o bloco final de exportação e gráficos.
+   Antes de importar os arquivos, confirme no manifesto que o modelo é
+   `credit42-municipal-70-3.2`, que o cadastro contém 70 municípios nas cotas
+   documentadas e que o período solicitado é `2024-01`–`2026-10`. Notebook ou
+   exportação sem esses metadados compatíveis não deve substituir a base do
+   site.
+2. Baixe o pacote de integração definido pela versão vigente do notebook e use
+   arquivos da **mesma execução**. O repositório identifica os artefatos
+   requeridos pelo mapa `output_sha256` de `run_manifest.json`; esse manifesto,
+   e não um nome fixo de ZIP, é a referência para determinar o conjunto da
+   execução.
+3. Atualize os artefatos requeridos pelo manifesto dentro de `dados/`. O
+   conjunto inclui `dados_site.json`, `dados_site.js`, `parameters.json`,
+   `perfil_radar.json`, `municipal_metrics.csv`, `run_manifest.json` e os demais
+   produtos listados em `output_sha256` no manifesto.
+4. Preserve os bytes exportados. Alterar, reformatar ou reserializar um arquivo
+   coberto por hash invalida a proveniência e fará o build falhar.
+5. Revise o relatório de qualidade e o manifesto. `APROVADO` indica integridade
+   técnica das verificações; não significa homologação do score ou cobertura
+   observada de todas as fontes.
+
+O `schema_version` do JSON atualmente publicado é `3.0`; o modelo é
+`credit42-municipal-70-3.2`. A atualização de dados não autoriza mudar chaves,
+hierarquia ou tipos do JSON. Qualquer mudança de contrato deve ser versionada e
+atualizada de forma coordenada no produtor, consumidor e testes.
 
 ## Validação local
 
-Na raiz do repositório, execute:
+Na raiz do repositório:
 
 ```bash
+python -m pip install -r requirements.txt
 python -m unittest discover -s testes -p "testes_*.py" -v
 python scripts/build_pages.py
 ```
 
-## Dados do Colab e motor territorial
+Os comandos acima validam a suíte Python e constroem `_site/`. O QA de navegador
+usa Node.js e Playwright conforme os scripts de `package.json` e o workflow.
+Consulte os resultados da execução; não considere a publicação aprovada apenas
+porque o build terminou.
 
-Execute todas as células do Colab, incluindo o bloco final de gráficos, e baixe o ZIP `credit42_outputs`. Copie `dados_site.json`, `parameters.json`, `municipal_metrics.csv`, `perfil_radar.json` e `run_manifest.json` da **mesma execução** para `dados/`. Preserve os arquivos originais para que os hashes SHA-256 continuem válidos.
+## Metodologia e leitura dos dados
 
-Execute os testes e o build antes de enviar os cinco arquivos em um único commit. O build valida os hashes, a versão, o conjunto de parâmetros e o status técnico. O motor valida o recorte e a concordância entre os scores recalculados e o ranking exportado. Reinicie o Flask depois de trocar os arquivos. A base incluída é a execução `20261108T162802329411Z`.
+O recorte do score contém 34 competências de `2024-01` a `2026-10` e 70
+municípios, nas cotas Norte 20, Nordeste 20, Centro-Oeste 10, Sudeste 10 e Sul
+10. A fórmula combina Pix PF nominal por habitante (60%) e pagadores PF
+distintos no mês por habitante (40%), normalizados por min–max na amostra e
+janela. A pontuação é `300 + 7 × média dos DowntrendProxy mensais válidos`.
 
-A série usa janeiro/2024 a outubro/2026 e os 20 municípios definidos no Colab. O Downtrend combina volume Pix PF nominal por habitante (60%) e pagadores PF distintos por habitante (40%), após normalização min–max. O score é `300 + 7 × média do Downtrend dos meses válidos`. A inadimplência estimada é exibida com a competência da série nacional usada como base.
+Municípios sem nenhum mês válido permanecem no ranking com score neutro 650,
+identificado como estimado e acompanhado do motivo de fallback. Ausências nas
+séries não são convertidas em observações zero. A inadimplência municipal é uma
+estimativa baseada na taxa nacional BCB/SGS 21082 e compartilha o Downtrend com o
+score; portanto, não constitui validação independente. Ver [tratamento dos
+dados](sprints/technical-docs/tratamento_dados.md) e [especificação técnica](sprints/technical-docs/ESPECIFICACAO_TECNICA_CREDIT42.md).
 
-| Método e rota | Entrada | Resultado |
-|---|---|---|
-| `GET /api/ranking` | Sem corpo. | Ranking territorial, cobertura, competências e estimativa municipal. |
-| `POST /api/calcular-score` | `{"municipio_ibge":"1504208"}` | Resultado do município de código 1504208. O campo `localidade` também é aceito para consulta pelo nome do cadastro. |
-| `POST /api/calcular-score` | `modo: "cenario_mensal"`, `localidade`, `regiao`, `populacao`, `valor_pf` e `pagadores_pf`. | Score hipotético de um mês com os limites da base publicada. |
+## Contrato do site e rotas opcionais
 
-O navegador lê os gráficos e o ranking publicado de `dados/dados_site.json`. O Extrato usa `serie_inadimplencia_regional` por competência e região. O ranking regional mantém a última competência comum às cinco regiões. Quando o SGS não retorna uma competência, a série conserva `null`. O pacote estático do GitHub Pages permite consultar os municípios publicados. A opção de simular um mês fica disponível quando o Flask responde com o mesmo conjunto de parâmetros.
+O navegador lê `dados/dados_site.json`. Gráficos, rankings e extrato devem
+respeitar a competência e o status de cada registro. Valores ausentes continuam
+`null` e devem ser exibidos como indisponíveis, nunca como zero.
 
-## Publicação no GitHub Pages
+| Rota Flask | Uso |
+|---|---|
+| `GET /api/ranking` | Consulta do ranking territorial publicado. |
+| `POST /api/calcular-score` | Consulta municipal por `municipio_ibge` ou `localidade`; pode atender cenários quando configurados. |
 
-Abra **Settings → Pages → Build and deployment** e selecione **GitHub Actions**. Cada push na `develop` inicia o workflow **Publicar GitHub Pages**, que executa os testes e a validação do Colab antes de publicar `_site/`. Se o push aconteceu antes de configurar o Pages, reexecute o workflow daquele commit em **Actions**. Confira se o deploy corresponde ao commit enviado e se o SHA-256 do JSON público é o mesmo de `dados_site.json` no manifesto.
+As rotas só funcionam em uma implantação Flask configurada. O GitHub Pages é
+estático: permite navegar pelos dados publicados, mas não executa backend nem
+simulador. O cadastro e a saída do cenário devem corresponder ao mesmo
+`model_version` e `parameter_set_id` do conjunto publicado.
 
-O ranking, os gráficos, os filtros por região, porte e busca, e o CSV filtrado usam a exportação do Colab. O filtro de renda permanece indisponível enquanto a exportação não trouxer esse indicador. A simulação mensal requer Flask. A consulta municipal publicada funciona no Pages.
+## Publicar no GitHub Pages
+
+1. Abra **Settings → Pages → Build and deployment** e selecione **GitHub
+   Actions**.
+2. Integre as alterações via pull request para a branch configurada pelo
+   workflow. No repositório atual, o workflow de publicação é acionado por
+   atualizações em `develop`; confirme a configuração efetiva em
+   `.github/workflows/` antes de abrir o PR.
+3. Aguarde os jobs de qualidade e deploy. Confirme que o artefato `_site/` foi
+   publicado a partir do commit esperado.
+4. Após o deploy, confira a URL pública e execute, quando necessário:
+
+   ```bash
+   python scripts/verificar_publicacao.py https://meridiano-tech.github.io/API-DSM1/
+   ```
+
+O verificador compara os arquivos servidos com os artefatos e a revisão
+publicados. Se houver divergência de hash, versão ou interface, interrompa a
+entrega e investigue o workflow e o commit implantado.
+
+## Fora do escopo da publicação estática
+
+- O filtro de renda permanece indisponível se o JSON não publicar esse
+  indicador.
+- A simulação exige API Flask; não está disponível em uma página estática por
+  si só.
+- O projeto não coleta dados pessoais do SCR nem produz decisão individual de
+  crédito.

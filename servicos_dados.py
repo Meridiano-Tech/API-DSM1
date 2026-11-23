@@ -1,10 +1,8 @@
 import time
+import math
 import requests
-import urllib3
 from typing import Dict, List, Optional, Any
-from motor_score import MotorScore
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from motor_score import MotorScore, normalizar_texto
 
 SERIES_BCB = {
     'carteira_regional': {
@@ -24,15 +22,6 @@ SERIES_BCB = {
     'inadimplencia_nacional': 21082,
     'carteira_nacional': 20539,
     'ipca': 433
-}
-
-FALLBACK_INADIMPLENCIA = {
-    'Norte': 6.2,
-    'Nordeste': 6.8,
-    'Centro-Oeste': 5.2,
-    'Sudeste': 5.1,
-    'Sul': 4.8,
-    'Nacional': 5.6
 }
 
 _CACHE_REQUISICOES: Dict[str, Dict[str, Any]] = {}
@@ -75,7 +64,7 @@ def consultar_serie_bcb(
         url = f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.{codigo_serie}/dados?formato=json"
 
     try:
-        res = requests.get(url, timeout=timeout, verify=False)
+        res = requests.get(url, timeout=timeout)
         if res.status_code == 200:
             dados_brutos = res.json()
             dados_limpos = []
@@ -83,6 +72,8 @@ def consultar_serie_bcb(
                 if 'data' in item and 'valor' in item:
                     try:
                         val = float(str(item['valor']).replace(',', '.'))
+                        if not math.isfinite(val):
+                            continue
                         dados_limpos.append({'data': item['data'], 'valor': val})
                     except (ValueError, TypeError):
                         continue
@@ -94,16 +85,18 @@ def consultar_serie_bcb(
     return []
 
 
-def obter_inadimplencia_regional_bcb(regiao: str) -> float:
+def obter_inadimplencia_regional_bcb(regiao: str) -> Optional[float]:
+    """Consulta legada: ausência permanece None, nunca uma taxa fixa fictícia."""
 
     reg = regiao.strip().title()
     codigo_serie = SERIES_BCB['inadimplencia_regional'].get(reg)
     if codigo_serie:
         dados = consultar_serie_bcb(codigo_serie, ultimos=1)
         if dados:
-            return float(dados[-1]['valor'])
+            valor = float(dados[-1]['valor'])
+            return valor if math.isfinite(valor) and 0 <= valor <= 100 else None
 
-    return FALLBACK_INADIMPLENCIA.get(reg, FALLBACK_INADIMPLENCIA['Nacional'])
+    return None
 
 
 def consultar_populacao_ibge_sidra(codigo_municipio: int | str, ano: int = 2022, timeout: int = 3) -> Optional[int]:
@@ -210,7 +203,7 @@ def filtrar_municipios_socioeconomicos(
         raise ValueError("A base territorial não contém renda per capita ou classe de risco.")
     regiao = aplicados['regiao'].strip().casefold()
     porte = aplicados['porte'].strip().casefold()
-    busca = aplicados['busca'].strip().casefold()
+    busca = normalizar_texto(aplicados['busca'])
     portes = {'pequeno': 'Pequeno Porte', 'medio': 'Médio Porte', 'grande': 'Grande Porte / Metrópole'}
     if porte not in {'todos', *portes}:
         raise ValueError("Porte demográfico inválido.")
@@ -218,7 +211,7 @@ def filtrar_municipios_socioeconomicos(
         m for m in obter_municipios_completos(motor)
         if (regiao == 'todas' or m['regiao'].casefold() == regiao)
         and (porte == 'todos' or m['porte'] == portes[porte])
-        and busca in m['localidade'].casefold()
+        and busca in normalizar_texto(m['localidade'])
     ]
 
     scores = [m['score_final'] for m in filtrados if m['score_final'] is not None]

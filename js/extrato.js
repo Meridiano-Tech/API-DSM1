@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const filtroDataFim = document.getElementById('filtro-data-fim');
   const listaTimeline = document.getElementById('timeline-lista');
   const corpoTabela = document.getElementById('tabela-extrato-corpo');
+  const controles = [filtroRegiao, filtroPeriodo, filtroDataInicio, filtroDataFim];
+  controles.forEach(c => { c.disabled = true; });
 
   let dadosExtrato;
   try {
@@ -44,41 +46,44 @@ document.addEventListener('DOMContentLoaded', async () => {
       })).sort((a, b) => b.mes.localeCompare(a.mes) || a.regiao.localeCompare(b.regiao));
   } catch {
     listaTimeline.textContent = 'Não foi possível carregar o extrato regional.';
+    corpoTabela.innerHTML = '<tr><td colspan="6">Extrato indisponível. Use “Tentar novamente” acima.</td></tr>';
     return;
   }
+  controles.forEach(c => { c.disabled = false; });
 
   function formatarTaxa(valor) {
     return Number.isFinite(valor) ? `${numeroCredit42.format(valor)}%` : '—';
   }
 
-  function formatarPixRegional(reais) {
-    return Number.isFinite(reais) ? formatarBilhoes(reais / BILHAO) : '—';
+  function formatarSaldoRegional(milhoes) {
+    return Number.isFinite(milhoes) ? formatarMoedaCredit42(milhoes * MILHAO) : '—';
   }
 
   function cobertura(item) {
     const status = item.faltantes.length === 0 ? 'Observado'
       : item.faltantes.length === 3 ? 'Sem dados' : 'Cobertura parcial';
-    const detalhe = item.faltantes.length ? `<small class="extrato-cobertura-detalhe">${item.faltantes.join(' · ')}</small>` : '';
+    const detalhe = item.faltantes.length ? `<details class="extrato-cobertura-detalhe"><summary>Motivo da ausência</summary>${item.faltantes.join(' · ')}</details>` : '';
     return `<span class="badge-status status-azul">${status}</span>${detalhe}`;
   }
 
   function alternarAba(abaEscolhida) {
+    const timeline = abaEscolhida === 'timeline';
+    btnTimeline.tabIndex = timeline ? 0 : -1;
+    btnTabela.tabIndex = timeline ? -1 : 0;
+    painelTimeline.hidden = !timeline;
+    painelTabela.hidden = timeline;
     if (abaEscolhida === 'timeline') {
       btnTimeline.classList.add('btn-aba-ativo');
       btnTimeline.setAttribute('aria-selected', 'true');
       btnTabela.classList.remove('btn-aba-ativo');
       btnTabela.setAttribute('aria-selected', 'false');
 
-      painelTimeline.style.display = 'block';
-      painelTabela.style.display = 'none';
     } else {
       btnTabela.classList.add('btn-aba-ativo');
       btnTabela.setAttribute('aria-selected', 'true');
       btnTimeline.classList.remove('btn-aba-ativo');
       btnTimeline.setAttribute('aria-selected', 'false');
 
-      painelTabela.style.display = 'block';
-      painelTimeline.style.display = 'none';
     }
   }
 
@@ -107,11 +112,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           <div class="timeline-metricas">
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Carteira de Crédito</span>
-              <strong class="metrica-valor">${formatarCarteira(item.carteiraMilhoes)}</strong>
+              <strong class="metrica-valor">${formatarSaldoRegional(item.carteiraMilhoes)}</strong>
             </div>
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Volume Pix</span>
-              <strong class="metrica-valor">${formatarPixRegional(item.pixReais)}</strong>
+              <strong class="metrica-valor">${formatarMoedaCredit42(item.pixReais)}</strong>
             </div>
             <div class="metrica-bloco">
               <span class="metrica-rotulo">Inadimplência</span>
@@ -138,8 +143,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       tr.innerHTML = `
         <td><strong>${item.mesFormatado}</strong></td>
         <td><span class="tabela-regiao-tag">${item.regiao}</span></td>
-        <td>${formatarCarteira(item.carteiraMilhoes)}</td>
-        <td>${formatarPixRegional(item.pixReais)}</td>
+        <td>${formatarSaldoRegional(item.carteiraMilhoes)}</td>
+        <td>${formatarMoedaCredit42(item.pixReais)}</td>
         <td>${formatarTaxa(item.inadimplencia)}</td>
         <td>${cobertura(item)}</td>
       `;
@@ -210,6 +215,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (btnTabela) {
     btnTabela.addEventListener('click', () => alternarAba('tabela'));
   }
+  [btnTimeline, btnTabela].forEach((botao, i, abas) => botao.addEventListener('keydown', evento => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(evento.key)) return;
+    evento.preventDefault();
+    const proxima = evento.key === 'Home' ? 0 : evento.key === 'End' ? 1 : 1 - i;
+    alternarAba(proxima === 0 ? 'timeline' : 'tabela');
+    abas[proxima].focus();
+  }));
 
   if (filtroRegiao) {
     filtroRegiao.addEventListener('change', atualizarVisualizacoes);

@@ -5,13 +5,11 @@ from functools import lru_cache
 from pathlib import Path
 
 from flask import Flask, request, jsonify, send_from_directory, Response
-from motor_score import DadosInconsistentes, MotorScore, MunicipioNaoEncontrado
+from motor_score import DadosInconsistentes, MotorScore, MunicipioNaoEncontrado, MESES
 from servicos_dados import filtrar_municipios_socioeconomicos
 import os
 import mysql.connector
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify, send_from_directory
-from motor_score import MotorScore
 
 load_dotenv() 
 
@@ -80,6 +78,7 @@ def adicionar_cabecalhos_cors(resposta):
 def status():
     return jsonify({
         "status": "online",
+        "contato_disponivel": True,
         "servico": "API Meridiano Tech - Score de Crédito Inclusivo"
     })
 
@@ -173,11 +172,22 @@ def exportar_dados():
         ('cobertura_pct', 'Cobertura (%)'),
         ('inadimplencia_estimada', 'Inadimplência Estimada (%)'),
         ('competencia_inadimplencia', 'Competência da estimativa'),
+        ('janela_inicio', 'Início da janela do score'),
+        ('janela_fim', 'Fim da janela do score'),
+        ('competencia_calculada', 'Competência calculada do score'),
+        ('model_version', 'Modelo'),
+        ('parameter_set_id', 'Parâmetros'),
+        ('tipo_score', 'Tipo do score'),
+        ('Aprovacao', 'Uso decisório de crédito'),
     )
+    if not resultado['municipios']:
+        return jsonify({'erro': 'Nenhum município encontrado para exportar.'}), 422
     arquivo = io.StringIO(newline='')
     escritor = csv.writer(arquivo, delimiter=';')
     escritor.writerow([titulo for _, titulo in colunas])
     for municipio in resultado['municipios']:
+        municipio = {**municipio, 'janela_inicio': MESES[0], 'janela_fim': MESES[-1],
+                     'tipo_score': 'Índice territorial de atividade Pix · exploratório'}
         valores = [municipio[chave] for chave, _ in colunas]
         escritor.writerow([str(v).replace('.', ',') if isinstance(v, float) else v for v in valores])
     nome = datetime.now().strftime('relatorio_credit42_municipios_%Y%m%d_%H%M%S.csv')
@@ -189,13 +199,12 @@ def exportar_dados():
 
 @app.route('/api/contato', methods=['POST'])
 def salvar_contato():
-    dados = request.get_json(silent=True) or request.form.to_dict()
-    nome = (dados.get('nome') or '').strip()
-    email = (dados.get('email') or '').strip()
-    mensagem = (dados.get('mensagem') or '').strip()
-
-    if not nome or not email or not mensagem:
+    dados = request.get_json(silent=True) if request.is_json else request.form
+    if not isinstance(dados, dict) or not all(isinstance(dados.get(k), str) for k in ('nome', 'email', 'mensagem')):
         return jsonify({"erro": "Preencha nome, e-mail e mensagem."}), 400
+    nome, email, mensagem = (dados[k].strip() for k in ('nome', 'email', 'mensagem'))
+    if not (0 < len(nome) <= 100 and 0 < len(email) <= 150 and 0 < len(mensagem) <= 1200):
+        return jsonify({"erro": "Verifique o preenchimento e o tamanho dos campos."}), 400
 
     conn = None
     cursor = None

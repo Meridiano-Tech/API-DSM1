@@ -67,31 +67,25 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 | Sprint          |    Período    | Documentação                                     | Vídeo da Sprint                              |
 | --------------- | :-----------: | ------------------------------------------------ | --------------------------------------------|
 | 🔖 **SPRINT 1** | 07/09 - 27/09 | [Sprint 1 Docs](./docs/sprints/sprint-1/README.md)|https://www.youtube.com/watch?v=KCQPjIiM7yQ|
-| 🔖 **SPRINT 2** | 05/10 - 25/10 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md)|                                             |
-| 🔖 **SPRINT 3** | 02/11 - 22/11 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md)|                                             |
+| 🔖 **SPRINT 2** | 05/10 - 25/10 | [Sprint 2 Docs](./docs/sprints/sprint-2/README.md)|Apenas wireframe em docs- Sprint-2|
+| 🔖 **SPRINT 3** | 02/11 - 22/11 | [Sprint 3 Docs](./docs/sprints/sprint-3/README.md)|https://youtu.be/8t4oDJRVtW0|
 
 
 ## 🛠 Tecnologias Utilizadas
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) &nbsp; ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) &nbsp; ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) &nbsp; ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white) ![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black) ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=githubpages&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
 
-![Google Colab](https://colab.research.google.com/drive/142KLVqxDdJAiUHxoXEBCM50PA1anlkJi) &nbsp; ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
 
  - Notebook Google Colab disponível para execução manual e exploração dos dados
 
-📓 Notebook:  [Abrir no Google Colab](https://colab.research.google.com/drive/1u0DDo4MZbz0CQg1OwxbfW0UxdBu0q_Z4)
-
-## 🛠 Tecnologias Utilizadas
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) &nbsp; ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) &nbsp; ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) &nbsp; ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
-
+📓 Notebook:  [Abrir no Google Colab](https://colab.research.google.com/drive/1yC-nbOy76__uMCWih-KJKffK0H_fr7wY)
 
 ## 🏆 MVP
 
 | Sprint | Foco do MVP | Entregas Principais (Épicos) | Resultado |
 |:---: | :--- | :---: | :---: |
 | Sprint 1 07/09 -27/09| Estruturação de indicadores confiáveis, com criação de pipelines de dados e ambiente para visualização gráfica |Google Colab e métricas |Concluido|
-| Sprint 1 05/10 -25/10| Como instituição financeira, preciso de um ambiente em que os dados estejam analisados e expostos graficamente para otimização do meu tempo de decisão.|Em andamento|
-
-
+| Sprint 2 05/10 -25/10| Como instituição financeira, preciso de um ambiente em que os dados estejam analisados e expostos graficamente para otimização do meu tempo de decisão.|Concluido|
+| Sprint 3 02/11 -22/11| Como instituição financeira, preciso de um ambiente em que os dados estejam analisados e expostos graficamente para otimização do meu tempo de decisão.|Concluido|
 ## 👥 Colaboradores
 | Nome | Função | LinkedIn | GitHub |
 | :--- | :--- | :---: | :---: |
@@ -99,5 +93,4 @@ Uma funcionalidade é considerada **Done** quando atende a todos os critérios a
 | Denilson Brito | Scrum Master | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/denilson-brito-jr-296b522b9/) | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DenilsonBritoJr) |
 | Jônatas Eugênio | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jonatas-eugenio) | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)](https://github.com/eugeniojonatas) 
 | Renan Maia | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/renan-maia-00716142b?utm_source=share_via&utm_content=profile&utm_medium=member_android) | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)](https://github.com/renansoa64) 
-| Ithalo Henrique | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]()
 | Giovanna Noccerino | Scrum Team | [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() | [![GitHub](https://img.shields.io/badge/GITHUB-111?style=for-the-badge&logo=github&logoColor=white)]() 
