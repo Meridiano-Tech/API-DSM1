@@ -4,7 +4,7 @@ from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 
-from flask import Flask, request, jsonify, send_from_directory, Response
+from flask import Flask, request, jsonify, send_from_directory, Response, render_template_string
 from motor_score import DadosInconsistentes, MotorScore, MunicipioNaoEncontrado, MESES
 from servicos_dados import filtrar_municipios_socioeconomicos
 import os
@@ -223,6 +223,84 @@ def salvar_contato():
             cursor.close()
         if conn and conn.is_connected():
             conn.close()
+
+@app.route('/listar', methods=['GET'])
+def listar_contatos():
+    conn = None
+    cursor = None
+    registros = []
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM contatos ORDER BY cont_id DESC")
+        registros = cursor.fetchall()
+    except mysql.connector.Error as erro:
+        app.logger.error("Erro ao consultar contatos no MySQL: %s", erro)
+        return "Erro ao consultar o banco de dados.", 500
+    finally:
+        if cursor:
+            cursor.close()
+        if conn and conn.is_connected():
+            conn.close()
+
+    html = """
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contatos Cadastrados - Credit42</title>
+        <style>
+            body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem auto; max-width: 960px; padding: 0 1rem; color: #1f2937; }
+            nav { margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid #e5e7eb; }
+            nav a { margin-right: 1rem; text-decoration: none; color: #2563eb; font-weight: 600; }
+            table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+            th, td { border: 1px solid #d1d5db; padding: 0.75rem; text-align: left; }
+            th { background-color: #f3f4f6; }
+            footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; font-size: 0.9rem; color: #6b7280; }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <a href="/">Início / Cadastro de Contato</a>
+            <a href="/listar">Listar Registros</a>
+        </nav>
+
+        <h1>Registros Cadastrados (Contatos)</h1>
+
+        {% if registros %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Mensagem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in registros %}
+                <tr>
+                    <td>{{ item.cont_id }}</td>
+                    <td>{{ item.cont_nome }}</td>
+                    <td>{{ item.cont_email }}</td>
+                    <td>{{ item.cont_mensagem }}</td>
+                    <td>{{ item.cont_data_envio }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nenhum registro encontrado no banco de dados.</p>
+        {% endif %}
+
+        <footer>
+            <p>Alicia Cavalcante de Oliveira - Atividade 4</p>
+        </footer>
+    </body>
+    </html>
+    """
+    return render_template_string(html, registros=registros)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
