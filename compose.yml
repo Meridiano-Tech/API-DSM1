@@ -19,14 +19,6 @@ services:
     networks:
       - credit42_net
 
-  adminer:
-    image: adminer:latest
-    container_name: credit42_adminer
-    restart: always
-    depends_on:
-      - db
-    networks:
-      - credit42_net 
 
   app1:
     build: .
