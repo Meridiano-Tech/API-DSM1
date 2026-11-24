@@ -276,6 +276,7 @@ def listar_contatos():
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Mensagem</th>
+                    <th>Data de Envio</th>
                 </tr>
             </thead>
             <tbody>
