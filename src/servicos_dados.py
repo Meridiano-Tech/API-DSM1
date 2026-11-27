@@ -2,7 +2,7 @@ import time
 import math
 import requests
 from typing import Dict, List, Optional, Any
-from motor_score import MotorScore, normalizar_texto
+from src.motor_score import MotorScore, normalizar_texto
 
 SERIES_BCB = {
     'carteira_regional': {

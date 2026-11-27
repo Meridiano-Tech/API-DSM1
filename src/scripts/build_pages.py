@@ -8,7 +8,7 @@ import shutil
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from motor_score import MESES, REGIOES, MotorScore
+from src.motor_score import MESES, REGIOES, MotorScore
 
 
 ROOT = Path(__file__).resolve().parents[1]
